@@ -861,8 +861,16 @@ body {
 }
 
 /* ===== FEATURES GRID ===== */
-.features-section { border-top: 1px solid var(--border); }
-.features-head { text-align: center; margin-bottom: 3.5rem; }
+.features-section {
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+.features-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 800px 600px at 50% 40%, #1a2744, transparent 70%);
+  pointer-events: none;
+}
+.features-head { text-align: center; margin-bottom: 3.5rem; position: relative; }
 .features-title {
   font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800;
   letter-spacing: -0.02em; line-height: 1.15;
@@ -873,32 +881,31 @@ body {
 }
 .features-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  position: relative;
 }
 .feat-card {
   position: relative;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 16px; padding: 2rem 1.75rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #1e293b; border: 1px solid #334155;
+  border-radius: 16px; padding: 2.25rem 2rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
 }
 .feat-card:hover {
-  border-color: rgba(16,185,129,0.3);
-  box-shadow: 0 0 30px -8px rgba(16,185,129,0.15);
+  border-color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05),
+              0 0 20px rgba(16,185,129,0.08);
 }
-.feat-card--wide { grid-column: span 2; }
 .feat-badge {
   position: absolute; top: 1.25rem; right: 1.25rem;
   font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; padding: 4px 12px; border-radius: 999px;
-  background: var(--accent-dim); color: var(--accent);
-  border: 1px solid rgba(16,185,129,0.25);
+  letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;
+  background: var(--accent); color: #000;
 }
 .feat-emoji { font-size: 2.5rem; margin-bottom: 1.25rem; display: block; }
-.feat-card--wide .feat-emoji { font-size: 3rem; }
 .feat-card h3 {
   font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;
   color: var(--text);
 }
-.feat-card--wide h3 { font-size: 1.3rem; }
 .feat-card p {
   font-size: 0.88rem; color: var(--text-soft); line-height: 1.65;
 }
@@ -1053,14 +1060,12 @@ body {
   .nav-cta { font-size: 0.75rem; padding: 6px 14px; }
   /* Features */
   .features-grid { grid-template-columns: 1fr; }
-  .feat-card--wide { grid-column: span 1; }
   /* Sectors */
   .sector-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
-  .feat-card--wide { grid-column: span 2; }
   .sector-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
@@ -1460,7 +1465,8 @@ body {
     <p class="features-sub">Sin complicaciones. Diseñado para negocios reales.</p>
   </div>
   <div class="features-grid">
-    <div class="feat-card feat-card--wide">
+    <!-- Fila 1 -->
+    <div class="feat-card">
       <span class="feat-badge">DIFERENCIADOR</span>
       <span class="feat-emoji">🤖</span>
       <h3>Agente IA con 3 modos de control</h3>
@@ -1476,6 +1482,7 @@ body {
       <h3>Recordatorios automáticos</h3>
       <p>WhatsApp antes de cada cita. Reduce no-shows sin configurar nada.</p>
     </div>
+    <!-- Fila 2 -->
     <div class="feat-card">
       <span class="feat-emoji">👥</span>
       <h3>Gestión de clientes</h3>
