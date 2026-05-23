@@ -24,7 +24,7 @@ If File Manager not available:
 <meta property="og:image" content="https://vookedme.com/og-image.png">
 <meta property="og:type" content="website">
 <meta name="robots" content="index, follow">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='50' y1='82' x2='18' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='50' y1='82' x2='82' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='22' r='12' fill='%230a0a0a' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='82' cy='22' r='12' fill='%230a0a0a' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='50' cy='82' r='12' fill='%230a0a0a' stroke='%23a78bfa' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='50' y1='82' x2='18' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='50' y1='82' x2='82' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='22' r='12' fill='%231a2332' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='82' cy='22' r='12' fill='%231a2332' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='50' cy='82' r='12' fill='%231a2332' stroke='%23a78bfa' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@ If File Manager not available:
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #111111;
-  --surface-2: #181818;
-  --border: #1f1f1f;
-  --border-hi: #2a2a2a;
+  --bg: #1a2332;
+  --surface: #1e2433;
+  --surface-2: #252d3d;
+  --border: #2d3748;
+  --border-hi: #3a4558;
   --text: #f5f5f5;
   --text-soft: #aaaaaa;
   --text-muted: #666666;
@@ -69,6 +69,18 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  position: relative;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.04;
+}
+body::after {
+  content: ''; position: fixed; top: 0; left: 0; right: 0; height: 60vh;
+  z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 800px 500px at 50% 0%, rgba(16,185,129,0.04), transparent 60%);
 }
 
 /* ===== NAVBAR ===== */
@@ -76,13 +88,13 @@ body {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 0 2rem; height: 60px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(10,10,10,0.6);
+  background: rgba(26,35,50,0.6);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
   transition: background 0.3s, border-color 0.3s;
 }
 .navbar.scrolled {
-  background: rgba(10,10,10,0.95);
+  background: rgba(26,35,50,0.95);
   border-bottom-color: var(--border);
 }
 .nav-logo {
@@ -116,7 +128,8 @@ body {
   content: ''; position: absolute; inset: 0 0 auto 0; height: 60%;
   background:
     radial-gradient(ellipse 700px 380px at 50% 20%, rgba(37,211,102,.07), transparent 70%),
-    radial-gradient(ellipse 600px 360px at 50% 80%, rgba(139,92,246,.05), transparent 70%);
+    radial-gradient(ellipse 600px 360px at 50% 80%, rgba(139,92,246,.05), transparent 70%),
+    radial-gradient(ellipse 500px 400px at 85% 10%, rgba(139,92,246,.03), transparent 60%);
   pointer-events: none;
 }
 
@@ -189,7 +202,7 @@ body {
 
 .hv-circle {
   width: 64px; height: 64px; border-radius: 50%;
-  background: #0a0a0a;
+  background: var(--bg);
   border: 2px solid currentColor;
   display: flex; align-items: center; justify-content: center;
   color: var(--green); position: relative;
@@ -221,7 +234,7 @@ body {
 /* ---- Cards ---- */
 .hv-card {
   position: absolute;
-  background: #0d0d0d;
+  background: var(--surface);
   border: 1px solid var(--border-hi);
   border-radius: 14px;
   padding: 14px;
@@ -232,11 +245,11 @@ body {
 }
 .hv-card.is-on { opacity: 1; transform: translateY(0) scale(1) translateZ(10px); }
 .hv-card--a { top: 32.3%; left: 2.2%;  width: 26.7%; min-height: 220px;
-              background: #0d1a0d; border-color: rgba(37,211,102,.22); }
+              background: #1a2b2a; border-color: rgba(37,211,102,.22); }
 .hv-card--b { top: 12.9%; left: 38.9%; width: 22.2%; min-height: 200px;
-              background: #0d0d1a; border-color: rgba(139,92,246,.22); }
+              background: #1a1a2b; border-color: rgba(139,92,246,.22); }
 .hv-card--c { top: 32.3%; right: 2.2%; width: 26.7%; min-height: 220px;
-              background: #0d1a0d; border-color: rgba(37,211,102,.40); }
+              background: #1a2b2a; border-color: rgba(37,211,102,.40); }
 
 /* card A -- WhatsApp chat */
 .chat { display: flex; flex-direction: column; gap: 6px; }
@@ -256,7 +269,7 @@ body {
   max-width: 88%; padding: 6px 9px; border-radius: 10px;
   font-size: 11.5px; line-height: 1.4;
 }
-.bubble.in  { align-self: flex-end; background: #1e2f24; color: #e5e7eb; border-bottom-right-radius: 3px; }
+.bubble.in  { align-self: flex-end; background: #1f2e2a; color: #e5e7eb; border-bottom-right-radius: 3px; }
 .bubble.out { align-self: flex-start; background: var(--green); color: #062314; border-bottom-left-radius: 3px; font-weight: 500; }
 
 /* card B -- panel mock */
@@ -275,7 +288,7 @@ body {
 .pmock__actions { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
 .pmock__btn {
   font-size: 9px; font-weight: 600; padding: 4px 7px; border-radius: 5px;
-  border: 1px solid var(--border-hi); background: #14142a; color: var(--fg-soft);
+  border: 1px solid var(--border-hi); background: #1e2440; color: var(--fg-soft);
   white-space: nowrap;
 }
 .pmock__btn.primary { background: var(--lila); color: #1a0f3a; border-color: transparent; }
@@ -365,7 +378,7 @@ body {
   position: relative;
   display: flex; flex-direction: column;
   padding: 28px 24px 24px;
-  background: #111;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 18px;
   transition:
@@ -386,7 +399,7 @@ body {
 }
 
 .mode--featured {
-  background: linear-gradient(180deg, #100c1c 0%, #0e0d18 100%);
+  background: linear-gradient(180deg, #1e2440 0%, #1a2138 100%);
   border-color: rgba(139,92,246,.40);
   box-shadow:
     0 30px 80px -30px rgba(139,92,246,.45),
@@ -403,7 +416,7 @@ body {
 
 /* Card 1: green accent (like featured but green) */
 .mode--green {
-  background: linear-gradient(180deg, #0c1c10 0%, #0d180e 100%);
+  background: linear-gradient(180deg, #1a2e2a 0%, #1c2b28 100%);
   border-color: rgba(37,211,102,.35);
   box-shadow:
     0 24px 60px -24px rgba(37,211,102,.30),
@@ -416,7 +429,7 @@ body {
 
 /* Card 3: amber accent */
 .mode--amber {
-  background: linear-gradient(180deg, #1c1508 0%, #18130a 100%);
+  background: linear-gradient(180deg, #2a2518 0%, #262218 100%);
   border-color: rgba(245,158,11,.30);
   box-shadow:
     0 24px 60px -24px rgba(245,158,11,.25),
@@ -541,7 +554,7 @@ body {
   max-width: 95%;
 }
 .mf-bubble--client {
-  background: #1d201e; color: #d8d8d8;
+  background: #1e2a28; color: #d8d8d8;
   border-bottom-left-radius: 3px;
 }
 .mf-bubble--bot {
@@ -577,7 +590,7 @@ body {
 
 /* mini mock-ups */
 .mf-mock {
-  background: #1a1a2a;
+  background: #1e2238;
   border: 1px solid var(--border-hi);
   border-radius: 10px;
   padding: 12px 14px;
@@ -644,7 +657,7 @@ body {
 /* mini calendar (Mode 1 step 3) */
 .mf-calendar {
   margin-top: 6px;
-  background: #111118;
+  background: var(--surface);
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 8px;
   padding: 8px 10px;
@@ -885,7 +898,7 @@ body {
 }
 .feat-card {
   position: relative;
-  background: #1e293b; border: 1px solid #334155;
+  background: var(--surface-2); border: 1px solid var(--border);
   border-radius: 16px; padding: 2.25rem 2rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
@@ -1100,9 +1113,9 @@ body {
       <circle cx="50" cy="82" r="14" fill="#a78bfa" opacity="0.12"/>
       <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
       <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="18" cy="22" r="12" fill="#0a0a0a" stroke="#10b981" stroke-width="6"/>
-      <circle cx="82" cy="22" r="12" fill="#0a0a0a" stroke="#10b981" stroke-width="6"/>
-      <circle cx="50" cy="82" r="12" fill="#0a0a0a" stroke="#a78bfa" stroke-width="6"/>
+      <circle cx="18" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a2332" stroke="#a78bfa" stroke-width="6"/>
     </svg>
     <span>vookedme</span>
   </a>
@@ -1650,9 +1663,9 @@ body {
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
       <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="18" cy="22" r="12" fill="#0a0a0a" stroke="#10b981" stroke-width="6"/>
-      <circle cx="82" cy="22" r="12" fill="#0a0a0a" stroke="#10b981" stroke-width="6"/>
-      <circle cx="50" cy="82" r="12" fill="#0a0a0a" stroke="#a78bfa" stroke-width="6"/>
+      <circle cx="18" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a2332" stroke="#a78bfa" stroke-width="6"/>
     </svg>
     <span>vookedme</span>
   </div>
