@@ -860,6 +860,149 @@ body {
   font-size: 0.72rem; color: var(--text-muted); margin-top: 1.5rem;
 }
 
+/* ===== FEATURES GRID ===== */
+.features-section { border-top: 1px solid var(--border); }
+.features-head { text-align: center; margin-bottom: 3.5rem; }
+.features-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.15;
+}
+.features-title .ac { color: var(--accent); }
+.features-sub {
+  color: var(--text-soft); font-size: 1rem; margin-top: 0.75rem;
+}
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+}
+.feat-card {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem 1.75rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.feat-card:hover {
+  border-color: rgba(16,185,129,0.3);
+  box-shadow: 0 0 30px -8px rgba(16,185,129,0.15);
+}
+.feat-card--wide { grid-column: span 2; }
+.feat-badge {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 4px 12px; border-radius: 999px;
+  background: var(--accent-dim); color: var(--accent);
+  border: 1px solid rgba(16,185,129,0.25);
+}
+.feat-emoji { font-size: 2.5rem; margin-bottom: 1.25rem; display: block; }
+.feat-card--wide .feat-emoji { font-size: 3rem; }
+.feat-card h3 {
+  font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.feat-card--wide h3 { font-size: 1.3rem; }
+.feat-card p {
+  font-size: 0.88rem; color: var(--text-soft); line-height: 1.65;
+}
+
+/* ===== BUSINESS SECTORS ===== */
+.sectors-section { border-top: 1px solid var(--border); }
+.sectors-head { text-align: center; margin-bottom: 3.5rem; }
+.sectors-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.15;
+}
+.sectors-title .ac { color: var(--accent); }
+.sectors-sub {
+  color: var(--text-soft); font-size: 1rem; margin-top: 0.75rem;
+  max-width: 640px; margin-left: auto; margin-right: auto;
+}
+.sectors-sub .cta-link {
+  color: var(--accent); text-decoration: underline;
+  text-decoration-color: rgba(16,185,129,0.3);
+  text-underline-offset: 3px; cursor: pointer;
+  transition: text-decoration-color 0.2s;
+  background: none; border: none; font: inherit;
+}
+.sectors-sub .cta-link:hover { text-decoration-color: var(--accent); }
+.sectors-categories { display: flex; flex-direction: column; gap: 3rem; }
+.sector-cat-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 3px; color: var(--text-muted); margin-bottom: 1rem;
+}
+.sector-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem;
+}
+.sector-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.sector-card:hover {
+  border-color: rgba(16,185,129,0.3);
+  box-shadow: 0 0 20px -6px rgba(16,185,129,0.12);
+}
+.sector-emoji {
+  font-size: 2rem; transition: transform 0.3s;
+}
+.sector-card:hover .sector-emoji { transform: scale(1.1); }
+.sector-name {
+  font-size: 0.82rem; font-weight: 500; color: var(--text);
+  text-align: center;
+}
+
+/* ===== SECTOR MODAL ===== */
+.sector-modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center;
+}
+.sector-modal-overlay.is-open { display: flex; }
+.sector-modal {
+  position: relative; width: 100%; max-width: 440px; margin: 1rem;
+  background: var(--surface); border: 1px solid var(--border-hi);
+  border-radius: 20px; padding: 2.5rem;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+.sector-modal h3 {
+  font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
+}
+.sector-modal .modal-sub {
+  font-size: 0.88rem; color: var(--text-soft); margin-bottom: 1.5rem;
+}
+.sector-modal textarea {
+  width: 100%; padding: 0.85rem 1rem; background: var(--bg);
+  border: 1px solid var(--border-hi); border-radius: 12px;
+  color: var(--text); font-family: var(--font); font-size: 0.88rem;
+  resize: none; outline: none; transition: border-color 0.2s;
+  margin-bottom: 1rem;
+}
+.sector-modal textarea::placeholder { color: var(--text-muted); }
+.sector-modal textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.sector-modal button[type="submit"] {
+  width: 100%; padding: 0.85rem; background: var(--accent); color: #000;
+  border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700;
+  font-family: var(--font); cursor: pointer; transition: background 0.2s;
+}
+.sector-modal button[type="submit"]:hover { background: var(--accent-hover); }
+.sector-modal .modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.2rem; cursor: pointer; transition: color 0.2s;
+  line-height: 1;
+}
+.sector-modal .modal-close:hover { color: var(--text); }
+.sector-modal .modal-success {
+  text-align: center; display: none;
+}
+.sector-modal .modal-success .check { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+.sector-modal .modal-success p { font-size: 1.1rem; font-weight: 600; }
+.sector-modal .modal-success .note {
+  font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem;
+}
+
 /* ===== V-FLOW RESPONSIVE ===== */
 @media (max-width: 640px) {
   .hero-vflow { padding: 56px 16px 40px; gap: 24px; min-height: auto; }
@@ -908,6 +1051,21 @@ body {
   .waitlist-box { padding: 2rem 1.5rem; }
   .proof-types { flex-direction: column; align-items: center; }
   .nav-cta { font-size: 0.75rem; padding: 6px 14px; }
+  /* Features */
+  .features-grid { grid-template-columns: 1fr; }
+  .feat-card--wide { grid-column: span 1; }
+  /* Sectors */
+  .sector-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .feat-card--wide { grid-column: span 2; }
+  .sector-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .sector-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (min-width: 769px) {
@@ -1295,6 +1453,110 @@ body {
   </div>
 </section>
 
+<!-- ===== FEATURES GRID ===== -->
+<section class="section features-section">
+  <div class="features-head">
+    <h2 class="features-title">Todo lo que necesita <span class="ac">tu negocio.</span></h2>
+    <p class="features-sub">Sin complicaciones. Diseñado para negocios reales.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card feat-card--wide">
+      <span class="feat-badge">DIFERENCIADOR</span>
+      <span class="feat-emoji">🤖</span>
+      <h3>Agente IA con 3 modos de control</h3>
+      <p>Autónomo, Recepcionista o Supervisado. El negocio elige cuánto control delega al agente. Cambia de modo en un clic, sin reiniciar nada.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">📅</span>
+      <h3>Agenda inteligente</h3>
+      <p>Calendario visual con disponibilidad real. Sin dobles reservas, sin conflictos de horario.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">🔔</span>
+      <h3>Recordatorios automáticos</h3>
+      <p>WhatsApp antes de cada cita. Reduce no-shows sin configurar nada.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">👥</span>
+      <h3>Gestión de clientes</h3>
+      <p>Historial completo por cliente: servicios, fechas y preferencias en un solo lugar.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">⚙️</span>
+      <h3>Multi-empleado y multi-horario</h3>
+      <p>Horarios individuales por empleado, servicios asignados y roles diferenciados.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">📊</span>
+      <h3>Panel de control</h3>
+      <p>Dashboard con citas del día, ingresos y métricas. Todo en tiempo real desde cualquier dispositivo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS SECTORS ===== -->
+<section class="section sectors-section">
+  <div class="sectors-head">
+    <h2 class="sectors-title">Si trabajas con citas, <span class="ac">Vookedme</span> es para ti.</h2>
+    <p class="sectors-sub">Más de 15 tipos de negocio ya pueden automatizar su agenda. <button class="cta-link" onclick="document.getElementById('sectorModal').classList.add('is-open')">¿No ves el tuyo? Cuéntanoslo →</button></p>
+  </div>
+  <div class="sectors-categories">
+    <!-- Belleza -->
+    <div>
+      <p class="sector-cat-label">Belleza</p>
+      <div class="sector-grid">
+        <div class="sector-card"><span class="sector-emoji">✂️</span><span class="sector-name">Peluquerías</span></div>
+        <div class="sector-card"><span class="sector-emoji">💈</span><span class="sector-name">Barberías</span></div>
+        <div class="sector-card"><span class="sector-emoji">💅</span><span class="sector-name">Estéticas</span></div>
+        <div class="sector-card"><span class="sector-emoji">💆</span><span class="sector-name">Spas</span></div>
+        <div class="sector-card"><span class="sector-emoji">🧖</span><span class="sector-name">Masajes</span></div>
+        <div class="sector-card"><span class="sector-emoji">⚡</span><span class="sector-name">Depilación</span></div>
+        <div class="sector-card"><span class="sector-emoji">💄</span><span class="sector-name">Maquillaje</span></div>
+      </div>
+    </div>
+    <!-- Deporte -->
+    <div>
+      <p class="sector-cat-label">Deporte</p>
+      <div class="sector-grid">
+        <div class="sector-card"><span class="sector-emoji">🏋️</span><span class="sector-name">Gimnasios</span></div>
+        <div class="sector-card"><span class="sector-emoji">🥊</span><span class="sector-name">Artes marciales</span></div>
+        <div class="sector-card"><span class="sector-emoji">🧘</span><span class="sector-name">Yoga y Pilates</span></div>
+        <div class="sector-card"><span class="sector-emoji">🎾</span><span class="sector-name">Academias deportivas</span></div>
+      </div>
+    </div>
+    <!-- Servicios -->
+    <div>
+      <p class="sector-cat-label">Servicios</p>
+      <div class="sector-grid">
+        <div class="sector-card"><span class="sector-emoji">🐾</span><span class="sector-name">Peluquería canina</span></div>
+        <div class="sector-card"><span class="sector-emoji">📸</span><span class="sector-name">Fotógrafos</span></div>
+        <div class="sector-card"><span class="sector-emoji">🎸</span><span class="sector-name">Academias de música</span></div>
+        <div class="sector-card"><span class="sector-emoji">📚</span><span class="sector-name">Clases particulares</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sector modal -->
+<div class="sector-modal-overlay" id="sectorModal">
+  <div class="sector-modal">
+    <button class="modal-close" onclick="document.getElementById('sectorModal').classList.remove('is-open')">&times;</button>
+    <div id="sectorFormView">
+      <h3>¿Cuál es tu tipo de negocio?</h3>
+      <p class="modal-sub">Cuéntanos brevemente qué tipo de citas gestionas y lo evaluamos.</p>
+      <form id="sectorForm">
+        <textarea name="sector" rows="3" placeholder="Ej: Estudio de tatuajes con 3 artistas, citas de 1-3h…"></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+    <div class="modal-success" id="sectorSuccess">
+      <span class="check">✅</span>
+      <p>¡Gracias! Lo revisamos enseguida.</p>
+      <p class="note">Te contactaremos si tu sector encaja con Vookedme.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ===== PAIN POINTS ===== -->
 <section class="section pain-section">
   <h2 class="section-title">Te suena esto?</h2>
@@ -1435,6 +1697,36 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     setTimeout(() => { btn.textContent = origText; }, 3000);
   }
 });
+
+// Sector modal form
+(function() {
+  const modal = document.getElementById('sectorModal');
+  const form = document.getElementById('sectorForm');
+  const formView = document.getElementById('sectorFormView');
+  const successView = document.getElementById('sectorSuccess');
+
+  // Close on overlay click
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.classList.remove('is-open');
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') modal.classList.remove('is-open');
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var text = form.querySelector('textarea').value.trim();
+    if (!text) return;
+    // Open mailto as fallback
+    window.location.href = 'mailto:hola@vookedme.com?subject=' +
+      encodeURIComponent('Sector no listado') +
+      '&body=' + encodeURIComponent(text);
+    formView.style.display = 'none';
+    successView.style.display = 'block';
+  });
+})();
 
 /* =================================================================
  * V-flow Animation timeline — loops every 8s.
