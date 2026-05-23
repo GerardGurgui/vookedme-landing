@@ -25,12 +25,14 @@ If File Manager not available:
 <meta property="og:type" content="website">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='50' y1='82' x2='18' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='50' y1='82' x2='82' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='22' r='12' fill='%231a1d21' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='82' cy='22' r='12' fill='%231a1d21' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='50' cy='82' r='12' fill='%231a1d21' stroke='%23a78bfa' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <!-- GA4: Add gtag script here -->
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 :root {
   --bg: #1a1d21;
@@ -351,7 +353,7 @@ body::after {
   display: inline-block;
   font-size: 11px; font-weight: 600;
   letter-spacing: 2px; text-transform: uppercase;
-  color: var(--fg-muted);
+  color: #9ca3af;
   margin-bottom: 16px;
 }
 .modes__title {
@@ -453,7 +455,7 @@ body::after {
   background: rgba(37,211,102,.10); color: var(--green);
   border: 1px solid rgba(37,211,102,.25);
 }
-.mode__tag--rec { background: var(--lila); color: #1a0f3a; }
+.mode__tag--rec { background: var(--lila); color: #ffffff; }
 .mode__tag--adv {
   background: rgba(245,158,11,.12); color: #F59E0B;
   border: 1px solid rgba(245,158,11,.30);
@@ -858,7 +860,7 @@ body::after {
 .footer-logo svg { width: 24px; height: 24px; }
 .footer-logo span { font-weight: 700; font-size: 1rem; color: var(--text); }
 .footer-tagline {
-  font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;
+  font-size: 0.82rem; color: #9ca3af; margin-bottom: 1rem;
 }
 .footer-links {
   display: flex; gap: 1.5rem; justify-content: center;
@@ -870,7 +872,7 @@ body::after {
 }
 .footer-links a:hover { color: var(--accent); }
 .footer-copy {
-  font-size: 0.72rem; color: var(--text-muted); margin-top: 1.5rem;
+  font-size: 0.72rem; color: #6b7280; margin-top: 1.5rem;
 }
 
 /* ===== FEATURES GRID ===== */
@@ -946,7 +948,7 @@ body::after {
 .sectors-categories { display: flex; flex-direction: column; gap: 3rem; }
 .sector-cat-label {
   font-size: 11px; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 3px; color: var(--text-muted); margin-bottom: 1rem;
+  letter-spacing: 3px; color: #9ca3af; margin-bottom: 1rem;
 }
 .sector-grid {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem;
@@ -1238,7 +1240,8 @@ body::after {
     </div>
   </div>
 
-  <div class="hv-steps" id="hvSteps" aria-label="Progreso del flujo">
+  <span class="sr-only">Progreso del flujo</span>
+  <div class="hv-steps" id="hvSteps">
     <span class="hv-step is-active" data-step="0"></span>
     <span class="hv-step" data-step="1"></span>
     <span class="hv-step" data-step="2"></span>
@@ -1679,7 +1682,7 @@ body::after {
     <a href="https://instagram.com/vookedme" target="_blank" rel="noopener">@vookedme</a>
   </div>
   <p class="footer-copy">&copy; 2026 Vookedme</p>
-  <p style="font-size:11px;color:#555;margin-top:8px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.5;">Al suscribirte aceptas que guardemos tu email para enviarte novedades sobre Vookedme. Sin spam. Puedes darte de baja en cualquier momento. Para ejercer tus derechos sobre tus datos, escribe a <a href="mailto:hola@vookedme.com" style="color:#777;">hola@vookedme.com</a>. Pr&oacute;ximamente: Pol&iacute;tica de Privacidad y Aviso Legal.</p>
+  <p style="font-size:11px;color:#6b7280;margin-top:8px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.5;">Al suscribirte aceptas que guardemos tu email para enviarte novedades sobre Vookedme. Sin spam. Puedes darte de baja en cualquier momento. Para ejercer tus derechos sobre tus datos, escribe a <a href="mailto:hola@vookedme.com" style="color:#9ca3af;">hola@vookedme.com</a>. Pr&oacute;ximamente: Pol&iacute;tica de Privacidad y Aviso Legal.</p>
 </footer>
 
 <!-- Lucide icons -->
