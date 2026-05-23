@@ -1122,6 +1122,8 @@ body::after {
   <a href="#waitlist" class="nav-cta">Unirse a la lista &rarr;</a>
 </nav>
 
+<main>
+
 <!-- ===== HERO V-FLOW ===== -->
 <section class="hero-vflow">
   <header class="hv-head">
@@ -1657,6 +1659,8 @@ body::after {
   </div>
 </section>
 
+</main>
+
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-logo">
@@ -1679,9 +1683,12 @@ body::after {
 </footer>
 
 <!-- Lucide icons -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
-lucide.createIcons();
+window.addEventListener('DOMContentLoaded', function() {
+  if (window.lucide) lucide.createIcons();
+  else document.querySelector('script[src*="lucide"]').addEventListener('load', function() { lucide.createIcons(); });
+});
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
