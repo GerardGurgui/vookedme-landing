@@ -87,36 +87,60 @@ body::after {
 
 /* ===== NAVBAR ===== */
 .navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 0 2rem; height: 60px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 2rem; height: 56px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(26,29,33,0.6);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid transparent;
+  background: rgba(13,17,23,0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   transition: background 0.3s, border-color 0.3s;
 }
 .navbar.scrolled {
-  background: rgba(26,29,33,0.95);
-  border-bottom-color: var(--border);
+  background: rgba(13,17,23,0.97);
+  border-bottom-color: rgba(255,255,255,0.08);
 }
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
-  text-decoration: none; color: var(--text);
+  text-decoration: none; color: #fff;
 }
 .nav-logo svg { width: 32px; height: 32px; }
 .nav-logo span {
-  font-weight: 700; font-size: 1.1rem; letter-spacing: 0.5px;
+  font-weight: 700; font-size: 16px; letter-spacing: 0.5px;
 }
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+}
+.nav-links a {
+  font-size: 13px; color: #6b7280; text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #e5e7eb; }
 .nav-cta {
-  font-size: 0.82rem; font-weight: 600; color: var(--accent);
-  border: 1px solid rgba(16,185,129,0.3); border-radius: 8px;
-  padding: 8px 18px; text-decoration: none; transition: all 0.2s;
-  background: transparent;
+  font-size: 13px; font-weight: 600; color: #fff;
+  background: linear-gradient(90deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15));
+  border: 0.5px solid rgba(16,185,129,0.3); border-radius: 8px;
+  padding: 8px 16px; text-decoration: none; transition: all 0.2s;
 }
 .nav-cta:hover {
-  background: var(--accent-dim);
-  border-color: var(--accent);
+  border-color: rgba(16,185,129,0.5);
+  background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25));
 }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ===== SECONDARY CTA ===== */
+.section-cta {
+  text-align: center; padding: 16px 24px;
+}
+.section-cta__hint {
+  font-size: 13px; color: #6b7280; margin-bottom: 4px;
+}
+.section-cta__link {
+  font-size: 14px; font-weight: 500; color: #10b981;
+  text-decoration: none; transition: color 0.2s;
+}
+.section-cta__link:hover { color: #34d399; }
 
 /* ===== HERO V-FLOW ===== */
 .hero-vflow {
@@ -231,7 +255,7 @@ body::after {
 }
 
 .hv-label  { font-size: 16px; font-weight: 600; color: var(--fg); letter-spacing: -0.01em; }
-.hv-sublabel { font-size: 13px; color: var(--fg-muted); margin-top: -8px; letter-spacing: .02em; }
+.hv-sublabel { font-size: 13px; color: #9ca3af; margin-top: -8px; letter-spacing: .02em; }
 
 /* ---- Cards ---- */
 .hv-card {
@@ -249,7 +273,7 @@ body::after {
 .hv-card--a { top: 32.3%; left: 2.2%;  width: 26.7%; min-height: 220px;
               background: #1c2422; border-color: rgba(37,211,102,.22); }
 .hv-card--b { top: 12.9%; left: 38.9%; width: 22.2%; min-height: 200px;
-              background: #1e1e24; border-color: rgba(139,92,246,.22); }
+              background: rgba(88,28,220,0.08); border: 0.5px solid rgba(139,92,246,.25); }
 .hv-card--c { top: 32.3%; right: 2.2%; width: 26.7%; min-height: 220px;
               background: #1c2422; border-color: rgba(37,211,102,.40); }
 
@@ -1123,7 +1147,12 @@ body::after {
     </svg>
     <span>vookedme</span>
   </a>
-  <a href="#waitlist" class="nav-cta">Unirse a la lista &rarr;</a>
+  <div class="nav-links">
+    <a href="#como-funciona">C&oacute;mo funciona</a>
+    <a href="#para-quien">Para qui&eacute;n</a>
+    <a href="#waitlist">Precios</a>
+  </div>
+  <a href="#waitlist" class="nav-cta">Acceso anticipado &rarr;</a>
 </nav>
 
 <main>
@@ -1198,7 +1227,7 @@ body::after {
           <div class="bubble in bubble--reveal" id="hvFirstMsg">Quiero cita ma&ntilde;ana &#128075;</div>
           <div class="bubble out">&iquest;A qu&eacute; hora? Tenemos 10:00 y 11:30 &#128336;</div>
           <div class="bubble in">A las 11:30 perfecto</div>
-          <div class="bubble out">&#10004; Cita confirmada &mdash; Ana</div>
+          <div class="bubble out">&#10004; Cita confirmada</div>
         </div>
       </div>
 
@@ -1233,7 +1262,6 @@ body::after {
           <div class="conf__title">Cita confirmada</div>
           <div class="conf__row"><strong>Cliente:</strong> Mar&iacute;a Garc&iacute;a</div>
           <div class="conf__row"><strong>Hora:</strong> ma&ntilde;ana 11:30</div>
-          <div class="conf__row"><strong>Con:</strong> Ana</div>
           <div class="conf__divider"></div>
           <div class="conf__note">+1 reserva gestionada autom&aacute;ticamente</div>
         </div>
@@ -1478,6 +1506,11 @@ body::after {
   </div>
 </section>
 
+<div class="section-cta">
+  <p class="section-cta__hint">&iquest;Listo para probarlo?</p>
+  <a href="#waitlist" class="section-cta__link">&Uacute;nete a la lista de espera &rarr;</a>
+</div>
+
 <!-- ===== FEATURES GRID ===== -->
 <section class="section features-section">
   <div class="features-head">
@@ -1522,7 +1555,7 @@ body::after {
 </section>
 
 <!-- ===== BUSINESS SECTORS ===== -->
-<section class="section sectors-section">
+<section class="section sectors-section" id="para-quien">
   <div class="sectors-head">
     <h2 class="sectors-title">Si trabajas con citas, <span class="ac">Vookedme</span> es para ti.</h2>
     <p class="sectors-sub">Más de 15 tipos de negocio ya pueden automatizar su agenda. <button class="cta-link" onclick="document.getElementById('sectorModal').classList.add('is-open')">¿No ves el tuyo? Cuéntanoslo →</button></p>
@@ -1563,6 +1596,11 @@ body::after {
     </div>
   </div>
 </section>
+
+<div class="section-cta">
+  <p class="section-cta__hint">&iquest;Tu negocio trabaja con citas?</p>
+  <a href="#waitlist" class="section-cta__link">Solicita acceso anticipado &rarr;</a>
+</div>
 
 <!-- Sector modal -->
 <div class="sector-modal-overlay" id="sectorModal">
@@ -1607,7 +1645,7 @@ body::after {
 </section>
 
 <!-- ===== HOW IT WORKS ===== -->
-<section class="section how-section">
+<section class="section how-section" id="como-funciona">
   <h2 class="section-title">Como funciona</h2>
   <div class="steps">
     <div class="step">
