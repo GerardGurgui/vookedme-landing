@@ -19,8 +19,8 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0d1117;
-  --surface: rgba(17,24,39,0.95);
+  --bg: #1a1d21;
+  --surface: rgba(26,29,33,0.95);
   --border: rgba(255,255,255,0.06);
   --border-accent: rgba(16,185,129,0.2);
   --text: #f5f5f5;
@@ -60,7 +60,7 @@ body::after {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 0 40px; height: 68px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(13,17,23,0.92);
+  background: rgba(26,29,33,0.92);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
@@ -97,12 +97,12 @@ body::after {
   margin: 0 auto; cursor: default;
 }
 .orbital-ring {
-  position: absolute; top: 50%; left: 50%; width: 500px; height: 500px;
+  position: absolute; top: 50%; left: 50%; width: 540px; height: 540px;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; pointer-events: none;
 }
 .orbital-ring-inner {
-  position: absolute; top: 50%; left: 50%; width: 250px; height: 250px;
+  position: absolute; top: 50%; left: 50%; width: 270px; height: 270px;
   transform: translate(-50%, -50%);
   border: 1px dashed rgba(255,255,255,0.04); border-radius: 50%; pointer-events: none;
 }
@@ -110,7 +110,7 @@ body::after {
 /* ===== ZONE LABELS ===== */
 .zone-label {
   position: absolute; left: 50%; transform: translateX(-50%);
-  font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.18);
+  font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.38);
   text-transform: uppercase; font-weight: 500; pointer-events: none;
   z-index: 1; white-space: nowrap;
 }
@@ -178,7 +178,7 @@ body::after {
 .detail-card {
   position: absolute; z-index: 300;
   width: 320px; padding: 20px;
-  background: rgba(13,17,23,0.97);
+  background: rgba(26,29,33,0.97);
   border: 1px solid var(--border-accent);
   border-radius: 14px; backdrop-filter: blur(12px);
   max-height: 80vh; overflow-y: auto;
@@ -209,37 +209,64 @@ body::after {
   font-size: 11px; color: #6b7280; font-family: monospace;
   padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; line-height: 1.5;
 }
+.connected-section { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+.connected-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; margin-bottom: 8px; }
+.connected-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.connected-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px; color: #9ca3af; cursor: pointer; transition: background 0.2s;
+}
+.connected-pill:hover { background: rgba(255,255,255,0.08); }
 
-/* ===== CENTER MODAL (3 modes) ===== */
-.center-modal {
+/* ===== AGENT MODAL (tabs + visible cognition) ===== */
+.agent-modal {
   position: absolute; z-index: 300;
-  width: 400px; padding: 24px;
-  background: rgba(13,17,23,0.97);
-  border: 1px solid rgba(139,92,246,0.3); border-radius: 12px;
-  max-height: 80vh; overflow-y: auto;
+  min-width: 680px; max-width: 90vw;
+  padding: 24px;
+  background: rgba(26,29,33,0.97);
+  border: 1px solid rgba(139,92,246,0.3); border-radius: 14px;
+  backdrop-filter: blur(12px);
+  max-height: 85vh; overflow-y: auto;
   opacity: 0; transform: translateY(8px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
   pointer-events: none;
 }
-.center-modal.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.cm-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.cm-subtitle { font-size: 13px; color: #9ca3af; margin-bottom: 20px; line-height: 1.5; }
-.cm-mode { padding: 16px 0 16px 16px; border-left: 3px solid; }
-.cm-mode + .cm-mode { border-top: 1px solid rgba(255,255,255,0.06); }
-.cm-mode--live { border-left-color: #10b981; }
-.cm-mode--soon { border-left-color: #8b5cf6; }
-.cm-mode--roadmap { border-left-color: #374151; }
-.cm-mode-badge {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+.agent-modal.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.am-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.am-subtitle { font-size: 13px; color: #9ca3af; margin-bottom: 16px; line-height: 1.5; }
+.agent-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px; }
+.agent-tab {
+  padding: 8px 16px; font-size: 13px; font-weight: 600; color: #6b7280;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s; white-space: nowrap;
 }
-.cm-mode-badge--live { background: rgba(16,185,129,0.15); color: #10b981; }
-.cm-mode-badge--soon { background: rgba(139,92,246,0.15); color: #8b5cf6; }
-.cm-mode-badge--roadmap { background: rgba(55,65,81,0.3); color: #9ca3af; }
-.cm-mode-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-.cm-mode-desc { font-size: 13px; color: #d1d5db; line-height: 1.6; margin-bottom: 8px; }
-.cm-mode-tech { font-size: 11px; color: #6b7280; font-family: monospace; line-height: 1.5; }
+.agent-tab:hover { color: #9ca3af; }
+.agent-tab.is-active { color: #fff; }
+.agent-content { display: flex; gap: 16px; }
+.agent-left { flex: 3; min-width: 0; }
+.agent-right { flex: 1; min-width: 160px; }
+
+/* ===== FLOW ANIMATION ===== */
+.agent-flow { position: relative; padding-left: 22px; }
+.agent-flow::before {
+  content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+  border-left: 1px dashed rgba(255,255,255,0.12);
+}
+.flow-step {
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.flow-step.visible { opacity: 1; transform: translateX(0); }
+.flow-icon { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; font-size: 12px; line-height: 1; }
+.flow-text { font-size: 11px; font-family: monospace; color: #9ca3af; line-height: 1.5; }
+.flow-step.completed .flow-text { color: #d1fae5; }
+.flow-step.active .flow-text { color: #c4b5fd; }
+.flow-step.pending .flow-text { color: #4b5563; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; animation: spin 1.5s linear infinite; }
 
 /* ===== INSTRUCTION ===== */
 .orbital-hint { text-align: center; padding: 8px 24px 0; font-size: 13px; color: var(--text-muted); position: relative; z-index: 1; }
@@ -269,20 +296,23 @@ body::after {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .orbital-wrap { height: 560px; }
-  .orbital-ring { width: 375px; height: 375px; }
-  .orbital-ring-inner { width: 188px; height: 188px; }
+  .orbital-ring { width: 400px; height: 400px; }
+  .orbital-ring-inner { width: 200px; height: 200px; }
   .detail-card { width: 280px; padding: 16px; }
-  .center-modal { width: 340px !important; padding: 20px !important; }
+  .agent-modal { min-width: auto !important; width: 95% !important; padding: 20px !important; }
+  .agent-content { flex-direction: column; }
+  .agent-right { min-width: auto; }
 }
 @media (max-width: 480px) {
   .orbital-wrap { height: 460px; }
-  .orbital-ring { width: 300px; height: 300px; }
-  .orbital-ring-inner { width: 150px; height: 150px; }
+  .orbital-ring { width: 320px; height: 320px; }
+  .orbital-ring-inner { width: 160px; height: 160px; }
   .node-title, .node-sub { display: none; }
   .v-name, .v-sub, .v-badge { display: none; }
   .zone-label { display: none; }
   .detail-card { width: 260px; font-size: 12px; }
-  .center-modal { width: 280px !important; padding: 16px !important; }
+  .agent-modal { width: 95% !important; padding: 16px !important; }
+  .agent-tab { padding: 6px 10px; font-size: 11px; }
 }
 </style>
 </head>
@@ -297,9 +327,9 @@ body::after {
       <circle cx="50" cy="82" r="14" fill="#a78bfa" opacity="0.12"/>
       <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
       <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="18" cy="22" r="12" fill="#0d1117" stroke="#10b981" stroke-width="6"/>
-      <circle cx="82" cy="22" r="12" fill="#0d1117" stroke="#10b981" stroke-width="6"/>
-      <circle cx="50" cy="82" r="12" fill="#0d1117" stroke="#a78bfa" stroke-width="6"/>
+      <circle cx="18" cy="22" r="12" fill="#1a1d21" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a1d21" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a1d21" stroke="#a78bfa" stroke-width="6"/>
     </svg>
     <span>vookedme</span>
   </a>
@@ -350,7 +380,7 @@ body::after {
 
   <!-- V-CENTER NODES -->
   <div class="v-node" id="vBackend">
-    <div class="v-icon" style="border-color:#10b981">⚙️</div>
+    <div class="v-icon" style="border-color:#10b981">&#x2699;&#xFE0F;</div>
     <span class="v-name">Backend API</span>
     <span class="v-sub">Java &amp; Spring Boot 4</span>
     <span class="v-badge v-badge--green">LIVE</span>
@@ -359,7 +389,7 @@ body::after {
   <div class="v-node" id="vAgente">
     <div class="v-icon-wrap">
       <div class="v-ring"></div>
-      <div class="v-icon" style="border-color:#8b5cf6">🤖</div>
+      <div class="v-icon" style="border-color:#8b5cf6">&#x1F916;</div>
     </div>
     <span class="v-name">Agente</span>
     <span class="v-sub">n8n &middot; OpenAI</span>
@@ -367,7 +397,7 @@ body::after {
   </div>
 
   <div class="v-node" id="vPanel">
-    <div class="v-icon" style="border-color:#60a5fa">🖥️</div>
+    <div class="v-icon" style="border-color:#60a5fa">&#x1F5A5;&#xFE0F;</div>
     <span class="v-name">Panel Owner</span>
     <span class="v-sub">Next.js 16</span>
     <span class="v-badge v-badge--blue">LIVE</span>
@@ -376,28 +406,12 @@ body::after {
   <!-- ORBITAL CONNECTION LINES -->
   <svg class="connection-lines" id="connLines" width="100%" height="100%"></svg>
 
-  <!-- CENTER MODAL (Agente — 3 modes) -->
-  <div class="center-modal" id="centerModal">
-    <div class="cm-title">Agente Vookedme</div>
-    <div class="cm-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
-    <div class="cm-mode cm-mode--live">
-      <span class="cm-mode-badge cm-mode-badge--live">LIVE</span>
-      <div class="cm-mode-name">Modo Recepcionista</div>
-      <div class="cm-mode-desc">El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable (1-24h). Si no hay respuesta, la cita se libera autom&aacute;ticamente.</div>
-      <div class="cm-mode-tech">APPROVAL_REQUIRED &middot; BOT_PROPOSED &rarr; OWNER_APPROVED/REJECTED &middot; PendingApprovalTimeoutJob</div>
-    </div>
-    <div class="cm-mode cm-mode--soon">
-      <span class="cm-mode-badge cm-mode-badge--soon">PR&Oacute;XIMO</span>
-      <div class="cm-mode-name">Modo Aut&oacute;nomo</div>
-      <div class="cm-mode-desc">El agente confirma citas directamente sin intervenci&oacute;n. Algoritmo de auto-asignaci&oacute;n por menor carga del d&iacute;a. M&aacute;xima eficiencia operativa.</div>
-      <div class="cm-mode-tech">AUTO_CONFIRM &middot; auto-assign algorithm &middot; BOT_AUTO_CONFIRMED</div>
-    </div>
-    <div class="cm-mode cm-mode--roadmap">
-      <span class="cm-mode-badge cm-mode-badge--roadmap">ROADMAP</span>
-      <div class="cm-mode-name">Modo Supervisado</div>
-      <div class="cm-mode-desc">El owner revisa cada conversaci&oacute;n antes de que el agente responda. Aprobaci&oacute;n mensaje a mensaje. Requiere WebSocket y cola de revisi&oacute;n en tiempo real.</div>
-      <div class="cm-mode-tech">TRIAGE &middot; WebSocket &middot; BotRequest entity &middot; cola de aprobaci&oacute;n</div>
-    </div>
+  <!-- AGENT MODAL (tabs + visible cognition) -->
+  <div class="agent-modal" id="agentModal">
+    <div class="am-title">Agente Vookedme</div>
+    <div class="am-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
+    <div class="agent-tabs" id="agentTabs"></div>
+    <div class="agent-content" id="agentContent"></div>
   </div>
 
   <!-- DETAIL CARD (orbital + V-center) -->
@@ -420,9 +434,9 @@ body::after {
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
       <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="18" cy="22" r="12" fill="#0d1117" stroke="#10b981" stroke-width="6"/>
-      <circle cx="82" cy="22" r="12" fill="#0d1117" stroke="#10b981" stroke-width="6"/>
-      <circle cx="50" cy="82" r="12" fill="#0d1117" stroke="#a78bfa" stroke-width="6"/>
+      <circle cx="18" cy="22" r="12" fill="#1a1d21" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a1d21" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a1d21" stroke="#a78bfa" stroke-width="6"/>
     </svg>
     <span>vookedme</span>
   </div>
@@ -447,7 +461,7 @@ body::after {
   function toRGB(hex) { return rgbMap[hex] || '16,185,129'; }
 
   /* ================================================================
-   * DATA — 9 orbital nodes (no Backend API / Panel Owner — those are V-center)
+   * DATA — 9 orbital nodes
    * ================================================================ */
   var nodes = [
     { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live", accent:"#10b981",
@@ -477,15 +491,15 @@ body::after {
     { id:11, title:"Notificaciones", subtitle:"6 tipos outbound", icon:"📨", status:"live", accent:"#10b981",
       fn:"Sistema de notificaciones automáticas por WhatsApp tras cada evento del agente.",
       checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId — sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
-      tech:"WhatsApp Business API · n8n outbound · correlationId · deduplicationKey", relatedIds:[1,10] },
+      tech:"WhatsApp Business API · n8n outbound · correlationId", relatedIds:[1,102] },
     { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#8b5cf6",
       fn:"Arquitectura multi-tenant real. Cada negocio es un tenant completamente aislado. Ningún dato cruza entre negocios.",
       checks:["businessId siempre del JWT, nunca del body (INV #1)","Cada query filtra por businessId obligatoriamente","4 vectores de ataque auditados y bloqueados","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
-      tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[7] },
+      tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[100,7] },
     { id:13, title:"Observabilidad", subtitle:"Sentry + Prometheus", icon:"🔍", status:"live", accent:"#f59e0b",
       fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
       checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
-      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[7] }
+      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100] }
   ];
 
   /* V-CENTER CARD DATA */
@@ -506,6 +520,63 @@ body::after {
     }
   };
 
+  /* V-CENTER NODE MAP (virtual IDs for CONECTADO CON) */
+  var vNodeMap = {
+    100: { icon:"⚙️", title:"Backend API", vtype:"backend" },
+    101: { icon:"🖥️", title:"Panel Owner", vtype:"panel" },
+    102: { icon:"🤖", title:"Agente", vtype:"agente" }
+  };
+
+  /* AGENT MODES DATA */
+  var agentModes = [
+    {
+      id:"recepcionista", name:"Modo Recepcionista", badge:"LIVE", badgeColor:"#10b981",
+      desc:"El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable.",
+      checks:["Timeout configurable 1-24h (por defecto 2h)","BOT_PROPOSED → OWNER_APPROVED/REJECTED","Si no hay respuesta: cita liberada automáticamente","PendingApprovalTimeoutJob cada 5 minutos"],
+      tech:"APPROVAL_REQUIRED · BotEventType · Spring @Scheduled",
+      flow:[
+        {s:"completed",t:"Webhook recibido (Evolution API)"},
+        {s:"completed",t:"HMAC-SHA256 verificado"},
+        {s:"completed",t:"Rate limit OK — 3/5 por hora"},
+        {s:"completed",t:"Contexto Redis cargado"},
+        {s:"completed",t:"Intent: crear_cita detectado"},
+        {s:"completed",t:"verificar_disponibilidad → API"},
+        {s:"completed",t:"Cita creada → estado PENDING"},
+        {s:"active",t:"Esperando aprobación owner..."}
+      ]
+    },
+    {
+      id:"autonomo", name:"Modo Autónomo", badge:"PRÓXIMO", badgeColor:"#8b5cf6",
+      desc:"El agente confirma citas directamente sin intervención del owner. Algoritmo de auto-asignación por menor carga del día.",
+      checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout — confirmación en segundos"],
+      tech:"AUTO_CONFIRM · auto-assign algorithm · BOT_AUTO_CONFIRMED",
+      flow:[
+        {s:"completed",t:"Webhook recibido (Evolution API)"},
+        {s:"completed",t:"HMAC-SHA256 verificado"},
+        {s:"completed",t:"Rate limit OK"},
+        {s:"completed",t:"Intent: crear_cita detectado"},
+        {s:"completed",t:"Empleado auto-asignado (menor carga)"},
+        {s:"completed",t:"Disponibilidad verificada"},
+        {s:"completed",t:"Cita confirmada directamente"},
+        {s:"completed",t:"Confirmación enviada al cliente"}
+      ]
+    },
+    {
+      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#374151",
+      desc:"El owner revisa cada conversación antes de que el agente responda. Aprobación mensaje a mensaje.",
+      checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
+      tech:"TRIAGE · WebSocket · BotRequest entity",
+      flow:[
+        {s:"completed",t:"Mensaje recibido"},
+        {s:"completed",t:"Enviado a cola de revisión"},
+        {s:"active",t:"Owner revisando mensaje..."},
+        {s:"active",t:"Esperando aprobación..."},
+        {s:"pending",t:"Respuesta enviada al cliente"},
+        {s:"pending",t:"Próximo mensaje en cola"}
+      ]
+    }
+  ];
+
   /* ================================================================
    * STATE
    * ================================================================ */
@@ -514,15 +585,20 @@ body::after {
   var activeNodeId = null;
   var animFrameId = null;
   var lastTime = 0;
-  var centerModalOpen = false;
-  var vCoreCardOpen = null; // 'backend' | 'panel' | null
+  var agentModalOpen = false;
+  var activeAgentTab = 0;
+  var vCoreCardOpen = null;
   var overlay = null;
+  var flowTimers = [];
+  var flowLoopTimer = null;
 
   var wrap = document.getElementById('orbitalWrap');
   var card = document.getElementById('detailCard');
   var hint = document.getElementById('orbitalHint');
   var connSvg = document.getElementById('connLines');
-  var centerModal = document.getElementById('centerModal');
+  var agentModal = document.getElementById('agentModal');
+  var agentTabsEl = document.getElementById('agentTabs');
+  var agentContentEl = document.getElementById('agentContent');
   var vAgenteEl = document.getElementById('vAgente');
   var vBackendEl = document.getElementById('vBackend');
   var vPanelEl = document.getElementById('vPanel');
@@ -532,14 +608,14 @@ body::after {
   var labelCore = document.getElementById('labelCore');
   var labelInfra = document.getElementById('labelInfra');
   var nodeEls = {};
-  var RADIUS = 250;
+  var RADIUS = 270;
   var centerX, centerY;
 
   function getRadius() {
     var w = wrap.offsetWidth;
-    if (w < 480) return 150;
-    if (w < 768) return 188;
-    return 250;
+    if (w < 480) return 160;
+    if (w < 768) return 200;
+    return 270;
   }
 
   function getVOffsets() {
@@ -550,7 +626,7 @@ body::after {
   }
 
   /* ================================================================
-   * OVERLAY (CAMBIO 7)
+   * OVERLAY
    * ================================================================ */
   function showOverlay() {
     if (overlay) return;
@@ -608,7 +684,6 @@ body::after {
     lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
     lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
 
-    // Zone labels
     labelCore.style.top = (cy - 100) + 'px';
     labelInfra.style.top = (cy + 195) + 'px';
   }
@@ -643,6 +718,28 @@ body::after {
   }
 
   /* ================================================================
+   * GET NODE POSITION (orbital or V-center)
+   * ================================================================ */
+  function getNodePosition(id) {
+    if (nodeEls[id]) {
+      return { x: parseFloat(nodeEls[id].style.left), y: parseFloat(nodeEls[id].style.top) };
+    }
+    if (id === 100) return { x: parseFloat(vBackendEl.style.left), y: parseFloat(vBackendEl.style.top) };
+    if (id === 101) return { x: parseFloat(vPanelEl.style.left), y: parseFloat(vPanelEl.style.top) };
+    if (id === 102) return { x: parseFloat(vAgenteEl.style.left), y: parseFloat(vAgenteEl.style.top) };
+    return null;
+  }
+
+  /* ================================================================
+   * FIND ANY NODE (orbital or V-center)
+   * ================================================================ */
+  function findAnyNode(id) {
+    var orbital = nodes.find(function(n) { return n.id === id; });
+    if (orbital) return orbital;
+    return vNodeMap[id] || null;
+  }
+
+  /* ================================================================
    * CONNECTION LINES
    * ================================================================ */
   function drawConnections() {
@@ -652,27 +749,39 @@ body::after {
     var active = nodes.find(function(n) { return n.id === activeNodeId; });
     if (!active) return;
 
-    var aEl = nodeEls[active.id];
-    var ax = parseFloat(aEl.style.left);
-    var ay = parseFloat(aEl.style.top);
+    var aPos = getNodePosition(active.id);
+    if (!aPos) return;
 
     active.relatedIds.forEach(function(rid) {
-      var rEl = nodeEls[rid];
-      if (!rEl) return;
+      var rPos = getNodePosition(rid);
+      if (!rPos) return;
       var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', ax); line.setAttribute('y1', ay);
-      line.setAttribute('x2', parseFloat(rEl.style.left));
-      line.setAttribute('y2', parseFloat(rEl.style.top));
+      line.setAttribute('x1', aPos.x); line.setAttribute('y1', aPos.y);
+      line.setAttribute('x2', rPos.x); line.setAttribute('y2', rPos.y);
       line.setAttribute('class', 'conn-line is-active');
       connSvg.appendChild(line);
-    });
 
-    // Line to center
-    var cl = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    cl.setAttribute('x1', centerX); cl.setAttribute('y1', centerY);
-    cl.setAttribute('x2', ax); cl.setAttribute('y2', ay);
-    cl.setAttribute('class', 'conn-line is-active');
-    connSvg.appendChild(cl);
+      if (nodeEls[rid]) {
+        nodeEls[rid].classList.add('is-pulsing');
+        nodeEls[rid].style.opacity = '0.9';
+      }
+    });
+  }
+
+  /* ================================================================
+   * BUILD CONECTADO CON
+   * ================================================================ */
+  function buildConnectedWith(relatedIds) {
+    if (!relatedIds || !relatedIds.length) return '';
+    var html = '<div class="connected-section"><div class="connected-label">CONECTADO CON</div><div class="connected-pills">';
+    relatedIds.forEach(function(rid) {
+      var rn = findAnyNode(rid);
+      if (rn) {
+        html += '<span class="connected-pill" data-open-node="' + rid + '">' + rn.icon + ' ' + rn.title + '</span>';
+      }
+    });
+    html += '</div></div>';
+    return html;
   }
 
   /* ================================================================
@@ -689,6 +798,8 @@ body::after {
       });
       checksHtml += '</div>';
     }
+    var connHtml = buildConnectedWith(data.relatedIds);
+
     return '<div class="card-header">' +
       '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + data.icon + '</div>' +
       '<div><div class="card-title">' + data.title + '</div><div class="card-subtitle">' + data.subtitle + '</div></div>' +
@@ -699,14 +810,33 @@ body::after {
       '<p class="card-fn-text">' + data.fn + '</p>' +
     '</div>' +
     checksHtml +
-    '<div class="card-tech-box">' + data.tech + '</div>';
+    '<div class="card-tech-box">' + data.tech + '</div>' +
+    connHtml;
   }
+
+  /* ================================================================
+   * HANDLE PILL CLICK (event delegation)
+   * ================================================================ */
+  function handlePillClick(nid) {
+    if (nid === 100) openVCoreCard('backend');
+    else if (nid === 101) openVCoreCard('panel');
+    else if (nid === 102) openAgentModal();
+    else openNode(nid);
+  }
+
+  card.addEventListener('click', function(e) {
+    var pill = e.target.closest('[data-open-node]');
+    if (pill) {
+      e.stopPropagation();
+      handlePillClick(parseInt(pill.getAttribute('data-open-node')));
+    }
+  });
 
   /* ================================================================
    * OPEN ORBITAL NODE
    * ================================================================ */
   function openNode(id) {
-    closeCenterModal();
+    closeAgentModal();
     closeVCoreCard();
     autoRotate = false;
     activeNodeId = id;
@@ -720,9 +850,6 @@ body::after {
     });
     nodeEls[id].classList.add('is-active');
     nodeEls[id].style.opacity = '1';
-    n.relatedIds.forEach(function(rid) {
-      if (nodeEls[rid]) { nodeEls[rid].classList.add('is-pulsing'); nodeEls[rid].style.opacity = '0.9'; }
-    });
 
     var ac = n.accent;
     var rgb = toRGB(ac);
@@ -738,6 +865,8 @@ body::after {
       checksHtml += '</div>';
     }
 
+    var connHtml = buildConnectedWith(n.relatedIds);
+
     card.innerHTML =
       '<div class="card-header">' +
         '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + n.icon + '</div>' +
@@ -749,7 +878,8 @@ body::after {
         '<p class="card-fn-text">' + n.fn + '</p>' +
       '</div>' +
       checksHtml +
-      '<div class="card-tech-box">' + n.tech + '</div>';
+      '<div class="card-tech-box">' + n.tech + '</div>' +
+      connHtml;
 
     card.style.borderColor = 'rgba(' + rgb + ',0.3)';
 
@@ -780,7 +910,7 @@ body::after {
    * OPEN V-CORE CARD (Backend / Panel)
    * ================================================================ */
   function openVCoreCard(type) {
-    closeCenterModal();
+    closeAgentModal();
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
@@ -803,12 +933,10 @@ body::after {
 
     var left, top;
     if (type === 'panel') {
-      // Panel: card above the node
       left = nx - cardW / 2;
       top = ny - 340;
       if (top < 8) top = 8;
     } else {
-      // Backend: card to the right or left
       left = nx > wrapW / 2 ? nx - cardW - 30 : nx + 30;
       top = ny - 60;
     }
@@ -829,21 +957,117 @@ body::after {
   }
 
   /* ================================================================
-   * CENTER MODAL (Agente)
+   * FLOW ANIMATION
    * ================================================================ */
-  function closeCenterModal() {
-    centerModalOpen = false;
-    centerModal.classList.remove('is-open');
+  function clearFlowAnimation() {
+    flowTimers.forEach(function(t) { clearTimeout(t); });
+    flowTimers = [];
+    if (flowLoopTimer) { clearTimeout(flowLoopTimer); flowLoopTimer = null; }
   }
 
-  function toggleCenterModal() {
-    if (centerModalOpen) {
-      closeCenterModal();
-      removeOverlay();
-      autoRotate = true;
-      hint.textContent = 'Haz clic en cualquier nodo para ver los detalles';
-      return;
+  function startFlowAnimation() {
+    clearFlowAnimation();
+
+    function runCycle() {
+      var steps = agentModal.querySelectorAll('.flow-step');
+      steps.forEach(function(el) { el.classList.remove('visible'); });
+
+      steps.forEach(function(el, i) {
+        flowTimers.push(setTimeout(function() {
+          el.classList.add('visible');
+        }, i * 350));
+      });
+
+      var totalTime = steps.length * 350 + 2500;
+      flowLoopTimer = setTimeout(function() {
+        if (agentModalOpen) runCycle();
+      }, totalTime);
     }
+
+    setTimeout(runCycle, 50);
+  }
+
+  /* ================================================================
+   * AGENT MODAL (tabs + visible cognition)
+   * ================================================================ */
+  function buildAgentTabs() {
+    var html = '';
+    agentModes.forEach(function(mode, i) {
+      var activeClass = i === activeAgentTab ? ' is-active' : '';
+      var borderColor = i === activeAgentTab ? mode.badgeColor : 'transparent';
+      html += '<div class="agent-tab' + activeClass + '" data-tab="' + i + '" style="border-bottom-color:' + borderColor + '">' + mode.name + '</div>';
+    });
+    agentTabsEl.innerHTML = html;
+
+    agentTabsEl.querySelectorAll('.agent-tab').forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        switchAgentTab(parseInt(tab.getAttribute('data-tab')));
+      });
+    });
+  }
+
+  function buildFlowHTML(flowSteps) {
+    var html = '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b7280;margin-bottom:10px">FLUJO TÉCNICO</div>';
+    html += '<div class="agent-flow">';
+    flowSteps.forEach(function(step) {
+      var icon, cls;
+      if (step.s === 'completed') {
+        icon = '<span style="color:#10b981">✓</span>';
+        cls = 'completed';
+      } else if (step.s === 'active') {
+        icon = '<span class="spin" style="color:#8b5cf6">⟳</span>';
+        cls = 'active';
+      } else {
+        icon = '<span style="color:#374151">○</span>';
+        cls = 'pending';
+      }
+      html += '<div class="flow-step ' + cls + '"><div class="flow-icon">' + icon + '</div><div class="flow-text">' + step.t + '</div></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderAgentTab(index) {
+    var mode = agentModes[index];
+    var badgeBg, badgeColor;
+    if (mode.badge === 'LIVE') { badgeBg = 'rgba(16,185,129,0.15)'; badgeColor = '#10b981'; }
+    else if (mode.badge === 'PRÓXIMO') { badgeBg = 'rgba(139,92,246,0.15)'; badgeColor = '#8b5cf6'; }
+    else { badgeBg = 'rgba(55,65,81,0.3)'; badgeColor = '#9ca3af'; }
+
+    var checksHtml = '';
+    mode.checks.forEach(function(c) {
+      checksHtml += '<div style="font-size:13px;color:#9ca3af;line-height:1.8;display:flex;gap:8px;align-items:flex-start"><span style="color:' + badgeColor + ';font-weight:700;flex-shrink:0">✓</span><span>' + c + '</span></div>';
+    });
+
+    var leftHtml =
+      '<span style="display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:3px 10px;border-radius:999px;margin-bottom:10px;background:' + badgeBg + ';color:' + badgeColor + '">' + mode.badge + '</span>' +
+      '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px">' + mode.name + '</div>' +
+      '<p style="font-size:13px;color:#d1d5db;line-height:1.6;margin-bottom:14px">' + mode.desc + '</p>' +
+      '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b7280;margin-bottom:8px">DESCRIPCIÓN</div>' +
+      '<div style="margin-bottom:14px">' + checksHtml + '</div>' +
+      '<div style="font-size:11px;color:#6b7280;font-family:monospace;padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:6px;line-height:1.5">' + mode.tech + '</div>';
+
+    var rightHtml = buildFlowHTML(mode.flow);
+
+    agentContentEl.innerHTML =
+      '<div class="agent-left">' + leftHtml + '</div>' +
+      '<div class="agent-right">' + rightHtml + '</div>';
+  }
+
+  function switchAgentTab(index) {
+    activeAgentTab = index;
+    var tabs = agentTabsEl.querySelectorAll('.agent-tab');
+    tabs.forEach(function(t, i) {
+      var isActive = i === index;
+      t.classList.toggle('is-active', isActive);
+      t.style.borderBottomColor = isActive ? agentModes[i].badgeColor : 'transparent';
+    });
+    renderAgentTab(index);
+    startFlowAnimation();
+  }
+
+  function openAgentModal() {
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
@@ -851,19 +1075,30 @@ body::after {
     Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
 
     autoRotate = false;
-    centerModalOpen = true;
+    agentModalOpen = true;
+    activeAgentTab = 0;
 
-    var ax = parseFloat(vAgenteEl.style.left);
-    var ay = parseFloat(vAgenteEl.style.top);
-    var modalW = 400;
-    if (wrap.offsetWidth < 480) modalW = 280;
-    else if (wrap.offsetWidth < 768) modalW = 340;
+    buildAgentTabs();
+    renderAgentTab(0);
 
-    centerModal.style.left = (ax - modalW / 2) + 'px';
-    centerModal.style.top = (ay + 60) + 'px';
-    centerModal.classList.add('is-open');
+    var wrapW = wrap.offsetWidth;
+    var modalW = 680;
+    if (wrapW < 768) modalW = Math.floor(wrapW * 0.95);
+
+    agentModal.style.width = modalW + 'px';
+    agentModal.style.left = Math.max(0, (wrapW - modalW) / 2) + 'px';
+    agentModal.style.top = '40px';
+    agentModal.classList.add('is-open');
     showOverlay();
+    startFlowAnimation();
+
     hint.textContent = 'Haz clic fuera para cerrar';
+  }
+
+  function closeAgentModal() {
+    agentModalOpen = false;
+    agentModal.classList.remove('is-open');
+    clearFlowAnimation();
   }
 
   /* ================================================================
@@ -874,7 +1109,7 @@ body::after {
     activeNodeId = null;
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
-    closeCenterModal();
+    closeAgentModal();
     closeVCoreCard();
     removeOverlay();
 
@@ -903,12 +1138,10 @@ body::after {
     positionNodes();
     animFrameId = requestAnimationFrame(animate);
 
-    // V-center click handlers
-    vAgenteEl.addEventListener('click', function(e) { e.stopPropagation(); toggleCenterModal(); });
+    vAgenteEl.addEventListener('click', function(e) { e.stopPropagation(); openAgentModal(); });
     vBackendEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('backend'); });
     vPanelEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('panel'); });
 
-    // Background click
     wrap.addEventListener('click', function(e) {
       if (e.target === wrap || e.target.classList.contains('orbital-ring') ||
           e.target.classList.contains('orbital-ring-inner')) {
@@ -916,13 +1149,11 @@ body::after {
       }
     });
 
-    // Pause when tab hidden
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) { cancelAnimationFrame(animFrameId); lastTime = 0; }
       else { lastTime = 0; animFrameId = requestAnimationFrame(animate); }
     });
 
-    // Responsive recalc
     window.addEventListener('resize', function() { positionVCenter(); positionNodes(); });
   }
 
