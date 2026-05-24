@@ -230,8 +230,8 @@ body::after {
   50%     { transform: scale(1.04); }
 }
 
-.hv-label  { font-size: 13px; font-weight: 600; color: var(--fg); letter-spacing: -0.01em; }
-.hv-sublabel { font-size: 11px; color: var(--fg-muted); margin-top: -8px; letter-spacing: .02em; }
+.hv-label  { font-size: 16px; font-weight: 600; color: var(--fg); letter-spacing: -0.01em; }
+.hv-sublabel { font-size: 13px; color: var(--fg-muted); margin-top: -8px; letter-spacing: .02em; }
 
 /* ---- Cards ---- */
 .hv-card {
@@ -242,7 +242,7 @@ body::after {
   padding: 14px;
   opacity: 0; transform: translateY(12px) scale(.985);
   transition: opacity .5s ease, transform .6s cubic-bezier(.16,1,.3,1);
-  font-size: 12px; line-height: 1.45;
+  font-size: 14px; line-height: 1.45;
   backdrop-filter: blur(8px);
 }
 .hv-card.is-on { opacity: 1; transform: translateY(0) scale(1) translateZ(10px); }
@@ -259,37 +259,39 @@ body::after {
   display: flex; align-items: center; gap: 8px;
   padding-bottom: 8px; margin-bottom: 4px;
   border-bottom: 1px solid var(--border);
-  font-size: 11px; color: var(--fg-soft);
+  font-size: 13px; color: var(--fg-soft);
 }
 .chat__head .who { color: var(--fg); font-weight: 600; }
 .chat__avatar {
   width: 22px; height: 22px; border-radius: 50%; background: var(--green);
   color: #062314; display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700;
+  font-size: 12px; font-weight: 700;
 }
 .bubble {
   max-width: 88%; padding: 6px 9px; border-radius: 10px;
-  font-size: 11.5px; line-height: 1.4;
+  font-size: 14px; line-height: 1.4;
 }
 .bubble.in  { align-self: flex-end; background: #1e2522; color: #e5e7eb; border-bottom-right-radius: 3px; }
+.bubble--reveal { opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; }
+.bubble--reveal.is-visible { opacity: 1; transform: translateY(0); }
 .bubble.out { align-self: flex-start; background: var(--green); color: #062314; border-bottom-left-radius: 3px; font-weight: 500; }
 
 /* card B -- panel mock */
 .pmock { display: flex; flex-direction: column; gap: 8px; }
 .pmock__head {
   display: flex; align-items: center; justify-content: space-between;
-  font-size: 10px; color: var(--fg-soft); padding-bottom: 6px;
+  font-size: 12px; color: var(--fg-soft); padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
 }
-.pmock__head .title { color: var(--fg); font-weight: 600; font-size: 11px; }
+.pmock__head .title { color: var(--fg); font-weight: 600; font-size: 13px; }
 .pmock__head .dot   { width: 6px; height: 6px; border-radius: 50%; background: var(--lila); display: inline-block; margin-right: 4px; }
-.pmock__row { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--fg); padding: 3px 0; }
+.pmock__row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg); padding: 3px 0; }
 .pmock__row svg { flex: none; width: 12px; height: 12px; color: var(--fg-soft); }
 .pmock__row.ok  { color: var(--green); }
 .pmock__row.ok svg { color: var(--green); }
 .pmock__actions { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
 .pmock__btn {
-  font-size: 9px; font-weight: 600; padding: 4px 7px; border-radius: 5px;
+  font-size: 11px; font-weight: 600; padding: 4px 7px; border-radius: 5px;
   border: 1px solid var(--border-hi); background: #222428; color: var(--fg-soft);
   white-space: nowrap;
 }
@@ -304,11 +306,11 @@ body::after {
   margin: 2px 0 4px;
 }
 .conf__check svg { width: 24px; height: 24px; color: var(--green); stroke-width: 2.5; }
-.conf__title { color: var(--green); font-weight: 700; font-size: 14px; }
-.conf__row   { font-size: 11px; color: var(--fg-soft); line-height: 1.55; }
+.conf__title { color: var(--green); font-weight: 700; font-size: 17px; }
+.conf__row   { font-size: 13px; color: var(--fg-soft); line-height: 1.55; }
 .conf__row strong { color: var(--fg); font-weight: 600; }
 .conf__divider { width: 60%; height: 1px; background: var(--border); margin: 4px 0; }
-.conf__note    { font-size: 10px; color: var(--green); font-weight: 600; }
+.conf__note    { font-size: 12px; color: var(--green); font-weight: 600; }
 
 /* ============ step indicator ============ */
 .hv-steps {
@@ -1175,7 +1177,7 @@ body::after {
       <div class="hv-node hv-node--bot" id="hvNodeBot">
         <div class="hv-circle"><i data-lucide="bot"></i></div>
         <div class="hv-label">Vookedme</div>
-        <div class="hv-sublabel">Bot IA</div>
+        <div class="hv-sublabel">Agente</div>
       </div>
 
       <!-- BUSINESS node -->
@@ -1193,7 +1195,7 @@ body::after {
             <span class="who">Mar&iacute;a Garc&iacute;a</span>
             <span style="margin-left:auto;">9:41</span>
           </div>
-          <div class="bubble in">Quiero cita ma&ntilde;ana &#128075;</div>
+          <div class="bubble in bubble--reveal" id="hvFirstMsg">Quiero cita ma&ntilde;ana &#128075;</div>
           <div class="bubble out">&iquest;A qu&eacute; hora? Tenemos 10:00 y 11:30 &#128336;</div>
           <div class="bubble in">A las 11:30 perfecto</div>
           <div class="bubble out">&#10004; Cita confirmada &mdash; Ana</div>
@@ -1806,9 +1808,13 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     } catch (e) { /* SMIL not supported — gracefully skip */ }
   }
 
+  const firstMsg = $('hvFirstMsg');
+  function hideFirstMsg() { if (firstMsg) { firstMsg.classList.remove('is-visible'); } }
+  function showFirstMsg() { if (firstMsg) { firstMsg.classList.add('is-visible'); } }
+
   function runLoop() {
-    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); showCard(cards.a); });
-    at(1200, () => drawLine(lines.l1));
+    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); hideFirstMsg(); showCard(cards.a); });
+    at(1200, () => { drawLine(lines.l1); showFirstMsg(); });
     at(2200, () => fireParticle('hvP1Motion', 'hvP1Op'));
     at(2600, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
     at(3800, () => drawLine(lines.l2));
