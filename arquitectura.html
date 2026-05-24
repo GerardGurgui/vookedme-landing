@@ -641,7 +641,7 @@ body::after {
     overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:transparent;';
     overlay.addEventListener('click', function() { closeAll(); });
-    document.body.appendChild(overlay);
+    wrap.appendChild(overlay);
   }
   function removeOverlay() {
     if (overlay) { overlay.remove(); overlay = null; }
