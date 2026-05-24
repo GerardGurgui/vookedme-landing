@@ -64,56 +64,31 @@ body::after {
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.nav-logo {
-  display: flex; align-items: center; gap: 10px;
-  text-decoration: none; color: #fff;
-}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
 .nav-logo svg { width: 32px; height: 32px; }
 .nav-logo span { font-weight: 700; font-size: 20px; letter-spacing: 0.5px; }
 .nav-links { display: flex; align-items: center; gap: 0; }
-.nav-links a {
-  font-size: 15px; color: var(--text-muted); text-decoration: none;
-  transition: color 0.2s;
-}
+.nav-links a { font-size: 15px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: #ffffff; }
 .nav-links a.is-active { color: var(--accent); }
-.nav-sep {
-  display: inline-block; width: 1px; height: 16px;
-  background: rgba(255,255,255,0.1); margin: 0 20px; vertical-align: middle;
-}
+.nav-sep { display: inline-block; width: 1px; height: 16px; background: rgba(255,255,255,0.1); margin: 0 20px; vertical-align: middle; }
 .nav-cta {
   font-size: 14px; font-weight: 600; color: #fff;
   background: linear-gradient(90deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15));
   border: 0.5px solid rgba(16,185,129,0.3); border-radius: 8px;
   padding: 10px 20px; text-decoration: none; transition: all 0.2s;
 }
-.nav-cta:hover {
-  border-color: rgba(16,185,129,0.5);
-  background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25));
-}
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .navbar { padding: 0 20px; }
-}
+.nav-cta:hover { border-color: rgba(16,185,129,0.5); background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25)); }
+@media (max-width: 640px) { .nav-links { display: none; } .navbar { padding: 0 20px; } }
 
 /* ===== HEADER ===== */
-.arch-header {
-  text-align: center; padding: 128px 24px 48px;
-  position: relative; z-index: 1;
-}
+.arch-header { text-align: center; padding: 128px 24px 48px; position: relative; z-index: 1; }
 .arch-eyebrow {
   display: inline-block; font-size: 18px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 2px; color: var(--accent);
-  margin-bottom: 16px;
+  text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 16px;
 }
-.arch-h1 {
-  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;
-  letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;
-}
-.arch-sub {
-  color: var(--text-soft); font-size: 16px; line-height: 1.6;
-  max-width: 560px; margin: 0 auto 24px;
-}
+.arch-h1 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+.arch-sub { color: var(--text-soft); font-size: 16px; line-height: 1.6; max-width: 560px; margin: 0 auto 24px; }
 
 /* ===== ORBITAL CONTAINER ===== */
 .orbital-wrap {
@@ -122,18 +97,22 @@ body::after {
   margin: 0 auto; cursor: default;
 }
 .orbital-ring {
-  position: absolute; top: 50%; left: 50%;
-  width: 560px; height: 560px;
+  position: absolute; top: 50%; left: 50%; width: 500px; height: 500px;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 50%; pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; pointer-events: none;
 }
 .orbital-ring-inner {
-  position: absolute; top: 50%; left: 50%;
-  width: 280px; height: 280px;
+  position: absolute; top: 50%; left: 50%; width: 250px; height: 250px;
   transform: translate(-50%, -50%);
-  border: 1px dashed rgba(255,255,255,0.04);
-  border-radius: 50%; pointer-events: none;
+  border: 1px dashed rgba(255,255,255,0.04); border-radius: 50%; pointer-events: none;
+}
+
+/* ===== ZONE LABELS ===== */
+.zone-label {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.18);
+  text-transform: uppercase; font-weight: 500; pointer-events: none;
+  z-index: 1; white-space: nowrap;
 }
 
 /* ===== V-CENTER NODES ===== */
@@ -141,12 +120,9 @@ body::after {
 .v-node {
   position: absolute; z-index: 5;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
-  cursor: pointer; transition: transform 0.15s ease;
-  user-select: none;
+  cursor: pointer; transition: transform 0.15s ease; user-select: none;
 }
 .v-node:hover { transform: translate(-50%, -50%) scale(1.08); }
-.v-node--decorative { cursor: default; }
-.v-node--decorative:hover { transform: translate(-50%, -50%); }
 .v-icon {
   width: 52px; height: 52px; border-radius: 50%;
   background: var(--bg); border: 2px solid;
@@ -154,21 +130,10 @@ body::after {
   font-size: 22px; transition: box-shadow 0.3s;
 }
 .v-node:hover .v-icon { box-shadow: 0 0 12px rgba(255,255,255,0.1); }
-.v-node--decorative:hover .v-icon { box-shadow: none; }
 .v-icon-wrap { position: relative; }
-.v-ring {
-  position: absolute; inset: -6px; border-radius: 50%;
-  border: 1px solid rgba(139,92,246,0.15);
-}
-.v-name {
-  font-size: 13px; font-weight: 700; color: #fff;
-  white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7);
-}
-.v-sub {
-  font-size: 11px; color: var(--text-muted);
-  white-space: nowrap; margin-top: -2px;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
-}
+.v-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(139,92,246,0.15); }
+.v-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+.v-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; margin-top: -2px; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 .v-badge {
   display: inline-block; font-size: 9px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
@@ -192,43 +157,22 @@ body::after {
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; transition: box-shadow 0.3s, border-color 0.3s;
 }
-.orbital-node:hover .node-icon {
-  box-shadow: 0 0 16px rgba(16,185,129,0.3);
-}
+.orbital-node:hover .node-icon { box-shadow: 0 0 16px rgba(16,185,129,0.3); }
 .orbital-node[data-status="soon"] .node-icon { border-color: var(--lila); opacity: 0.85; }
 .orbital-node[data-status="roadmap"] .node-icon { border-color: #374151; opacity: 0.6; }
-.node-title {
-  font-size: 14px; font-weight: 700; color: #f0fdf4;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
-  white-space: nowrap;
-}
-.node-sub {
-  font-size: 12px; color: var(--text-muted);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
-  white-space: nowrap; margin-top: -2px;
-}
-.orbital-node.is-active .node-icon {
-  box-shadow: 0 0 20px rgba(16,185,129,0.5);
-}
-.orbital-node.is-pulsing .node-icon {
-  animation: node-pulse 0.8s ease-in-out 2;
-}
+.node-title { font-size: 14px; font-weight: 700; color: #f0fdf4; text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; }
+.node-sub { font-size: 12px; color: var(--text-muted); text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; margin-top: -2px; }
+.orbital-node.is-active .node-icon { box-shadow: 0 0 20px rgba(16,185,129,0.5); }
+.orbital-node.is-pulsing .node-icon { animation: node-pulse 0.8s ease-in-out 2; }
 @keyframes node-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
   50% { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
 }
 
 /* ===== CONNECTION LINES ===== */
-.connection-lines {
-  position: absolute; inset: 0; pointer-events: none; z-index: 3;
-}
-.conn-line {
-  stroke: rgba(16,185,129,0.15); stroke-width: 1;
-  transition: stroke 0.3s, stroke-width 0.3s;
-}
-.conn-line.is-active {
-  stroke: rgba(16,185,129,0.5); stroke-width: 1.5;
-}
+.connection-lines { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.conn-line { stroke: rgba(16,185,129,0.15); stroke-width: 1; transition: stroke 0.3s, stroke-width 0.3s; }
+.conn-line.is-active { stroke: rgba(16,185,129,0.5); stroke-width: 1.5; }
 
 /* ===== DETAIL CARD (Style C) ===== */
 .detail-card {
@@ -236,24 +180,15 @@ body::after {
   width: 320px; padding: 20px;
   background: rgba(13,17,23,0.97);
   border: 1px solid var(--border-accent);
-  border-radius: 14px;
-  backdrop-filter: blur(12px);
+  border-radius: 14px; backdrop-filter: blur(12px);
   max-height: 80vh; overflow-y: auto;
   opacity: 0; transform: translateY(8px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
   pointer-events: none;
 }
-.detail-card.is-open {
-  opacity: 1; transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-.card-header {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
-}
-.card-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center; font-size: 20px;
-}
+.detail-card.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 .card-title { font-size: 16px; font-weight: 700; color: var(--text); }
 .card-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
 .card-badge {
@@ -264,28 +199,15 @@ body::after {
 .card-badge--live { background: rgba(16,185,129,0.15); color: var(--accent); }
 .card-badge--soon { background: rgba(139,92,246,0.15); color: var(--lila); }
 .card-badge--roadmap { background: rgba(55,65,81,0.3); color: #9ca3af; }
-
-/* Style C sections */
-.card-fn {
-  border-left: 3px solid; padding: 10px 0 10px 14px; margin-bottom: 14px;
-}
-.card-fn-label {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; margin-bottom: 6px;
-}
-.card-fn-text {
-  font-size: 13px; line-height: 1.6; color: var(--text-soft); margin: 0;
-}
+.card-fn { border-left: 3px solid; padding: 10px 0 10px 14px; margin-bottom: 14px; }
+.card-fn-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.card-fn-text { font-size: 13px; line-height: 1.6; color: var(--text-soft); margin: 0; }
 .card-checks { margin-bottom: 14px; }
-.card-check {
-  font-size: 13px; color: #9ca3af; line-height: 1.8;
-  display: flex; gap: 8px; align-items: flex-start;
-}
+.card-check { font-size: 13px; color: #9ca3af; line-height: 1.8; display: flex; gap: 8px; align-items: flex-start; }
 .card-check-mark { font-weight: 700; flex-shrink: 0; }
 .card-tech-box {
   font-size: 11px; color: #6b7280; font-family: monospace;
-  padding: 10px 12px; background: rgba(255,255,255,0.02);
-  border-radius: 6px; line-height: 1.5;
+  padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; line-height: 1.5;
 }
 
 /* ===== CENTER MODAL (3 modes) ===== */
@@ -293,17 +215,13 @@ body::after {
   position: absolute; z-index: 300;
   width: 400px; padding: 24px;
   background: rgba(13,17,23,0.97);
-  border: 1px solid rgba(139,92,246,0.3);
-  border-radius: 12px;
+  border: 1px solid rgba(139,92,246,0.3); border-radius: 12px;
   max-height: 80vh; overflow-y: auto;
   opacity: 0; transform: translateY(8px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
   pointer-events: none;
 }
-.center-modal.is-open {
-  opacity: 1; transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
+.center-modal.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 .cm-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .cm-subtitle { font-size: 13px; color: #9ca3af; margin-bottom: 20px; line-height: 1.5; }
 .cm-mode { padding: 16px 0 16px 16px; border-left: 3px solid; }
@@ -324,21 +242,11 @@ body::after {
 .cm-mode-tech { font-size: 11px; color: #6b7280; font-family: monospace; line-height: 1.5; }
 
 /* ===== INSTRUCTION ===== */
-.orbital-hint {
-  text-align: center; padding: 8px 24px 0;
-  font-size: 13px; color: var(--text-muted);
-  position: relative; z-index: 1;
-}
+.orbital-hint { text-align: center; padding: 8px 24px 0; font-size: 13px; color: var(--text-muted); position: relative; z-index: 1; }
 
 /* ===== CTA FINAL ===== */
-.cta-section {
-  text-align: center; padding: 64px 24px 80px;
-  position: relative; z-index: 1;
-}
-.cta-question {
-  font-size: 20px; font-weight: 600; color: var(--text-soft);
-  margin-bottom: 20px;
-}
+.cta-section { text-align: center; padding: 64px 24px 80px; position: relative; z-index: 1; }
+.cta-question { font-size: 20px; font-weight: 600; color: var(--text-soft); margin-bottom: 20px; }
 .cta-btn {
   display: inline-block; padding: 14px 32px;
   background: var(--accent); color: #000; font-weight: 700;
@@ -348,36 +256,31 @@ body::after {
 .cta-btn:hover { background: #059669; transform: translateY(-1px); }
 
 /* ===== FOOTER ===== */
-.footer {
-  text-align: center; padding: 48px 24px 32px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  position: relative; z-index: 1;
-}
-.footer-logo {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin-bottom: 6px;
-}
+.footer { text-align: center; padding: 48px 24px 32px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 1; }
+.footer-logo { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
 .footer-logo span { font-weight: 700; font-size: 1rem; color: var(--text); }
 .footer-tagline { font-size: 0.82rem; color: #9ca3af; margin-bottom: 1rem; }
 .footer-links { display: flex; gap: 1.5rem; justify-content: center; font-size: 0.8rem; }
 .footer-links a { color: var(--text-soft); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--accent); }
 .footer-copy { font-size: 0.72rem; color: var(--text-muted); margin-top: 1.5rem; }
+.footer-legal { font-size: 11px; color: #4b5563; max-width: 600px; margin: 12px auto 0; text-align: center; line-height: 1.6; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .orbital-wrap { height: 560px; }
-  .orbital-ring { width: 420px; height: 420px; }
-  .orbital-ring-inner { width: 210px; height: 210px; }
+  .orbital-ring { width: 375px; height: 375px; }
+  .orbital-ring-inner { width: 188px; height: 188px; }
   .detail-card { width: 280px; padding: 16px; }
   .center-modal { width: 340px !important; padding: 20px !important; }
 }
 @media (max-width: 480px) {
   .orbital-wrap { height: 460px; }
-  .orbital-ring { width: 336px; height: 336px; }
-  .orbital-ring-inner { width: 168px; height: 168px; }
+  .orbital-ring { width: 300px; height: 300px; }
+  .orbital-ring-inner { width: 150px; height: 150px; }
   .node-title, .node-sub { display: none; }
   .v-name, .v-sub, .v-badge { display: none; }
+  .zone-label { display: none; }
   .detail-card { width: 260px; font-size: 12px; }
   .center-modal { width: 280px !important; padding: 16px !important; }
 }
@@ -424,6 +327,10 @@ body::after {
   <div class="orbital-ring"></div>
   <div class="orbital-ring-inner"></div>
 
+  <!-- ZONE LABELS -->
+  <div class="zone-label" id="labelCore">CORE SYSTEM</div>
+  <div class="zone-label" id="labelInfra">INFRAESTRUCTURA</div>
+
   <!-- V-CENTER LINES -->
   <svg class="v-center-lines" id="vLines" width="100%" height="100%">
     <defs>
@@ -442,7 +349,7 @@ body::after {
   </svg>
 
   <!-- V-CENTER NODES -->
-  <div class="v-node v-node--decorative" id="vBackend">
+  <div class="v-node" id="vBackend">
     <div class="v-icon" style="border-color:#10b981">⚙️</div>
     <span class="v-name">Backend API</span>
     <span class="v-sub">Java &amp; Spring Boot 4</span>
@@ -459,7 +366,7 @@ body::after {
     <span class="v-badge v-badge--lila">LIVE</span>
   </div>
 
-  <div class="v-node v-node--decorative" id="vPanel">
+  <div class="v-node" id="vPanel">
     <div class="v-icon" style="border-color:#60a5fa">🖥️</div>
     <span class="v-name">Panel Owner</span>
     <span class="v-sub">Next.js 16</span>
@@ -469,7 +376,7 @@ body::after {
   <!-- ORBITAL CONNECTION LINES -->
   <svg class="connection-lines" id="connLines" width="100%" height="100%"></svg>
 
-  <!-- CENTER MODAL (3 modes) -->
+  <!-- CENTER MODAL (Agente — 3 modes) -->
   <div class="center-modal" id="centerModal">
     <div class="cm-title">Agente Vookedme</div>
     <div class="cm-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
@@ -493,7 +400,7 @@ body::after {
     </div>
   </div>
 
-  <!-- DETAIL CARD -->
+  <!-- DETAIL CARD (orbital + V-center) -->
   <div class="detail-card" id="detailCard"></div>
 </div>
 
@@ -525,58 +432,79 @@ body::after {
     <a href="https://instagram.com/vookedme" target="_blank" rel="noopener">@vookedme</a>
   </div>
   <p class="footer-copy">&copy; 2026 Vookedme</p>
+  <p class="footer-legal">Vookedme es una plataforma de gesti&oacute;n de reservas y citas. No procesa pagos, no emite facturas ni recibos fiscales, no almacena datos bancarios ni financieros de ning&uacute;n tipo. Las transacciones econ&oacute;micas entre el negocio y sus clientes son responsabilidad exclusiva del negocio.</p>
 </footer>
 
 <script>
 (function() {
   /* ================================================================
-   * ACCENT COLOR HELPERS
+   * HELPERS
    * ================================================================ */
   var rgbMap = {
-    '#10b981':'16,185,129',
-    '#60a5fa':'96,165,250',
-    '#f59e0b':'245,158,11',
-    '#8b5cf6':'139,92,246'
+    '#10b981':'16,185,129', '#60a5fa':'96,165,250',
+    '#f59e0b':'245,158,11', '#8b5cf6':'139,92,246'
   };
   function toRGB(hex) { return rgbMap[hex] || '16,185,129'; }
 
   /* ================================================================
-   * DATA — 8 orbital nodes
+   * DATA — 9 orbital nodes (no Backend API / Panel Owner — those are V-center)
    * ================================================================ */
   var nodes = [
     { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live", accent:"#10b981",
       fn:"Puerta de entrada del sistema. Los clientes escriben por WhatsApp Business y el agente responde en tiempo real.",
       checks:["Evolution API como gateway","HMAC-SHA256 en todos los webhooks","Rate limiting: 5 creates/h + 20/día por cliente"],
-      tech:"Evolution API · WhatsApp Business API", relatedIds:[2,3] },
+      tech:"Evolution API · WhatsApp Business API", relatedIds:[2,11] },
     { id:2, title:"n8n", subtitle:"Orchestration", icon:"🔄", status:"live", accent:"#10b981",
       fn:"Orquestador de la conversación. Interpreta mensajes, llama al LLM y ejecuta las 4 herramientas del agente.",
       checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Stale context detection con flag Redis approach E"],
-      tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[1,3,4] },
-    { id:3, title:"Backend API", subtitle:"Spring Boot 4", icon:"⚙️", status:"live", accent:"#10b981",
-      fn:"Fuente de verdad del sistema. Toda la lógica de negocio vive aquí. El agente es solo la capa conversacional.",
-      checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados","68 migraciones Flyway V1→V68 aplicadas","@Version optimistic locking — sin dobles reservas","businessId siempre del JWT, nunca del body"],
-      tech:"Java 21 · Spring Boot 4.0.3 · JUnit + Testcontainers", relatedIds:[1,2,4,5,6] },
+      tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[1,4,5] },
     { id:4, title:"PostgreSQL", subtitle:"68 migraciones", icon:"🗄️", status:"live", accent:"#60a5fa",
       fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
       checks:["68 migraciones Flyway — zero downtime","@Version optimistic locking en appointments","7 estados de cita con state machine definida","Audit trail preservado en revoke y cancelaciones"],
-      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[3,5] },
+      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[5] },
     { id:5, title:"Redis", subtitle:"Chat history", icon:"⚡", status:"live", accent:"#60a5fa",
       fn:"Cache de contexto conversacional y rate limiting distribuido.",
       checks:["Buffer de mensajes TTL 120s por sesión","Historial de chat TTL 30 días (GDPR)","Stale context flag por approach E","Rate limiting 5 creates/h + 20/día por número"],
       tech:"Redis 7 · TTL policies · approach E flag", relatedIds:[2,4] },
-    { id:6, title:"Panel Owner", subtitle:"Next.js 16", icon:"🖥️", status:"live", accent:"#60a5fa",
-      fn:"Dashboard de gestión para el dueño del negocio. Acceso completo a citas, clientes, empleados y el agente.",
-      checks:["Panel Bot FASE 1 en construcción: /bot/overview, /bot/audit, /bot/activity","Botón Reactivar con audit trail Option β preservado","React Query v5 — polling 60s con refetchIntervalInBackground false","Roles: OWNER, EMPLOYEE, ADMIN con permisos granulares"],
-      tech:"Next.js 16 · TypeScript · shadcn/ui · React Query v5", relatedIds:[3,7] },
     { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
       fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
       checks:["RateLimitingFilter → WebhookApiKeyFilter → HMAC-SHA256","JwtAuthenticationFilter → @PreAuthorize por rol","Tenant isolation: businessId del JWT en cada query","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
-      tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize", relatedIds:[3,6] },
-    { id:10, title:"Recordatorios", subtitle:"Phase 2B", icon:"🔔", status:"live", accent:"#10b981",
+      tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize", relatedIds:[12,13] },
+    { id:10, title:"Recordatorios", subtitle:"WhatsApp automático", icon:"🔔", status:"live", accent:"#10b981",
       fn:"6 tipos de notificaciones outbound automáticas hacia los clientes por WhatsApp.",
       checks:["Confirmación de cita al reservar","Recordatorio 24h antes de la cita","Recordatorio 1h antes de la cita","Notificación aprobación/rechazo del owner","Idempotencia: sin duplicados tras revoke"],
-      tech:"Phase 2B completo · n8n outbound · Evolution API", relatedIds:[1,3] }
+      tech:"n8n outbound · Evolution API", relatedIds:[1,11] },
+    { id:11, title:"Notificaciones", subtitle:"6 tipos outbound", icon:"📨", status:"live", accent:"#10b981",
+      fn:"Sistema de notificaciones automáticas por WhatsApp tras cada evento del agente.",
+      checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId — sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
+      tech:"WhatsApp Business API · n8n outbound · correlationId · deduplicationKey", relatedIds:[1,10] },
+    { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#8b5cf6",
+      fn:"Arquitectura multi-tenant real. Cada negocio es un tenant completamente aislado. Ningún dato cruza entre negocios.",
+      checks:["businessId siempre del JWT, nunca del body (INV #1)","Cada query filtra por businessId obligatoriamente","4 vectores de ataque auditados y bloqueados","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
+      tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[7] },
+    { id:13, title:"Observabilidad", subtitle:"Sentry + Prometheus", icon:"🔍", status:"live", accent:"#f59e0b",
+      fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
+      checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
+      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[7] }
   ];
+
+  /* V-CENTER CARD DATA */
+  var vCoreCards = {
+    backend: {
+      icon:"⚙️", title:"Backend API", subtitle:"Java & Spring Boot 4",
+      accent:"#10b981", borderColor:"rgba(16,185,129,0.3)",
+      fn:"Fuente de verdad del sistema. Toda la lógica de negocio vive aquí. El agente es solo la capa conversacional.",
+      checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados","68 migraciones Flyway V1→V68 sin rollback","@Version optimistic locking — sin dobles reservas concurrentes","businessId siempre del JWT, nunca del body"],
+      tech:"Java 21 · Spring Boot 4.0.3 · JUnit + Testcontainers · Hibernate 7"
+    },
+    panel: {
+      icon:"🖥️", title:"Panel Owner", subtitle:"Next.js 16",
+      accent:"#60a5fa", borderColor:"rgba(96,165,250,0.3)",
+      fn:"Dashboard de gestión para el dueño del negocio. Acceso completo a citas, clientes, empleados y configuración del agente.",
+      checks:["Panel Bot FASE 1: /bot/overview, /bot/audit, /bot/activity","Reactivar citas canceladas con audit trail preservado (Option β)","React Query v5 — polling 60s, refetchIntervalInBackground false","Roles OWNER/EMPLOYEE/ADMIN con permisos granulares"],
+      tech:"Next.js 16 · TypeScript · shadcn/ui · React Query v5 · Tailwind v4"
+    }
+  };
 
   /* ================================================================
    * STATE
@@ -587,27 +515,31 @@ body::after {
   var animFrameId = null;
   var lastTime = 0;
   var centerModalOpen = false;
+  var vCoreCardOpen = null; // 'backend' | 'panel' | null
+  var overlay = null;
 
   var wrap = document.getElementById('orbitalWrap');
   var card = document.getElementById('detailCard');
   var hint = document.getElementById('orbitalHint');
   var connSvg = document.getElementById('connLines');
   var centerModal = document.getElementById('centerModal');
-  var vAgente = document.getElementById('vAgente');
+  var vAgenteEl = document.getElementById('vAgente');
   var vBackendEl = document.getElementById('vBackend');
   var vPanelEl = document.getElementById('vPanel');
   var lineBkAg = document.getElementById('lineBkAg');
   var linePlAg = document.getElementById('linePlAg');
   var lineBkPl = document.getElementById('lineBkPl');
+  var labelCore = document.getElementById('labelCore');
+  var labelInfra = document.getElementById('labelInfra');
   var nodeEls = {};
-  var RADIUS = 280;
+  var RADIUS = 250;
   var centerX, centerY;
 
   function getRadius() {
     var w = wrap.offsetWidth;
-    if (w < 480) return 168;
-    if (w < 768) return 210;
-    return 280;
+    if (w < 480) return 150;
+    if (w < 768) return 188;
+    return 250;
   }
 
   function getVOffsets() {
@@ -618,7 +550,21 @@ body::after {
   }
 
   /* ================================================================
-   * RENDER ORBITAL NODES (once)
+   * OVERLAY (CAMBIO 7)
+   * ================================================================ */
+  function showOverlay() {
+    if (overlay) return;
+    overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:transparent;';
+    overlay.addEventListener('click', function() { closeAll(); });
+    document.body.appendChild(overlay);
+  }
+  function removeOverlay() {
+    if (overlay) { overlay.remove(); overlay = null; }
+  }
+
+  /* ================================================================
+   * CREATE ORBITAL NODES
    * ================================================================ */
   function createNodes() {
     nodes.forEach(function(n) {
@@ -630,17 +576,14 @@ body::after {
         '<div class="node-icon" style="border-color:' + n.accent + '">' + n.icon + '</div>' +
         '<span class="node-title">' + n.title + '</span>' +
         '<span class="node-sub">' + n.subtitle + '</span>';
-      el.addEventListener('click', function(e) {
-        e.stopPropagation();
-        openNode(n.id);
-      });
+      el.addEventListener('click', function(e) { e.stopPropagation(); openNode(n.id); });
       wrap.appendChild(el);
       nodeEls[n.id] = el;
     });
   }
 
   /* ================================================================
-   * POSITION V-CENTER NODES + LINES
+   * POSITION V-CENTER + LABELS
    * ================================================================ */
   function positionVCenter() {
     var cx = wrap.offsetWidth / 2;
@@ -653,8 +596,8 @@ body::after {
 
     vBackendEl.style.left = bx + 'px'; vBackendEl.style.top = by + 'px';
     vBackendEl.style.transform = 'translate(-50%, -50%)';
-    vAgente.style.left = ax + 'px'; vAgente.style.top = ay + 'px';
-    vAgente.style.transform = 'translate(-50%, -50%)';
+    vAgenteEl.style.left = ax + 'px'; vAgenteEl.style.top = ay + 'px';
+    vAgenteEl.style.transform = 'translate(-50%, -50%)';
     vPanelEl.style.left = px + 'px'; vPanelEl.style.top = py + 'px';
     vPanelEl.style.transform = 'translate(-50%, -50%)';
 
@@ -664,6 +607,10 @@ body::after {
     linePlAg.setAttribute('x2', ax); linePlAg.setAttribute('y2', ay);
     lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
     lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
+
+    // Zone labels
+    labelCore.style.top = (cy - 100) + 'px';
+    labelInfra.style.top = (cy + 195) + 'px';
   }
 
   /* ================================================================
@@ -696,11 +643,10 @@ body::after {
   }
 
   /* ================================================================
-   * CONNECTION LINES (orbital)
+   * CONNECTION LINES
    * ================================================================ */
   function drawConnections() {
-    var svg = connSvg;
-    svg.innerHTML = '';
+    connSvg.innerHTML = '';
     if (activeNodeId === null) return;
 
     var active = nodes.find(function(n) { return n.id === activeNodeId; });
@@ -713,33 +659,55 @@ body::after {
     active.relatedIds.forEach(function(rid) {
       var rEl = nodeEls[rid];
       if (!rEl) return;
-      var rx = parseFloat(rEl.style.left);
-      var ry = parseFloat(rEl.style.top);
-
       var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', ax);
-      line.setAttribute('y1', ay);
-      line.setAttribute('x2', rx);
-      line.setAttribute('y2', ry);
+      line.setAttribute('x1', ax); line.setAttribute('y1', ay);
+      line.setAttribute('x2', parseFloat(rEl.style.left));
+      line.setAttribute('y2', parseFloat(rEl.style.top));
       line.setAttribute('class', 'conn-line is-active');
-      svg.appendChild(line);
+      connSvg.appendChild(line);
     });
 
-    // Line to center of V
+    // Line to center
     var cl = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    cl.setAttribute('x1', centerX);
-    cl.setAttribute('y1', centerY);
-    cl.setAttribute('x2', ax);
-    cl.setAttribute('y2', ay);
+    cl.setAttribute('x1', centerX); cl.setAttribute('y1', centerY);
+    cl.setAttribute('x2', ax); cl.setAttribute('y2', ay);
     cl.setAttribute('class', 'conn-line is-active');
-    svg.appendChild(cl);
+    connSvg.appendChild(cl);
   }
 
   /* ================================================================
-   * OPEN NODE — Style C card
+   * BUILD STYLE C CARD HTML
+   * ================================================================ */
+  function buildStyleC(data) {
+    var ac = data.accent;
+    var rgb = toRGB(ac);
+    var checksHtml = '';
+    if (data.checks && data.checks.length) {
+      checksHtml = '<div class="card-checks">';
+      data.checks.forEach(function(c) {
+        checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
+      });
+      checksHtml += '</div>';
+    }
+    return '<div class="card-header">' +
+      '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + data.icon + '</div>' +
+      '<div><div class="card-title">' + data.title + '</div><div class="card-subtitle">' + data.subtitle + '</div></div>' +
+    '</div>' +
+    '<span class="card-badge card-badge--live">LIVE</span>' +
+    '<div class="card-fn" style="border-left-color:' + ac + '">' +
+      '<div class="card-fn-label" style="color:' + ac + '">FUNCIÓN</div>' +
+      '<p class="card-fn-text">' + data.fn + '</p>' +
+    '</div>' +
+    checksHtml +
+    '<div class="card-tech-box">' + data.tech + '</div>';
+  }
+
+  /* ================================================================
+   * OPEN ORBITAL NODE
    * ================================================================ */
   function openNode(id) {
     closeCenterModal();
+    closeVCoreCard();
     autoRotate = false;
     activeNodeId = id;
 
@@ -750,15 +718,10 @@ body::after {
       nodeEls[k].classList.remove('is-active', 'is-pulsing');
       nodeEls[k].style.opacity = '0.3';
     });
-
     nodeEls[id].classList.add('is-active');
     nodeEls[id].style.opacity = '1';
-
     n.relatedIds.forEach(function(rid) {
-      if (nodeEls[rid]) {
-        nodeEls[rid].classList.add('is-pulsing');
-        nodeEls[rid].style.opacity = '0.9';
-      }
+      if (nodeEls[rid]) { nodeEls[rid].classList.add('is-pulsing'); nodeEls[rid].style.opacity = '0.9'; }
     });
 
     var ac = n.accent;
@@ -788,11 +751,12 @@ body::after {
       checksHtml +
       '<div class="card-tech-box">' + n.tech + '</div>';
 
+    card.style.borderColor = 'rgba(' + rgb + ',0.3)';
+
     var el = nodeEls[id];
     var nx = parseFloat(el.style.left);
     var ny = parseFloat(el.style.top);
     var wrapW = wrap.offsetWidth;
-    var wrapH = wrap.offsetHeight;
     var cardW = 320;
     if (wrapW < 480) cardW = 260;
     else if (wrapW < 768) cardW = 280;
@@ -806,13 +770,66 @@ body::after {
     card.style.left = left + 'px';
     card.style.top = top + 'px';
     card.classList.add('is-open');
+    showOverlay();
 
     hint.textContent = 'Haz clic fuera para volver a la vista orbital';
     positionNodes();
   }
 
   /* ================================================================
-   * CENTER MODAL TOGGLE
+   * OPEN V-CORE CARD (Backend / Panel)
+   * ================================================================ */
+  function openVCoreCard(type) {
+    closeCenterModal();
+    card.classList.remove('is-open');
+    connSvg.innerHTML = '';
+    activeNodeId = null;
+    Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
+
+    autoRotate = false;
+    vCoreCardOpen = type;
+
+    var data = vCoreCards[type];
+    card.innerHTML = buildStyleC(data);
+    card.style.borderColor = data.borderColor;
+
+    var vEl = type === 'backend' ? vBackendEl : vPanelEl;
+    var nx = parseFloat(vEl.style.left);
+    var ny = parseFloat(vEl.style.top);
+    var wrapW = wrap.offsetWidth;
+    var cardW = 320;
+    if (wrapW < 480) cardW = 260;
+    else if (wrapW < 768) cardW = 280;
+
+    var left, top;
+    if (type === 'panel') {
+      // Panel: card above the node
+      left = nx - cardW / 2;
+      top = ny - 340;
+      if (top < 8) top = 8;
+    } else {
+      // Backend: card to the right or left
+      left = nx > wrapW / 2 ? nx - cardW - 30 : nx + 30;
+      top = ny - 60;
+    }
+    if (left < 8) left = 8;
+    if (left + cardW > wrapW - 8) left = wrapW - cardW - 8;
+    if (top < 8) top = 8;
+
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+    card.classList.add('is-open');
+    showOverlay();
+
+    hint.textContent = 'Haz clic fuera para cerrar';
+  }
+
+  function closeVCoreCard() {
+    vCoreCardOpen = null;
+  }
+
+  /* ================================================================
+   * CENTER MODAL (Agente)
    * ================================================================ */
   function closeCenterModal() {
     centerModalOpen = false;
@@ -822,6 +839,7 @@ body::after {
   function toggleCenterModal() {
     if (centerModalOpen) {
       closeCenterModal();
+      removeOverlay();
       autoRotate = true;
       hint.textContent = 'Haz clic en cualquier nodo para ver los detalles';
       return;
@@ -829,15 +847,14 @@ body::after {
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
-    Object.keys(nodeEls).forEach(function(k) {
-      nodeEls[k].classList.remove('is-active', 'is-pulsing');
-    });
+    closeVCoreCard();
+    Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
 
     autoRotate = false;
     centerModalOpen = true;
 
-    var ax = parseFloat(vAgente.style.left);
-    var ay = parseFloat(vAgente.style.top);
+    var ax = parseFloat(vAgenteEl.style.left);
+    var ay = parseFloat(vAgenteEl.style.top);
     var modalW = 400;
     if (wrap.offsetWidth < 480) modalW = 280;
     else if (wrap.offsetWidth < 768) modalW = 340;
@@ -845,20 +862,23 @@ body::after {
     centerModal.style.left = (ax - modalW / 2) + 'px';
     centerModal.style.top = (ay + 60) + 'px';
     centerModal.classList.add('is-open');
+    showOverlay();
     hint.textContent = 'Haz clic fuera para cerrar';
   }
 
+  /* ================================================================
+   * CLOSE ALL
+   * ================================================================ */
   function closeAll() {
     autoRotate = true;
     activeNodeId = null;
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     closeCenterModal();
+    closeVCoreCard();
+    removeOverlay();
 
-    Object.keys(nodeEls).forEach(function(k) {
-      nodeEls[k].classList.remove('is-active', 'is-pulsing');
-    });
-
+    Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
     hint.textContent = 'Haz clic en cualquier nodo para ver los detalles';
   }
 
@@ -869,10 +889,7 @@ body::after {
     if (lastTime === 0) lastTime = time;
     var delta = time - lastTime;
     lastTime = time;
-
-    if (autoRotate) {
-      rotationAngle = (rotationAngle + 0.15 * (delta / 16.67)) % 360;
-    }
+    if (autoRotate) { rotationAngle = (rotationAngle + 0.15 * (delta / 16.67)) % 360; }
     positionNodes();
     animFrameId = requestAnimationFrame(animate);
   }
@@ -886,13 +903,12 @@ body::after {
     positionNodes();
     animFrameId = requestAnimationFrame(animate);
 
-    // Agente V-node toggles modes modal
-    vAgente.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleCenterModal();
-    });
+    // V-center click handlers
+    vAgenteEl.addEventListener('click', function(e) { e.stopPropagation(); toggleCenterModal(); });
+    vBackendEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('backend'); });
+    vPanelEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('panel'); });
 
-    // Background click closes everything
+    // Background click
     wrap.addEventListener('click', function(e) {
       if (e.target === wrap || e.target.classList.contains('orbital-ring') ||
           e.target.classList.contains('orbital-ring-inner')) {
@@ -902,20 +918,12 @@ body::after {
 
     // Pause when tab hidden
     document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        cancelAnimationFrame(animFrameId);
-        lastTime = 0;
-      } else {
-        lastTime = 0;
-        animFrameId = requestAnimationFrame(animate);
-      }
+      if (document.hidden) { cancelAnimationFrame(animFrameId); lastTime = 0; }
+      else { lastTime = 0; animFrameId = requestAnimationFrame(animate); }
     });
 
     // Responsive recalc
-    window.addEventListener('resize', function() {
-      positionVCenter();
-      positionNodes();
-    });
+    window.addEventListener('resize', function() { positionVCenter(); positionNodes(); });
   }
 
   if (document.readyState !== 'loading') init();
