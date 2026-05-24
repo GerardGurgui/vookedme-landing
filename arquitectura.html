@@ -28,6 +28,8 @@
   --text-muted: #6b7280;
   --accent: #10b981;
   --lila: #8b5cf6;
+  --blue: #60a5fa;
+  --amber: #f59e0b;
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
@@ -100,7 +102,7 @@ body::after {
   position: relative; z-index: 1;
 }
 .arch-eyebrow {
-  display: inline-block; font-size: 16px; font-weight: 600;
+  display: inline-block; font-size: 18px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 2px; color: var(--accent);
   margin-bottom: 16px;
 }
@@ -112,15 +114,10 @@ body::after {
   color: var(--text-soft); font-size: 16px; line-height: 1.6;
   max-width: 560px; margin: 0 auto 24px;
 }
-.arch-stats {
-  display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 24px;
-  font-size: 13px; font-weight: 600; color: rgba(16,185,129,0.7);
-}
-.arch-stats span { white-space: nowrap; }
 
 /* ===== ORBITAL CONTAINER ===== */
 .orbital-wrap {
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
   width: 100%; max-width: 800px; height: 700px;
   margin: 0 auto; cursor: default;
 }
@@ -139,33 +136,47 @@ body::after {
   border-radius: 50%; pointer-events: none;
 }
 
-/* ===== CENTER NODE ===== */
-.center-node {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  z-index: 5;
+/* ===== V-CENTER NODES ===== */
+.v-center-lines { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.v-node {
+  position: absolute; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; transition: transform 0.15s ease;
+  user-select: none;
 }
-.center-circle {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: linear-gradient(135deg, #10b981, #8b5cf6);
+.v-node:hover { transform: translate(-50%, -50%) scale(1.08); }
+.v-node--decorative { cursor: default; }
+.v-node--decorative:hover { transform: translate(-50%, -50%); }
+.v-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--bg); border: 2px solid;
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px; position: relative;
+  font-size: 22px; transition: box-shadow 0.3s;
 }
-.center-circle::before, .center-circle::after {
-  content: ''; position: absolute; inset: -8px; border-radius: 50%;
-  border: 2px solid rgba(16,185,129,0.3);
-  animation: ping-ring 2.5s ease-out infinite;
+.v-node:hover .v-icon { box-shadow: 0 0 12px rgba(255,255,255,0.1); }
+.v-node--decorative:hover .v-icon { box-shadow: none; }
+.v-icon-wrap { position: relative; }
+.v-ring {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 1px solid rgba(139,92,246,0.15);
 }
-.center-circle::after { inset: -16px; animation-delay: 1.25s; }
-@keyframes ping-ring {
-  0% { opacity: 0.6; transform: scale(0.9); }
-  100% { opacity: 0; transform: scale(1.3); }
+.v-name {
+  font-size: 13px; font-weight: 700; color: #fff;
+  white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7);
 }
-.center-label {
-  font-size: 14px; font-weight: 700; color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+.v-sub {
+  font-size: 11px; color: var(--text-muted);
+  white-space: nowrap; margin-top: -2px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
 }
+.v-badge {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 2px 8px; border-radius: 999px; margin-top: 2px;
+}
+.v-badge--green { background: rgba(16,185,129,0.15); color: #10b981; }
+.v-badge--lila { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+.v-badge--blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
 
 /* ===== ORBITAL NODES ===== */
 .orbital-node {
@@ -219,14 +230,15 @@ body::after {
   stroke: rgba(16,185,129,0.5); stroke-width: 1.5;
 }
 
-/* ===== DETAIL CARD ===== */
+/* ===== DETAIL CARD (Style C) ===== */
 .detail-card {
-  position: absolute; z-index: 50;
-  width: 300px; padding: 20px;
-  background: var(--surface);
+  position: absolute; z-index: 300;
+  width: 320px; padding: 20px;
+  background: rgba(13,17,23,0.97);
   border: 1px solid var(--border-accent);
   border-radius: 14px;
   backdrop-filter: blur(12px);
+  max-height: 80vh; overflow-y: auto;
   opacity: 0; transform: translateY(8px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
   pointer-events: none;
@@ -240,7 +252,6 @@ body::after {
 }
 .card-icon {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2);
   display: flex; align-items: center; justify-content: center; font-size: 20px;
 }
 .card-title { font-size: 16px; font-weight: 700; color: var(--text); }
@@ -248,40 +259,43 @@ body::after {
 .card-badge {
   display: inline-block; font-size: 12px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
-  padding: 3px 10px; border-radius: 999px; margin-bottom: 10px;
+  padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
 }
 .card-badge--live { background: rgba(16,185,129,0.15); color: var(--accent); }
 .card-badge--soon { background: rgba(139,92,246,0.15); color: var(--lila); }
 .card-badge--roadmap { background: rgba(55,65,81,0.3); color: #9ca3af; }
-.card-content {
-  font-size: 14px; line-height: 1.6; color: var(--text-soft);
-  margin-bottom: 12px;
+
+/* Style C sections */
+.card-fn {
+  border-left: 3px solid; padding: 10px 0 10px 14px; margin-bottom: 14px;
 }
-.card-tech {
-  font-size: 12px; color: var(--text-muted); padding: 8px 10px;
-  background: rgba(255,255,255,0.03); border-radius: 8px;
-  margin-bottom: 12px; font-family: 'Inter', monospace;
+.card-fn-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 6px;
 }
-.card-related-label {
-  font-size: 10px; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px;
+.card-fn-text {
+  font-size: 13px; line-height: 1.6; color: var(--text-soft); margin: 0;
 }
-.card-related-btns { display: flex; flex-wrap: wrap; gap: 6px; }
-.card-related-btn {
-  font-size: 11px; font-weight: 600; padding: 4px 10px;
-  border-radius: 6px; border: 1px solid rgba(16,185,129,0.2);
-  background: rgba(16,185,129,0.06); color: var(--accent);
-  cursor: pointer; transition: background 0.2s;
+.card-checks { margin-bottom: 14px; }
+.card-check {
+  font-size: 13px; color: #9ca3af; line-height: 1.8;
+  display: flex; gap: 8px; align-items: flex-start;
 }
-.card-related-btn:hover { background: rgba(16,185,129,0.15); }
+.card-check-mark { font-weight: 700; flex-shrink: 0; }
+.card-tech-box {
+  font-size: 11px; color: #6b7280; font-family: monospace;
+  padding: 10px 12px; background: rgba(255,255,255,0.02);
+  border-radius: 6px; line-height: 1.5;
+}
 
 /* ===== CENTER MODAL (3 modes) ===== */
 .center-modal {
   position: absolute; z-index: 300;
-  width: 380px; padding: 24px;
+  width: 400px; padding: 24px;
   background: rgba(13,17,23,0.97);
   border: 1px solid rgba(139,92,246,0.3);
   border-radius: 12px;
+  max-height: 80vh; overflow-y: auto;
   opacity: 0; transform: translateY(8px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
   pointer-events: none;
@@ -355,15 +369,16 @@ body::after {
   .orbital-wrap { height: 560px; }
   .orbital-ring { width: 420px; height: 420px; }
   .orbital-ring-inner { width: 210px; height: 210px; }
-  .detail-card { width: 260px; padding: 16px; }
-  .center-modal { width: 320px !important; padding: 20px !important; }
+  .detail-card { width: 280px; padding: 16px; }
+  .center-modal { width: 340px !important; padding: 20px !important; }
 }
 @media (max-width: 480px) {
   .orbital-wrap { height: 460px; }
   .orbital-ring { width: 336px; height: 336px; }
   .orbital-ring-inner { width: 168px; height: 168px; }
   .node-title, .node-sub { display: none; }
-  .detail-card { width: 240px; font-size: 12px; }
+  .v-name, .v-sub, .v-badge { display: none; }
+  .detail-card { width: 260px; font-size: 12px; }
   .center-modal { width: 280px !important; padding: 16px !important; }
 }
 </style>
@@ -409,39 +424,76 @@ body::after {
   <div class="orbital-ring"></div>
   <div class="orbital-ring-inner"></div>
 
-  <svg class="connection-lines" id="connLines" width="100%" height="100%"></svg>
+  <!-- V-CENTER LINES -->
+  <svg class="v-center-lines" id="vLines" width="100%" height="100%">
+    <defs>
+      <linearGradient id="gBkAg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#10b981" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+      </linearGradient>
+      <linearGradient id="gPlAg" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+      </linearGradient>
+    </defs>
+    <line id="lineBkAg" stroke="url(#gBkAg)" stroke-width="1.5" stroke-linecap="round"/>
+    <line id="linePlAg" stroke="url(#gPlAg)" stroke-width="1.5" stroke-linecap="round"/>
+    <line id="lineBkPl" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+  </svg>
 
-  <div class="center-node" id="centerNode">
-    <div class="center-circle">🧠</div>
-    <div class="center-label">Agente</div>
+  <!-- V-CENTER NODES -->
+  <div class="v-node v-node--decorative" id="vBackend">
+    <div class="v-icon" style="border-color:#10b981">⚙️</div>
+    <span class="v-name">Backend API</span>
+    <span class="v-sub">Java &amp; Spring Boot 4</span>
+    <span class="v-badge v-badge--green">LIVE</span>
   </div>
 
-  <!-- Center modal (3 modes) -->
+  <div class="v-node" id="vAgente">
+    <div class="v-icon-wrap">
+      <div class="v-ring"></div>
+      <div class="v-icon" style="border-color:#8b5cf6">🤖</div>
+    </div>
+    <span class="v-name">Agente</span>
+    <span class="v-sub">n8n &middot; OpenAI</span>
+    <span class="v-badge v-badge--lila">LIVE</span>
+  </div>
+
+  <div class="v-node v-node--decorative" id="vPanel">
+    <div class="v-icon" style="border-color:#60a5fa">🖥️</div>
+    <span class="v-name">Panel Owner</span>
+    <span class="v-sub">Next.js 16</span>
+    <span class="v-badge v-badge--blue">LIVE</span>
+  </div>
+
+  <!-- ORBITAL CONNECTION LINES -->
+  <svg class="connection-lines" id="connLines" width="100%" height="100%"></svg>
+
+  <!-- CENTER MODAL (3 modes) -->
   <div class="center-modal" id="centerModal">
     <div class="cm-title">Agente Vookedme</div>
     <div class="cm-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
     <div class="cm-mode cm-mode--live">
       <span class="cm-mode-badge cm-mode-badge--live">LIVE</span>
       <div class="cm-mode-name">Modo Recepcionista</div>
-      <div class="cm-mode-desc">El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable (1-24h). Si el owner no responde, la cita se libera autom&aacute;ticamente.</div>
-      <div class="cm-mode-tech">APPROVAL_REQUIRED &middot; BotEventType: BOT_PROPOSED &rarr; OWNER_APPROVED/REJECTED &middot; PendingApprovalTimeoutJob</div>
+      <div class="cm-mode-desc">El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable (1-24h). Si no hay respuesta, la cita se libera autom&aacute;ticamente.</div>
+      <div class="cm-mode-tech">APPROVAL_REQUIRED &middot; BOT_PROPOSED &rarr; OWNER_APPROVED/REJECTED &middot; PendingApprovalTimeoutJob</div>
     </div>
     <div class="cm-mode cm-mode--soon">
       <span class="cm-mode-badge cm-mode-badge--soon">PR&Oacute;XIMO</span>
       <div class="cm-mode-name">Modo Aut&oacute;nomo</div>
-      <div class="cm-mode-desc">El agente confirma citas directamente sin intervenci&oacute;n del owner. Algoritmo de auto-asignaci&oacute;n de empleado por menor carga del d&iacute;a. M&aacute;xima eficiencia operativa.</div>
-      <div class="cm-mode-tech">AUTO_CONFIRM &middot; auto-assign algorithm &middot; BotEventType: BOT_AUTO_CONFIRMED</div>
+      <div class="cm-mode-desc">El agente confirma citas directamente sin intervenci&oacute;n. Algoritmo de auto-asignaci&oacute;n por menor carga del d&iacute;a. M&aacute;xima eficiencia operativa.</div>
+      <div class="cm-mode-tech">AUTO_CONFIRM &middot; auto-assign algorithm &middot; BOT_AUTO_CONFIRMED</div>
     </div>
     <div class="cm-mode cm-mode--roadmap">
       <span class="cm-mode-badge cm-mode-badge--roadmap">ROADMAP</span>
       <div class="cm-mode-name">Modo Supervisado</div>
-      <div class="cm-mode-desc">El owner ve cada conversaci&oacute;n antes de que el agente responda. Aprobaci&oacute;n mensaje a mensaje. Requiere WebSocket y cola de revisi&oacute;n en tiempo real.</div>
+      <div class="cm-mode-desc">El owner revisa cada conversaci&oacute;n antes de que el agente responda. Aprobaci&oacute;n mensaje a mensaje. Requiere WebSocket y cola de revisi&oacute;n en tiempo real.</div>
       <div class="cm-mode-tech">TRIAGE &middot; WebSocket &middot; BotRequest entity &middot; cola de aprobaci&oacute;n</div>
     </div>
   </div>
 
-  <!-- Nodes rendered by JS -->
-  <!-- Detail card rendered by JS -->
+  <!-- DETAIL CARD -->
   <div class="detail-card" id="detailCard"></div>
 </div>
 
@@ -478,33 +530,52 @@ body::after {
 <script>
 (function() {
   /* ================================================================
-   * DATA
+   * ACCENT COLOR HELPERS
+   * ================================================================ */
+  var rgbMap = {
+    '#10b981':'16,185,129',
+    '#60a5fa':'96,165,250',
+    '#f59e0b':'245,158,11',
+    '#8b5cf6':'139,92,246'
+  };
+  function toRGB(hex) { return rgbMap[hex] || '16,185,129'; }
+
+  /* ================================================================
+   * DATA — 8 orbital nodes
    * ================================================================ */
   var nodes = [
-    { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live",
-      content:"Puerta de entrada del sistema. Los clientes escriben por WhatsApp Business y el agente responde en tiempo real.",
-      tech:"Evolution API + WebSocket", relatedIds:[2,3] },
-    { id:2, title:"n8n", subtitle:"Orchestration", icon:"🔄", status:"live",
-      content:"Workflow FIXED-v15 activo. Coordina el flujo de conversación, llama al LLM y ejecuta las herramientas del backend. 4 herramientas del agente: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita. HMAC-SHA256 en todos los webhooks. Stale context detection con flag Redis approach E.",
-      tech:"n8n self-hosted + OpenAI gpt-4o-mini", relatedIds:[1,3,4] },
-    { id:3, title:"Backend API", subtitle:"Spring Boot 4", icon:"⚙️", status:"live",
-      content:"Fuente de verdad del sistema. Java 21 + Spring Boot 4. Todas las validaciones, reglas de negocio e invariantes de dominio viven aquí. 524 tests (98 bot package + 426 rest). 55 invariantes de dominio documentados. Tenant isolation: businessId siempre del JWT, nunca del body. State machine con 7 estados de cita. @Version optimistic locking contra dobles reservas concurrentes.",
-      tech:"Java 21 · Spring Boot 4 · JUnit + Testcontainers", relatedIds:[1,2,4,5,6] },
-    { id:4, title:"PostgreSQL", subtitle:"68 migraciones", icon:"🗄️", status:"live",
-      content:"Base de datos principal. 68 migraciones Flyway aplicadas. @Version optimistic locking para prevenir dobles reservas.",
-      tech:"PostgreSQL 16 · Flyway · @Version", relatedIds:[3,5] },
-    { id:5, title:"Redis", subtitle:"Chat history", icon:"⚡", status:"live",
-      content:"Historial de conversaciones por sesión. TTL configurado a 120s por buffer, 30 días para logs. Rate limiting distribuido.",
-      tech:"Redis 7 · TTL policies", relatedIds:[2,4] },
-    { id:6, title:"Panel Owner", subtitle:"Next.js 16", icon:"🖥️", status:"live",
-      content:"Dashboard para el dueño del negocio. Gestión de citas, clientes, empleados, horarios y panel de control del agente. Panel Bot FASE 1 en construcción: /bot/overview, /bot/settings, /bot/audit, /bot/activity. Botón Reactivar para restaurar citas canceladas con audit trail preservado. React Query v5 con polling 60s.",
+    { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live", accent:"#10b981",
+      fn:"Puerta de entrada del sistema. Los clientes escriben por WhatsApp Business y el agente responde en tiempo real.",
+      checks:["Evolution API como gateway","HMAC-SHA256 en todos los webhooks","Rate limiting: 5 creates/h + 20/día por cliente"],
+      tech:"Evolution API · WhatsApp Business API", relatedIds:[2,3] },
+    { id:2, title:"n8n", subtitle:"Orchestration", icon:"🔄", status:"live", accent:"#10b981",
+      fn:"Orquestador de la conversación. Interpreta mensajes, llama al LLM y ejecuta las 4 herramientas del agente.",
+      checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Stale context detection con flag Redis approach E"],
+      tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[1,3,4] },
+    { id:3, title:"Backend API", subtitle:"Spring Boot 4", icon:"⚙️", status:"live", accent:"#10b981",
+      fn:"Fuente de verdad del sistema. Toda la lógica de negocio vive aquí. El agente es solo la capa conversacional.",
+      checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados","68 migraciones Flyway V1→V68 aplicadas","@Version optimistic locking — sin dobles reservas","businessId siempre del JWT, nunca del body"],
+      tech:"Java 21 · Spring Boot 4.0.3 · JUnit + Testcontainers", relatedIds:[1,2,4,5,6] },
+    { id:4, title:"PostgreSQL", subtitle:"68 migraciones", icon:"🗄️", status:"live", accent:"#60a5fa",
+      fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
+      checks:["68 migraciones Flyway — zero downtime","@Version optimistic locking en appointments","7 estados de cita con state machine definida","Audit trail preservado en revoke y cancelaciones"],
+      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[3,5] },
+    { id:5, title:"Redis", subtitle:"Chat history", icon:"⚡", status:"live", accent:"#60a5fa",
+      fn:"Cache de contexto conversacional y rate limiting distribuido.",
+      checks:["Buffer de mensajes TTL 120s por sesión","Historial de chat TTL 30 días (GDPR)","Stale context flag por approach E","Rate limiting 5 creates/h + 20/día por número"],
+      tech:"Redis 7 · TTL policies · approach E flag", relatedIds:[2,4] },
+    { id:6, title:"Panel Owner", subtitle:"Next.js 16", icon:"🖥️", status:"live", accent:"#60a5fa",
+      fn:"Dashboard de gestión para el dueño del negocio. Acceso completo a citas, clientes, empleados y el agente.",
+      checks:["Panel Bot FASE 1 en construcción: /bot/overview, /bot/audit, /bot/activity","Botón Reactivar con audit trail Option β preservado","React Query v5 — polling 60s con refetchIntervalInBackground false","Roles: OWNER, EMPLOYEE, ADMIN con permisos granulares"],
       tech:"Next.js 16 · TypeScript · shadcn/ui · React Query v5", relatedIds:[3,7] },
-    { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live",
-      content:"5 capas en secuencia: RateLimitingFilter → WebhookApiKeyFilter → WebhookSignatureFilter (HMAC-SHA256) → JwtAuthenticationFilter → @PreAuthorize por rol. Roles: ADMIN, OWNER, EMPLOYEE con matrices de permisos distintas. Tenant isolation enforced en cada query.",
-      tech:"JWT · HMAC-SHA256 · Spring Security", relatedIds:[3,6] },
-    { id:10, title:"Recordatorios", subtitle:"Phase 2B", icon:"🔔", status:"live",
-      content:"6 tipos de notificaciones outbound: confirmación, 24h antes, 1h antes, aprobación, rechazo, cancelación.",
-      tech:"WhatsApp Business API · n8n outbound", relatedIds:[1,3] }
+    { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
+      fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
+      checks:["RateLimitingFilter → WebhookApiKeyFilter → HMAC-SHA256","JwtAuthenticationFilter → @PreAuthorize por rol","Tenant isolation: businessId del JWT en cada query","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
+      tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize", relatedIds:[3,6] },
+    { id:10, title:"Recordatorios", subtitle:"Phase 2B", icon:"🔔", status:"live", accent:"#10b981",
+      fn:"6 tipos de notificaciones outbound automáticas hacia los clientes por WhatsApp.",
+      checks:["Confirmación de cita al reservar","Recordatorio 24h antes de la cita","Recordatorio 1h antes de la cita","Notificación aprobación/rechazo del owner","Idempotencia: sin duplicados tras revoke"],
+      tech:"Phase 2B completo · n8n outbound · Evolution API", relatedIds:[1,3] }
   ];
 
   /* ================================================================
@@ -515,14 +586,19 @@ body::after {
   var activeNodeId = null;
   var animFrameId = null;
   var lastTime = 0;
+  var centerModalOpen = false;
 
   var wrap = document.getElementById('orbitalWrap');
   var card = document.getElementById('detailCard');
   var hint = document.getElementById('orbitalHint');
   var connSvg = document.getElementById('connLines');
   var centerModal = document.getElementById('centerModal');
-  var centerNode = document.getElementById('centerNode');
-  var centerModalOpen = false;
+  var vAgente = document.getElementById('vAgente');
+  var vBackendEl = document.getElementById('vBackend');
+  var vPanelEl = document.getElementById('vPanel');
+  var lineBkAg = document.getElementById('lineBkAg');
+  var linePlAg = document.getElementById('linePlAg');
+  var lineBkPl = document.getElementById('lineBkPl');
   var nodeEls = {};
   var RADIUS = 280;
   var centerX, centerY;
@@ -534,8 +610,15 @@ body::after {
     return 280;
   }
 
+  function getVOffsets() {
+    var w = wrap.offsetWidth;
+    if (w < 480) return { ox: 55, oy: 42 };
+    if (w < 768) return { ox: 80, oy: 60 };
+    return { ox: 110, oy: 80 };
+  }
+
   /* ================================================================
-   * RENDER NODES (once)
+   * RENDER ORBITAL NODES (once)
    * ================================================================ */
   function createNodes() {
     nodes.forEach(function(n) {
@@ -544,7 +627,7 @@ body::after {
       el.setAttribute('data-id', n.id);
       el.setAttribute('data-status', n.status);
       el.innerHTML =
-        '<div class="node-icon">' + n.icon + '</div>' +
+        '<div class="node-icon" style="border-color:' + n.accent + '">' + n.icon + '</div>' +
         '<span class="node-title">' + n.title + '</span>' +
         '<span class="node-sub">' + n.subtitle + '</span>';
       el.addEventListener('click', function(e) {
@@ -557,7 +640,34 @@ body::after {
   }
 
   /* ================================================================
-   * POSITION NODES
+   * POSITION V-CENTER NODES + LINES
+   * ================================================================ */
+  function positionVCenter() {
+    var cx = wrap.offsetWidth / 2;
+    var cy = wrap.offsetHeight / 2;
+    var v = getVOffsets();
+
+    var bx = cx - v.ox, by = cy - v.oy;
+    var ax = cx, ay = cy + v.oy;
+    var px = cx + v.ox, py = cy - v.oy;
+
+    vBackendEl.style.left = bx + 'px'; vBackendEl.style.top = by + 'px';
+    vBackendEl.style.transform = 'translate(-50%, -50%)';
+    vAgente.style.left = ax + 'px'; vAgente.style.top = ay + 'px';
+    vAgente.style.transform = 'translate(-50%, -50%)';
+    vPanelEl.style.left = px + 'px'; vPanelEl.style.top = py + 'px';
+    vPanelEl.style.transform = 'translate(-50%, -50%)';
+
+    lineBkAg.setAttribute('x1', bx); lineBkAg.setAttribute('y1', by);
+    lineBkAg.setAttribute('x2', ax); lineBkAg.setAttribute('y2', ay);
+    linePlAg.setAttribute('x1', px); linePlAg.setAttribute('y1', py);
+    linePlAg.setAttribute('x2', ax); linePlAg.setAttribute('y2', ay);
+    lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
+    lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
+  }
+
+  /* ================================================================
+   * POSITION ORBITAL NODES
    * ================================================================ */
   function positionNodes() {
     RADIUS = getRadius();
@@ -586,7 +696,7 @@ body::after {
   }
 
   /* ================================================================
-   * CONNECTION LINES
+   * CONNECTION LINES (orbital)
    * ================================================================ */
   function drawConnections() {
     var svg = connSvg;
@@ -615,7 +725,7 @@ body::after {
       svg.appendChild(line);
     });
 
-    // center to active
+    // Line to center of V
     var cl = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     cl.setAttribute('x1', centerX);
     cl.setAttribute('y1', centerY);
@@ -626,7 +736,7 @@ body::after {
   }
 
   /* ================================================================
-   * OPEN / CLOSE NODE
+   * OPEN NODE — Style C card
    * ================================================================ */
   function openNode(id) {
     closeCenterModal();
@@ -636,17 +746,14 @@ body::after {
     var n = nodes.find(function(nd) { return nd.id === id; });
     if (!n) return;
 
-    // Reset all nodes
     Object.keys(nodeEls).forEach(function(k) {
       nodeEls[k].classList.remove('is-active', 'is-pulsing');
       nodeEls[k].style.opacity = '0.3';
     });
 
-    // Activate this node
     nodeEls[id].classList.add('is-active');
     nodeEls[id].style.opacity = '1';
 
-    // Pulse related
     n.relatedIds.forEach(function(rid) {
       if (nodeEls[rid]) {
         nodeEls[rid].classList.add('is-pulsing');
@@ -654,63 +761,59 @@ body::after {
       }
     });
 
-    // Build card
+    var ac = n.accent;
+    var rgb = toRGB(ac);
     var badgeClass = 'card-badge--' + n.status;
     var badgeText = n.status === 'live' ? 'LIVE' : n.status === 'soon' ? 'PRÓXIMO' : 'ROADMAP';
 
-    var relatedHtml = '';
-    if (n.relatedIds.length) {
-      relatedHtml = '<div class="card-related-label">Conectado con</div><div class="card-related-btns">';
-      n.relatedIds.forEach(function(rid) {
-        var rn = nodes.find(function(nd) { return nd.id === rid; });
-        if (rn) relatedHtml += '<button class="card-related-btn" data-goto="' + rid + '">' + rn.icon + ' ' + rn.title + '</button>';
+    var checksHtml = '';
+    if (n.checks && n.checks.length) {
+      checksHtml = '<div class="card-checks">';
+      n.checks.forEach(function(c) {
+        checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
       });
-      relatedHtml += '</div>';
+      checksHtml += '</div>';
     }
 
     card.innerHTML =
       '<div class="card-header">' +
-        '<div class="card-icon">' + n.icon + '</div>' +
+        '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + n.icon + '</div>' +
         '<div><div class="card-title">' + n.title + '</div><div class="card-subtitle">' + n.subtitle + '</div></div>' +
       '</div>' +
       '<span class="card-badge ' + badgeClass + '">' + badgeText + '</span>' +
-      '<p class="card-content">' + n.content + '</p>' +
-      '<div class="card-tech">' + n.tech + '</div>' +
-      relatedHtml;
+      '<div class="card-fn" style="border-left-color:' + ac + '">' +
+        '<div class="card-fn-label" style="color:' + ac + '">FUNCIÓN</div>' +
+        '<p class="card-fn-text">' + n.fn + '</p>' +
+      '</div>' +
+      checksHtml +
+      '<div class="card-tech-box">' + n.tech + '</div>';
 
-    // Position card near node
     var el = nodeEls[id];
     var nx = parseFloat(el.style.left);
     var ny = parseFloat(el.style.top);
     var wrapW = wrap.offsetWidth;
     var wrapH = wrap.offsetHeight;
-    var cardW = 300;
-    if (wrapW < 480) cardW = 240;
-    else if (wrapW < 768) cardW = 260;
+    var cardW = 320;
+    if (wrapW < 480) cardW = 260;
+    else if (wrapW < 768) cardW = 280;
 
     var left = nx > wrapW / 2 ? nx - cardW - 30 : nx + 30;
     var top = ny - 60;
     if (left < 8) left = 8;
     if (left + cardW > wrapW - 8) left = wrapW - cardW - 8;
     if (top < 8) top = 8;
-    if (top + 300 > wrapH) top = wrapH - 310;
 
     card.style.left = left + 'px';
     card.style.top = top + 'px';
     card.classList.add('is-open');
 
-    // Bind related buttons
-    card.querySelectorAll('.card-related-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        openNode(parseInt(btn.getAttribute('data-goto')));
-      });
-    });
-
     hint.textContent = 'Haz clic fuera para volver a la vista orbital';
     positionNodes();
   }
 
+  /* ================================================================
+   * CENTER MODAL TOGGLE
+   * ================================================================ */
   function closeCenterModal() {
     centerModalOpen = false;
     centerModal.classList.remove('is-open');
@@ -723,7 +826,6 @@ body::after {
       hint.textContent = 'Haz clic en cualquier nodo para ver los detalles';
       return;
     }
-    // Close any open node card first
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
@@ -734,14 +836,14 @@ body::after {
     autoRotate = false;
     centerModalOpen = true;
 
-    // Position below center node
-    var cx = wrap.offsetWidth / 2;
-    var cy = wrap.offsetHeight / 2;
-    var modalW = 380;
+    var ax = parseFloat(vAgente.style.left);
+    var ay = parseFloat(vAgente.style.top);
+    var modalW = 400;
     if (wrap.offsetWidth < 480) modalW = 280;
-    else if (wrap.offsetWidth < 768) modalW = 320;
-    centerModal.style.left = (cx - modalW / 2) + 'px';
-    centerModal.style.top = (cy + 50) + 'px';
+    else if (wrap.offsetWidth < 768) modalW = 340;
+
+    centerModal.style.left = (ax - modalW / 2) + 'px';
+    centerModal.style.top = (ay + 60) + 'px';
     centerModal.classList.add('is-open');
     hint.textContent = 'Haz clic fuera para cerrar';
   }
@@ -761,7 +863,7 @@ body::after {
   }
 
   /* ================================================================
-   * ANIMATION LOOP (rAF)
+   * ANIMATION LOOP
    * ================================================================ */
   function animate(time) {
     if (lastTime === 0) lastTime = time;
@@ -780,16 +882,17 @@ body::after {
    * ================================================================ */
   function init() {
     createNodes();
+    positionVCenter();
     positionNodes();
     animFrameId = requestAnimationFrame(animate);
 
-    // Click center node to toggle modes modal
-    centerNode.addEventListener('click', function(e) {
+    // Agente V-node toggles modes modal
+    vAgente.addEventListener('click', function(e) {
       e.stopPropagation();
       toggleCenterModal();
     });
 
-    // Click background to close
+    // Background click closes everything
     wrap.addEventListener('click', function(e) {
       if (e.target === wrap || e.target.classList.contains('orbital-ring') ||
           e.target.classList.contains('orbital-ring-inner')) {
@@ -809,7 +912,10 @@ body::after {
     });
 
     // Responsive recalc
-    window.addEventListener('resize', function() { positionNodes(); });
+    window.addEventListener('resize', function() {
+      positionVCenter();
+      positionNodes();
+    });
   }
 
   if (document.readyState !== 'loading') init();
