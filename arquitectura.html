@@ -963,8 +963,8 @@ body::after {
     var cy = wrap.offsetHeight / 2;
     var v = getVOffsets();
 
-    /* Decision Engine at absolute center */
-    var ex = cx, ey = cy;
+    /* Decision Engine slightly above center for visual balance */
+    var ex = cx, ey = cy - 20;
     /* Backend upper-left */
     var bx = cx - v.ox, by = cy - v.oy;
     /* Panel upper-right */
@@ -989,8 +989,8 @@ body::after {
     lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
     lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
 
-    labelCore.style.top = (cy - v.oy - 55) + 'px';
-    labelInfra.style.top = (cy + 195) + 'px';
+    labelCore.style.top = (by - 58) + 'px';
+    labelInfra.style.top = (ay + 65) + 'px';
   }
 
   /* ================================================================
