@@ -133,7 +133,7 @@ body::after {
 .v-icon-wrap { position: relative; }
 .v-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(139,92,246,0.15); }
 .v-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
-.v-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; margin-top: -2px; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+.v-sub { font-size: 11px; color: #9ca3af; white-space: nowrap; margin-top: -2px; text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
 .v-badge {
   display: inline-block; font-size: 9px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
@@ -161,7 +161,7 @@ body::after {
 .orbital-node[data-status="soon"] .node-icon { border-color: var(--lila); opacity: 0.85; }
 .orbital-node[data-status="roadmap"] .node-icon { border-color: #374151; opacity: 0.6; }
 .node-title { font-size: 14px; font-weight: 700; color: #f0fdf4; text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; }
-.node-sub { font-size: 12px; color: var(--text-muted); text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; margin-top: -2px; }
+.node-sub { font-size: 12px; color: #9ca3af; text-shadow: 0 1px 6px rgba(0,0,0,0.8); white-space: nowrap; margin-top: -2px; }
 .orbital-node.is-active .node-icon { box-shadow: 0 0 20px rgba(16,185,129,0.5); }
 .orbital-node.is-pulsing .node-icon { animation: node-pulse 0.8s ease-in-out 2; }
 @keyframes node-pulse {
@@ -488,7 +488,7 @@ body::after {
    * DATA — 9 orbital nodes
    * ================================================================ */
   var nodes = [
-    { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live", accent:"#10b981",
+    { id:1, title:"WhatsApp", subtitle:"Messaging gateway", icon:"💬", status:"live", accent:"#10b981",
       fn:"Puerta de entrada del sistema. Los clientes escriben por WhatsApp Business y el agente responde en tiempo real.",
       checks:["Evolution API como gateway","HMAC-SHA256 en todos los webhooks","Rate limiting: 5 creates/h + 20/día por cliente"],
       tech:"Evolution API · WhatsApp Business API", relatedIds:[2,11,10] },
@@ -516,7 +516,7 @@ body::after {
       fn:"Sistema de notificaciones automáticas por WhatsApp tras cada evento del agente.",
       checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId — sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
       tech:"WhatsApp Business API · n8n outbound · correlationId", relatedIds:[100,1,102] },
-    { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#8b5cf6",
+    { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#60a5fa",
       fn:"Arquitectura multi-tenant real. Cada negocio es un tenant completamente aislado. Ningún dato cruza entre negocios.",
       checks:["businessId siempre del JWT, nunca del body (INV #1)","Cada query filtra por businessId obligatoriamente","4 vectores de ataque auditados y bloqueados","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
       tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[100,7,101] },
@@ -528,7 +528,7 @@ body::after {
       fn:"El motor de decisiones que evalúa políticas antes de cada acción. El agente nunca actúa a ciegas — cada paso pasa por un gate de decisión explícito.",
       checks:["Intent classification con confidence score","Availability graph resolution en tiempo real","Assignment policy: least-loaded employee algorithm","Operational risk assessment: LOW / MEDIUM / HIGH","Approval policy gate según modo configurado","Pending timeout armado automáticamente"],
       tech:"BotEventResolver · AppointmentService · EmployeeAvailabilityService", relatedIds:[102,100] },
-    { id:15, title:"Gobernanza", subtitle:"Observable · Reversible · Auditable", icon:"⚖️", status:"live", accent:"#10b981",
+    { id:15, title:"Gobernanza", subtitle:"Observable · Reversible · Auditable", icon:"⚖️", status:"live", accent:"#f59e0b",
       fn:"Cada acción del agente es observable, reversible, auditable y gobernada por políticas. El sistema nunca es una caja negra.",
       checks:["Observable: 11 BotEventType frozen — cada evento trazado","Reversible: Reactivar cita con Option β — audit trail preservado","Auditable: narrativas ES pre-rendered por BotNarrativeRenderer","Policy-governed: 55 invariantes de dominio petrificados en AGENTS.md","Explainable: cada decisión del agente tiene justificación técnica"],
       tech:"BotAuditService · BotEventResolver · INV #1-#56 · Option β", relatedIds:[100,14,102] }
@@ -753,7 +753,7 @@ body::after {
       var rad = angleDeg * Math.PI / 180;
       var x = centerX + RADIUS * Math.cos(rad);
       var y = centerY + RADIUS * Math.sin(rad);
-      var opacity = 0.55 + 0.45 * ((Math.sin(rad) + 1) / 2);
+      var opacity = 0.75 + 0.25 * ((Math.sin(rad) + 1) / 2);
 
       var el = nodeEls[n.id];
       el.style.left = x + 'px';
@@ -1232,7 +1232,7 @@ body::after {
     if (lastTime === 0) lastTime = time;
     var delta = time - lastTime;
     lastTime = time;
-    if (autoRotate) { rotationAngle = (rotationAngle + 0.15 * (delta / 16.67)) % 360; }
+    if (autoRotate) { rotationAngle = (rotationAngle + 0.12 * (delta / 16.67)) % 360; }
     positionNodes();
     animFrameId = requestAnimationFrame(animate);
   }
