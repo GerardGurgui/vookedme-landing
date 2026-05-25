@@ -1473,37 +1473,37 @@ body::after {
    * ================================================================ */
   function renderDeModal() {
     var html = '<div class="de-header">';
-    html += '<div class="de-title-row"><div class="de-icon">🧠</div><div><div class="de-title">Decision Engine</div><div class="de-subtitle">Governed Runtime Core</div></div></div>';
+    html += '<div class="de-title-row"><div class="de-icon">🧠</div><div><div class="de-title">Decision Engine</div><div class="de-subtitle">Núcleo de Runtime Gobernado</div></div></div>';
     html += '<span class="card-badge card-badge--live" style="margin-bottom:8px">LIVE</span>';
-    html += '<div class="de-tagline">The deterministic decision authority behind every operational action.</div>';
-    html += '<div class="de-pills"><span class="de-pill">Deterministic</span><span class="de-pill">Auditable</span><span class="de-pill">Policy-Governed</span></div>';
+    html += '<div class="de-tagline">La autoridad determinista detrás de cada acción operacional del sistema.</div>';
+    html += '<div class="de-pills"><span class="de-pill">Determinista</span><span class="de-pill">Auditable</span><span class="de-pill">Policy-Governed</span></div>';
     html += '</div>';
 
-    /* Section 1 — Runtime Authority */
-    html += '<div class="de-section"><div class="de-section-title">Runtime Authority</div><div class="de-grid">';
+    /* Sección 1 — Autoridad en Runtime */
+    html += '<div class="de-section"><div class="de-section-title">Autoridad en Runtime</div><div class="de-grid">';
     var auth = [
-      {i:'🛡️',t:'Gate enforcement',d:'No operational action executes without deterministic evaluation.'},
-      {i:'🔒',t:'LLM has no authority',d:'The language model proposes — the engine decides. Never the reverse.'},
-      {i:'📋',t:'Policy validation',d:'Assignment policies, approval gates and risk assessment run before every mutation.'},
-      {i:'🔄',t:'Rollback safety',d:'Every committed decision is reversible with full audit trail preservation.'},
-      {i:'👤',t:'Ownership semantics',d:'businessId from JWT enforced at every decision boundary. Zero cross-tenant leakage.'},
-      {i:'⚖️',t:'Assignment guarantees',d:'Least-loaded algorithm with conflict detection. No double bookings by design.'}
+      {i:'🛡️',t:'Gate enforcement',d:'Ninguna acción operacional se ejecuta sin evaluación determinista previa.'},
+      {i:'🔒',t:'El LLM no tiene autoridad',d:'El modelo de lenguaje propone — el engine decide. Nunca al revés.'},
+      {i:'📋',t:'Validación de políticas',d:'Políticas de asignación, gates de aprobación y evaluación de riesgo se ejecutan antes de cada mutación.'},
+      {i:'🔄',t:'Seguridad de rollback',d:'Cada decisión confirmada es reversible con preservación completa del audit trail.'},
+      {i:'👤',t:'Semántica de ownership',d:'businessId del JWT se aplica en cada frontera de decisión. Cero filtración cross-tenant.'},
+      {i:'⚖️',t:'Garantías de asignación',d:'Algoritmo least-loaded con detección de conflictos. Sin reservas duplicadas por diseño.'}
     ];
     auth.forEach(function(a) {
       html += '<div class="de-card"><div class="de-card-icon">' + a.i + '</div><div class="de-card-title">' + a.t + '</div><div class="de-card-desc">' + a.d + '</div></div>';
     });
     html += '</div></div>';
 
-    /* Section 2 — Decision Pipeline */
-    html += '<div class="de-section"><div class="de-section-title">Decision Pipeline</div><div class="de-pipeline">';
+    /* Sección 2 — Pipeline de Decisión */
+    html += '<div class="de-section"><div class="de-section-title">Pipeline de Decisión</div><div class="de-pipeline">';
     var pipe = [
-      {c:'Intent',l:'deterministic'},
+      {c:'Intent',l:'determinista'},
       {c:'Policy Eval',l:'configurable'},
       {c:'Constraint Check',l:'reversible'},
       {c:'Assignment',l:'conflict-safe'},
       {c:'Governance Gate',l:'auditable'},
-      {c:'Exec Auth',l:'traceable'},
-      {c:'Audit Commit',l:'immutable'}
+      {c:'Exec Auth',l:'trazable'},
+      {c:'Audit Commit',l:'inmutable'}
     ];
     pipe.forEach(function(p, i) {
       if (i > 0) html += '<span class="de-pipe-arrow">→</span>';
@@ -1511,50 +1511,50 @@ body::after {
     });
     html += '</div></div>';
 
-    /* Section 3 — Governance Enforcement */
-    html += '<div class="de-section"><div class="de-section-title">Governance Enforcement</div>';
+    /* Sección 3 — Gobernanza Aplicada */
+    html += '<div class="de-section"><div class="de-section-title">Gobernanza Aplicada</div>';
     var invs = [
-      {id:'INV #57',t:'No autonomous assignment execution without policy evaluation. The engine must evaluate operational mode and approval requirements before any booking mutation.'},
-      {id:'INV #58',t:'Every operational decision must produce an auditable BotEvent trace. Decisions without audit records violate governance contracts.'},
-      {id:'INV #59',t:'Intent classification must precede any booking mutation. The engine never acts on unclassified or ambiguous requests.'},
-      {id:'INV #60',t:'Approval gate evaluation is mandatory — mode determines enforcement. RECEPCIONISTA requires explicit owner approval; AUTÓNOMO enforces conflict-safe auto-confirmation.'}
+      {id:'INV #57',t:'No se ejecuta ninguna asignación autónoma sin evaluación de políticas. El engine debe evaluar el modo operacional y los requisitos de aprobación antes de cualquier mutación de reserva.'},
+      {id:'INV #58',t:'Cada decisión operacional debe producir una traza auditable de BotEvent. Las decisiones sin registros de auditoría violan los contratos de gobernanza.'},
+      {id:'INV #59',t:'La clasificación de intent debe preceder a cualquier mutación de reserva. El engine nunca actúa sobre peticiones no clasificadas o ambiguas.'},
+      {id:'INV #60',t:'La evaluación del gate de aprobación es obligatoria — el modo determina la aplicación. RECEPCIONISTA requiere aprobación explícita del owner; AUTÓNOMO aplica auto-confirmación conflict-safe.'}
     ];
     invs.forEach(function(inv) {
       html += '<div class="de-inv"><div class="de-inv-id">' + inv.id + '</div><div class="de-inv-text">' + inv.t + '</div></div>';
     });
     html += '</div>';
 
-    /* Section 4 — Connected Runtime Dependencies */
-    html += '<div class="de-section"><div class="de-section-title">Connected Runtime Dependencies</div>';
+    /* Sección 4 — Dependencias de Runtime Conectadas */
+    html += '<div class="de-section"><div class="de-section-title">Dependencias de Runtime Conectadas</div>';
     var rels = [
-      {i:'⚙️',n:'Backend API',r:'Receives validated decision payloads. Persists canonical booking state and enforces transactional boundaries.'},
-      {i:'🤖',n:'Agente Runtime',r:'Dispatches orchestrated tool calls. The engine evaluates each call before authorizing execution.'},
-      {i:'🖥️',n:'Panel Owner',r:'Surfaces approval queues and operational overrides. Human decisions feed back into the engine.'},
-      {i:'📊',n:'Audit Layer',r:'Every engine decision emits a frozen BotEvent. 11 event types, immutable once committed.'},
-      {i:'📐',n:'Assignment Policies',r:'Configurable per business: approval mode, timeout window, employee assignment algorithm.'}
+      {i:'⚙️',n:'Backend API',r:'Recibe payloads de decisiones validadas. Persiste el estado canónico de reservas y aplica fronteras transaccionales.'},
+      {i:'🤖',n:'Agente Runtime',r:'Despacha tool calls orquestadas. El engine evalúa cada llamada antes de autorizar la ejecución.'},
+      {i:'🖥️',n:'Panel Owner',r:'Presenta colas de aprobación y overrides operacionales. Las decisiones humanas retroalimentan al engine.'},
+      {i:'📊',n:'Capa de Auditoría',r:'Cada decisión del engine emite un BotEvent inmutable. 11 tipos de evento, congelados una vez confirmados.'},
+      {i:'📐',n:'Políticas de Asignación',r:'Configurables por negocio: modo de aprobación, ventana de timeout, algoritmo de asignación de empleados.'}
     ];
     rels.forEach(function(r) {
       html += '<div class="de-rel"><div class="de-rel-icon">' + r.i + '</div><div><div class="de-rel-name">' + r.n + '</div><div class="de-rel-role">' + r.r + '</div></div></div>';
     });
     html += '</div>';
 
-    /* Section 5 — Operational Guarantees */
-    html += '<div class="de-section"><div class="de-section-title">Operational Guarantees</div><div class="de-tiles">';
+    /* Sección 5 — Garantías Operacionales */
+    html += '<div class="de-section"><div class="de-section-title">Garantías Operacionales</div><div class="de-tiles">';
     var guar = [
-      {i:'🎯',t:'Deterministic execution'},{i:'📋',t:'Full auditability'},{i:'🏢',t:'Multi-tenant isolation'},
-      {i:'⚖️',t:'Policy enforcement'},{i:'👤',t:'Human override compatible'},{i:'🔄',t:'Reversible operations'},
-      {i:'💡',t:'Explainable decisions'},{i:'🔒',t:'Transaction-safe assignments'}
+      {i:'🎯',t:'Ejecución determinista'},{i:'📋',t:'Auditabilidad completa'},{i:'🏢',t:'Aislamiento multi-tenant'},
+      {i:'⚖️',t:'Aplicación de políticas'},{i:'👤',t:'Compatible con override humano'},{i:'🔄',t:'Operaciones reversibles'},
+      {i:'💡',t:'Decisiones explicables'},{i:'🔒',t:'Asignaciones transaction-safe'}
     ];
     guar.forEach(function(g) {
       html += '<div class="de-tile"><div class="de-tile-icon">' + g.i + '</div><div class="de-tile-text">' + g.t + '</div></div>';
     });
     html += '</div></div>';
 
-    /* Section 6 — Architectural Principles */
-    html += '<div class="de-section"><div class="de-section-title">Architectural Principles</div><div class="de-principles">';
+    /* Sección 6 — Principios Arquitectónicos */
+    html += '<div class="de-section"><div class="de-section-title">Principios Arquitectónicos</div><div class="de-principles">';
     var princ = [
-      'AI is not authority','Backend remains source of truth','Governance over autonomy',
-      'Explicit approval over hidden automation','Observable runtime state','Human override precedence'
+      'La IA no es autoridad','El backend sigue siendo source of truth','Gobernanza sobre autonomía',
+      'Aprobación explícita sobre automatización oculta','Estado de runtime observable','Precedencia del override humano'
     ];
     princ.forEach(function(p) {
       html += '<div class="de-principle"><div class="de-principle-text">' + p + '</div></div>';
