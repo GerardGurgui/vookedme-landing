@@ -350,8 +350,8 @@ body::after {
 
 /* ===== EXECUTION FLOW VIEW ===== */
 .ef-view {
-  position:relative; z-index:2; max-width:800px; margin:0 auto;
-  padding:0 24px 48px; opacity:0; transform:translateY(4px);
+  position:relative; z-index:2; max-width:1400px; margin:0 auto;
+  padding:0 32px 48px; opacity:0; transform:translateY(4px);
   transition:opacity 0.35s ease, transform 0.35s ease;
   pointer-events:none; height:0; overflow:hidden;
 }
@@ -359,101 +359,77 @@ body::after {
   opacity:1; transform:translateY(0); pointer-events:auto; height:auto; overflow:visible;
 }
 
-/* pipeline vertical */
-.ef-pipeline { display:flex; flex-direction:column; align-items:center; gap:0; position:relative; }
+/* topology container */
+.ef-topology { position:relative; }
+.ef-topology svg.ef-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+.ef-topology svg.ef-lines line, .ef-topology svg.ef-lines path { fill:none; }
+
+/* layer */
+.ef-layer {
+  position:relative; z-index:3; margin-bottom:28px;
+}
+.ef-layer-label {
+  font-size:10px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.16em; color:rgba(255,255,255,0.18); margin-bottom:14px;
+  padding-left:4px;
+}
+.ef-layer-nodes {
+  display:flex; justify-content:center; align-items:center; gap:24px; flex-wrap:wrap;
+}
 
 /* node */
 .ef-node {
-  position:relative; z-index:5; min-width:190px; padding:18px 22px;
+  position:relative; z-index:5; min-width:155px; padding:16px 20px;
   text-align:center; border-radius:14px; cursor:pointer;
   background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
   backdrop-filter:blur(10px); transition:all 220ms ease;
 }
 .ef-node:hover { transform:translateY(-2px); }
-.ef-node-icon { font-size:24px; margin-bottom:6px; }
-.ef-node-title { font-size:15px; font-weight:600; color:#f9fafb; margin-bottom:2px; }
-.ef-node-sub { font-size:11px; color:#6b7280; letter-spacing:0.04em; }
+.ef-node-icon { font-size:22px; margin-bottom:5px; }
+.ef-node-title { font-size:14px; font-weight:600; color:#f9fafb; margin-bottom:2px; }
+.ef-node-sub { font-size:10px; color:#6b7280; letter-spacing:0.04em; font-family:monospace; }
 
-/* vertical connector */
-.ef-connector {
-  width:1px; height:38px; background:rgba(255,255,255,0.12); position:relative;
-}
-.ef-connector-label {
-  position:absolute; left:16px; top:50%; transform:translateY(-50%);
-  font-size:10px; font-family:monospace; color:#4b5563; letter-spacing:0.03em; white-space:nowrap;
+/* arrow label between orchestration nodes */
+.ef-arrow-label {
+  font-size:10px; color:rgba(255,255,255,0.15); font-weight:500;
+  display:flex; align-items:center; flex-shrink:0;
 }
 
-/* lateral connections */
-.ef-lateral-row {
-  display:flex; align-items:center; justify-content:center; gap:0; width:100%;
+/* cross-cutting chips */
+.ef-cc-layer { margin-top:12px; padding-top:22px; border-top:1px dashed rgba(255,255,255,0.05); }
+.ef-cc-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.ef-cc-chip {
+  padding:8px 14px; border-radius:8px; font-size:11px; font-weight:500;
+  cursor:pointer; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; gap:6px; color:#9ca3af;
+  transition:all 200ms ease;
 }
-.ef-lateral-line {
-  width:60px; height:0; border-top:1px dashed rgba(255,255,255,0.08);
-  flex-shrink:0;
-}
-.ef-lateral-node {
-  position:relative; z-index:5; min-width:140px; padding:14px 18px;
-  text-align:center; border-radius:12px; cursor:pointer;
-  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px); transition:all 220ms ease; opacity:0.85;
-}
-.ef-lateral-node:hover { transform:translateY(-2px); opacity:1; }
-.ef-lateral-node .ef-node-title { font-size:13px; }
-.ef-lateral-node .ef-node-sub { font-size:10px; }
-.ef-lateral-node .ef-node-icon { font-size:20px; margin-bottom:4px; }
+.ef-cc-chip:hover { background:rgba(255,255,255,0.05); transform:translateY(-1px); }
 
-/* support capabilities */
-.ef-support {
-  margin-top:48px; padding-top:28px;
-  border-top:1px dashed rgba(255,255,255,0.06); text-align:center;
+/* layer separator lines */
+.ef-layer-sep {
+  height:1px; margin:0 auto 28px; width:60%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
 }
-.ef-support-label {
-  font-size:10px; font-weight:600; text-transform:uppercase;
-  letter-spacing:0.18em; color:rgba(255,255,255,0.22); margin-bottom:18px;
-}
-.ef-support-grid {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
-}
-.ef-support-chip {
-  padding:10px 14px; border-radius:10px; min-width:110px;
-  font-size:11px; font-weight:500; opacity:0.92; cursor:pointer;
-  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; gap:8px; justify-content:center;
-  transition:all 200ms ease; color:#9ca3af;
-}
-.ef-support-chip:hover { opacity:1; transform:translateY(-1px); }
 
-/* runtime pulse */
-@keyframes ef-pulse-travel {
-  0% { top:0; opacity:0; }
-  5% { opacity:0.7; }
-  90% { opacity:0.7; }
-  100% { top:100%; opacity:0; }
-}
-.ef-pulse-track {
-  position:absolute; left:50%; width:1px; top:0; bottom:0;
-  transform:translateX(-50%); pointer-events:none; z-index:6;
-  overflow:hidden;
-}
-.ef-pulse-dot {
-  position:absolute; left:50%; transform:translateX(-50%);
-  width:5px; height:5px; border-radius:50%;
-  background:#8b5cf6; box-shadow:0 0 8px rgba(139,92,246,0.5);
-  animation:ef-pulse-travel 4s linear infinite;
+/* runtime pulse on SVG */
+@keyframes ef-dash-flow {
+  to { stroke-dashoffset:-20; }
 }
 
 /* responsive */
 @media (max-width:768px) {
-  .ef-lateral-row { flex-direction:column; gap:8px; }
-  .ef-lateral-line { width:0; height:20px; border-top:none; border-left:1px dashed rgba(255,255,255,0.08); }
-  .ef-node { min-width:160px; }
-  .ef-lateral-node { min-width:140px; }
+  .ef-view { padding:0 16px 32px; }
+  .ef-layer-nodes { gap:14px; }
+  .ef-node { min-width:130px; padding:12px 14px; }
+  .ef-node-title { font-size:13px; }
+  .ef-arrow-label { font-size:9px; }
 }
 @media (max-width:480px) {
   .view-toggle-btn { padding:8px 12px; font-size:10px; }
-  .ef-node { min-width:auto; width:90%; padding:14px 16px; }
-  .ef-lateral-node { min-width:auto; width:80%; }
-  .ef-support-chip { min-width:90px; font-size:10px; padding:8px 10px; }
+  .ef-layer-nodes { flex-direction:column; gap:10px; }
+  .ef-node { min-width:auto; width:85%; }
+  .ef-cc-chip { font-size:10px; padding:6px 10px; }
 }
 </style>
 </head>
@@ -1400,7 +1376,10 @@ body::after {
       else { lastTime = 0; animFrameId = requestAnimationFrame(animate); }
     });
 
-    window.addEventListener('resize', function() { positionVCenter(); positionNodes(); });
+    window.addEventListener('resize', function() {
+      positionVCenter(); positionNodes();
+      if (currentView === 'execution') setTimeout(drawEfConnections, 50);
+    });
   }
 
   /* ================================================================
@@ -1410,91 +1389,171 @@ body::after {
   var viewToggle = document.getElementById('viewToggle');
   var currentView = 'orbital';
 
-  /* Pipeline data — maps to existing node IDs for card reuse */
-  var efPipeline = [
-    { id:1, icon:'💬', title:'WhatsApp', sub:'ingress gateway', color:'#10b981' },
-    { id:2, icon:'🔄', title:'n8n Runtime', sub:'orchestration runtime', color:'#10b981' },
-    { id:102, icon:'🤖', title:'Agente Runtime', sub:'deterministic cognition', color:'#8b5cf6', isVNode:true, vtype:'agente' },
-    { id:100, icon:'⚙️', title:'Backend API', sub:'source of truth', color:'#10b981', isVNode:true, vtype:'backend' },
-    { id:4, icon:'🗄️', title:'PostgreSQL', sub:'ACID persistence', color:'#60a5fa' }
+  /* Layered topology data */
+  var efLayers = [
+    {
+      label:'COMMUNICATION LAYER', color:'#10b981',
+      nodes:[
+        { id:1, icon:'💬', title:'WhatsApp', sub:'ingress gateway', color:'#10b981' },
+        { id:11, icon:'📨', title:'Notificaciones', sub:'outbound events', color:'#10b981' },
+        { id:10, icon:'🔔', title:'Recordatorios', sub:'scheduled dispatch', color:'#10b981' }
+      ]
+    },
+    {
+      label:'ORCHESTRATION LAYER', color:'#8b5cf6', arrows:true,
+      nodes:[
+        { id:2, icon:'🔄', title:'n8n Runtime', sub:'workflow engine', color:'#10b981' },
+        { id:102, icon:'🤖', title:'Agente Runtime', sub:'deterministic cognition', color:'#8b5cf6', isVNode:true, vtype:'agente' },
+        { id:14, icon:'🧠', title:'Decision Engine', sub:'policy evaluation', color:'#8b5cf6' }
+      ]
+    },
+    {
+      label:'CORE SYSTEM', color:'#10b981', bidir:true,
+      nodes:[
+        { id:100, icon:'⚙️', title:'Backend API', sub:'source of truth', color:'#10b981', isVNode:true, vtype:'backend' },
+        { id:101, icon:'🖥️', title:'Panel Owner', sub:'management surface', color:'#60a5fa', isVNode:true, vtype:'panel' }
+      ]
+    },
+    {
+      label:'PERSISTENCE & STATE', color:'#60a5fa',
+      nodes:[
+        { id:4, icon:'🗄️', title:'PostgreSQL', sub:'ACID persistence', color:'#60a5fa' },
+        { id:5, icon:'⚡', title:'Redis', sub:'operational state', color:'#60a5fa' }
+      ]
+    }
   ];
-  var efLaterals = [
-    { id:101, icon:'🖥️', title:'Panel Owner', sub:'management surface', color:'#60a5fa', isVNode:true, vtype:'panel' },
-    { id:5, icon:'⚡', title:'Redis', sub:'operational state', color:'#60a5fa' }
-  ];
-  var efLabels = [
-    '~50ms ingress',
-    '~200ms orchestration',
-    '~30ms decision commit',
-    '~5ms persistence'
-  ];
-  var efSupport = [
+  var efCrossCutting = [
     { id:7, icon:'🔒', title:'Seguridad', color:'#f59e0b' },
-    { id:15, icon:'⚖️', title:'Gobernanza', color:'#f59e0b' },
     { id:13, icon:'🔍', title:'Observabilidad', color:'#f59e0b' },
-    { id:14, icon:'🧠', title:'Decision Engine', color:'#8b5cf6' },
-    { id:12, icon:'🏢', title:'Multi-tenancy', color:'#60a5fa' },
-    { id:11, icon:'📨', title:'Notificaciones', color:'#10b981' },
-    { id:10, icon:'🔔', title:'Recordatorios', color:'#10b981' }
+    { id:15, icon:'⚖️', title:'Gobernanza', color:'#f59e0b' },
+    { id:12, icon:'🏢', title:'Multi-tenancy', color:'#60a5fa' }
   ];
+
+  function efNodeHtml(n) {
+    var rgb = toRGB(n.color);
+    return '<div class="ef-node" data-ef-id="' + n.id + '" data-ef-vnode="' + (n.isVNode ? n.vtype : '') + '" style="border-color:rgba(' + rgb + ',0.25);box-shadow:0 0 16px rgba(' + rgb + ',0.06)">' +
+      '<div class="ef-node-icon">' + n.icon + '</div>' +
+      '<div class="ef-node-title">' + n.title + '</div>' +
+      '<div class="ef-node-sub">' + n.sub + '</div></div>';
+  }
 
   function buildExecutionFlow() {
-    var html = '<div class="ef-pipeline" style="position:relative">';
-    html += '<div class="ef-pulse-track"><div class="ef-pulse-dot"></div></div>';
+    var html = '<div class="ef-topology" id="efTopology">';
 
-    efPipeline.forEach(function(node, i) {
-      var rgb = toRGB(node.color);
-      var glow = 'box-shadow:0 0 12px rgba(' + rgb + ',0.08)';
-      html += '<div class="ef-node" data-ef-id="' + node.id + '" data-ef-vnode="' + (node.isVNode ? node.vtype : '') + '" style="border-color:rgba(' + rgb + ',0.3);' + glow + '">';
-      html += '<div class="ef-node-icon">' + node.icon + '</div>';
-      html += '<div class="ef-node-title">' + node.title + '</div>';
-      html += '<div class="ef-node-sub">' + node.sub + '</div>';
-      html += '</div>';
-
-      /* insert lateral row after Backend API (index 3) */
-      if (i === 3) {
-        var rgbL = toRGB(efLaterals[0].color);
-        var rgbR = toRGB(efLaterals[1].color);
-        html += '<div class="ef-connector"></div>';
-        html += '<div class="ef-lateral-row">';
-        html += '<div class="ef-lateral-node" data-ef-id="' + efLaterals[0].id + '" data-ef-vnode="' + (efLaterals[0].vtype || '') + '" style="border-color:rgba(' + rgbL + ',0.2)">';
-        html += '<div class="ef-node-icon">' + efLaterals[0].icon + '</div>';
-        html += '<div class="ef-node-title">' + efLaterals[0].title + '</div>';
-        html += '<div class="ef-node-sub">' + efLaterals[0].sub + '</div>';
-        html += '</div>';
-        html += '<div class="ef-lateral-line"></div>';
-        html += '<div style="font-size:10px;color:#4b5563;font-family:monospace;padding:0 6px;white-space:nowrap">↔ backend</div>';
-        html += '<div class="ef-lateral-line"></div>';
-        html += '<div class="ef-lateral-node" data-ef-id="' + efLaterals[1].id + '" data-ef-vnode="' + (efLaterals[1].vtype || '') + '" style="border-color:rgba(' + rgbR + ',0.2)">';
-        html += '<div class="ef-node-icon">' + efLaterals[1].icon + '</div>';
-        html += '<div class="ef-node-title">' + efLaterals[1].title + '</div>';
-        html += '<div class="ef-node-sub">' + efLaterals[1].sub + '</div>';
-        html += '</div>';
-        html += '</div>';
-      }
-
-      /* connector + label between pipeline steps */
-      if (i < efPipeline.length - 1) {
-        html += '<div class="ef-connector"><span class="ef-connector-label">' + efLabels[i] + '</span></div>';
+    efLayers.forEach(function(layer, li) {
+      var lrgb = toRGB(layer.color);
+      html += '<div class="ef-layer">';
+      html += '<div class="ef-layer-label" style="color:rgba(' + lrgb + ',0.35)">' + layer.label + '</div>';
+      html += '<div class="ef-layer-nodes">';
+      layer.nodes.forEach(function(n, ni) {
+        html += efNodeHtml(n);
+        if (ni < layer.nodes.length - 1) {
+          if (layer.arrows) {
+            html += '<div class="ef-arrow-label">→</div>';
+          } else if (layer.bidir) {
+            html += '<div class="ef-arrow-label">↔</div>';
+          }
+        }
+      });
+      html += '</div></div>';
+      if (li < efLayers.length - 1) {
+        html += '<div class="ef-layer-sep"></div>';
       }
     });
 
-    html += '</div>';
-
-    /* support capabilities */
-    html += '<div class="ef-support">';
-    html += '<div class="ef-support-label">SUPPORT CAPABILITIES</div>';
-    html += '<div class="ef-support-grid">';
-    efSupport.forEach(function(s) {
-      var rgb = toRGB(s.color);
-      html += '<div class="ef-support-chip" data-ef-id="' + s.id + '" style="border-color:rgba(' + rgb + ',0.12)">';
-      html += '<span>' + s.icon + '</span><span style="color:#d1d5db">' + s.title + '</span>';
-      html += '</div>';
+    /* cross-cutting */
+    html += '<div class="ef-cc-layer">';
+    html += '<div class="ef-layer-label" style="color:rgba(245,158,11,0.3)">CROSS-CUTTING CAPABILITIES</div>';
+    html += '<div class="ef-cc-grid">';
+    efCrossCutting.forEach(function(c) {
+      var rgb = toRGB(c.color);
+      html += '<div class="ef-cc-chip" data-ef-id="' + c.id + '" style="border-color:rgba(' + rgb + ',0.12)">';
+      html += '<span>' + c.icon + '</span><span>' + c.title + '</span></div>';
     });
     html += '</div></div>';
+    html += '</div>';
 
     efView.innerHTML = html;
+
+    /* draw SVG connections after DOM render */
+    setTimeout(drawEfConnections, 20);
     bindEfClicks();
+  }
+
+  function drawEfConnections() {
+    var topo = document.getElementById('efTopology');
+    if (!topo) return;
+    var rect = topo.getBoundingClientRect();
+
+    /* remove old SVG */
+    var old = topo.querySelector('svg.ef-lines');
+    if (old) old.remove();
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'ef-lines');
+    svg.setAttribute('width', rect.width);
+    svg.setAttribute('height', rect.height);
+    svg.style.width = rect.width + 'px';
+    svg.style.height = rect.height + 'px';
+
+    /* add defs for animated dash + arrowhead */
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    marker.setAttribute('id', 'ef-arrowhead');
+    marker.setAttribute('markerWidth', '6');
+    marker.setAttribute('markerHeight', '4');
+    marker.setAttribute('refX', '5');
+    marker.setAttribute('refY', '2');
+    marker.setAttribute('orient', 'auto');
+    var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    poly.setAttribute('points', '0 0, 6 2, 0 4');
+    poly.setAttribute('fill', 'rgba(139,92,246,0.3)');
+    marker.appendChild(poly);
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+
+    /* helper: get center of a node relative to topology container */
+    function nodeCenter(id) {
+      var el = topo.querySelector('[data-ef-id="' + id + '"]');
+      if (!el) return null;
+      var nr = el.getBoundingClientRect();
+      return { x: nr.left - rect.left + nr.width / 2, y: nr.top - rect.top + nr.height / 2, b: nr.top - rect.top + nr.height, t: nr.top - rect.top };
+    }
+
+    function drawLine(from, to, color, dashed, arrow) {
+      var a = nodeCenter(from);
+      var b = nodeCenter(to);
+      if (!a || !b) return;
+
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', a.x); line.setAttribute('y1', a.b);
+      line.setAttribute('x2', b.x); line.setAttribute('y2', b.t);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', '1');
+      if (dashed) {
+        line.setAttribute('stroke-dasharray', '4 4');
+        line.style.animation = 'ef-dash-flow 1.5s linear infinite';
+      }
+      if (arrow) line.setAttribute('marker-end', 'url(#ef-arrowhead)');
+      svg.appendChild(line);
+    }
+
+    /* Communication → Orchestration: WhatsApp → n8n */
+    drawLine(1, 2, 'rgba(16,185,129,0.15)', true, true);
+
+    /* Orchestration → Core: Decision Engine → Backend */
+    drawLine(14, 100, 'rgba(139,92,246,0.12)', true, true);
+
+    /* Core → Persistence: Backend → PostgreSQL, Backend → Redis */
+    drawLine(100, 4, 'rgba(96,165,250,0.12)', true, true);
+    drawLine(100, 5, 'rgba(96,165,250,0.12)', true, true);
+
+    /* Backend → Notificaciones (outbound path) */
+    drawLine(100, 11, 'rgba(16,185,129,0.08)', false, false);
+    /* Backend → Recordatorios */
+    drawLine(100, 10, 'rgba(16,185,129,0.08)', false, false);
+
+    topo.insertBefore(svg, topo.firstChild);
   }
 
   function bindEfClicks() {
