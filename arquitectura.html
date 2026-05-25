@@ -350,85 +350,104 @@ body::after {
 
 /* ===== EXECUTION FLOW VIEW ===== */
 .ef-view {
-  position:relative; z-index:2; max-width:1400px; margin:0 auto;
+  position:relative; z-index:2; max-width:1100px; margin:0 auto;
   padding:0 32px 48px; opacity:0; transform:translateY(4px);
   transition:opacity 0.35s ease, transform 0.35s ease;
   pointer-events:none; height:0; overflow:hidden;
 }
-.ef-view.is-visible {
-  opacity:1; transform:translateY(0); pointer-events:auto; height:auto; overflow:visible;
-}
-
-/* topology container */
+.ef-view.is-visible { opacity:1; transform:translateY(0); pointer-events:auto; height:auto; overflow:visible; }
 .ef-topology { position:relative; }
 .ef-topology svg.ef-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-.ef-topology svg.ef-lines line, .ef-topology svg.ef-lines path { fill:none; }
 
-/* layer */
+/* layer containers */
 .ef-layer {
-  position:relative; z-index:3; margin-bottom:28px;
+  position:relative; z-index:3; margin-bottom:16px;
+  background:rgba(255,255,255,0.015); border-radius:14px;
+  border-left:2px solid rgba(255,255,255,0.08);
+  padding:22px 28px;
 }
 .ef-layer-label {
-  font-size:10px; font-weight:600; text-transform:uppercase;
-  letter-spacing:0.16em; color:rgba(255,255,255,0.18); margin-bottom:14px;
-  padding-left:4px;
+  font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:0.18em; margin-bottom:16px; opacity:0.9;
 }
-.ef-layer-nodes {
-  display:flex; justify-content:center; align-items:center; gap:24px; flex-wrap:wrap;
-}
+.ef-layer-nodes { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; }
 
-/* node */
+/* nodes */
 .ef-node {
-  position:relative; z-index:5; min-width:155px; padding:16px 20px;
-  text-align:center; border-radius:14px; cursor:pointer;
-  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px); transition:all 220ms ease;
-}
-.ef-node:hover { transform:translateY(-2px); }
-.ef-node-icon { font-size:22px; margin-bottom:5px; }
-.ef-node-title { font-size:14px; font-weight:600; color:#f9fafb; margin-bottom:2px; }
-.ef-node-sub { font-size:10px; color:#6b7280; letter-spacing:0.04em; font-family:monospace; }
-
-/* arrow label between orchestration nodes */
-.ef-arrow-label {
-  font-size:10px; color:rgba(255,255,255,0.15); font-weight:500;
-  display:flex; align-items:center; flex-shrink:0;
-}
-
-/* cross-cutting chips */
-.ef-cc-layer { margin-top:12px; padding-top:22px; border-top:1px dashed rgba(255,255,255,0.05); }
-.ef-cc-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-.ef-cc-chip {
-  padding:8px 14px; border-radius:8px; font-size:11px; font-weight:500;
-  cursor:pointer; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; gap:6px; color:#9ca3af;
+  position:relative; z-index:5; min-width:145px; padding:14px 18px;
+  text-align:center; border-radius:12px; cursor:pointer;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
   transition:all 200ms ease;
+}
+.ef-node:hover { transform:translateY(-2px); border-color:rgba(255,255,255,0.18); }
+.ef-node.ef-adjacent { border-style:dashed; opacity:0.7; }
+.ef-node.ef-adjacent:hover { opacity:0.9; }
+.ef-node-icon { font-size:20px; margin-bottom:4px; }
+.ef-node-title { font-size:13px; font-weight:600; color:#f8fafc; margin-bottom:1px; }
+.ef-node-sub { font-size:10px; color:#94a3b8; letter-spacing:0.03em; font-family:monospace; }
+.ef-arrow-label { font-size:14px; color:rgba(255,255,255,0.12); display:flex; align-items:center; flex-shrink:0; }
+
+/* cross-cutting */
+.ef-cc-layer {
+  position:relative; z-index:3; margin-top:4px;
+  background:rgba(255,255,255,0.01); border-radius:14px;
+  border-left:2px solid rgba(245,158,11,0.2);
+  padding:18px 28px;
+}
+.ef-cc-grid { display:flex; flex-wrap:wrap; justify-content:flex-start; gap:10px; }
+.ef-cc-chip {
+  padding:7px 12px; border-radius:8px; font-size:11px; font-weight:500;
+  cursor:pointer; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; gap:6px; color:#94a3b8; transition:all 180ms ease;
 }
 .ef-cc-chip:hover { background:rgba(255,255,255,0.05); transform:translateY(-1px); }
 
-/* layer separator lines */
-.ef-layer-sep {
-  height:1px; margin:0 auto 28px; width:60%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+/* flow-inspector panel */
+.flow-inspector {
+  position:fixed; right:32px; top:50%; transform:translateX(12px) translateY(-50%);
+  width:380px; z-index:350; pointer-events:none; opacity:0;
+  background:rgba(10,14,22,0.96); border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px); border-radius:16px; padding:24px;
+  transition:opacity 0.25s ease, transform 0.25s ease;
+  max-height:85vh; overflow-y:auto; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.1) transparent;
 }
+.flow-inspector::-webkit-scrollbar { width:3px; }
+.flow-inspector::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:2px; }
+.flow-inspector.is-open { opacity:1; transform:translateX(0) translateY(-50%); pointer-events:auto; }
+.fi-step-label { font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+.fi-title { font-size:16px; font-weight:700; color:#f8fafc; margin-bottom:4px; }
+.fi-role { font-size:13px; color:#94a3b8; line-height:1.6; margin-bottom:16px; }
+.fi-section { margin-bottom:14px; }
+.fi-section-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#64748b; margin-bottom:6px; }
+.fi-list { list-style:none; padding:0; margin:0; }
+.fi-list li { font-size:12px; color:#94a3b8; font-family:monospace; line-height:1.7; padding-left:12px; position:relative; }
+.fi-list li::before { content:'·'; position:absolute; left:0; color:#64748b; }
+.fi-stream { display:flex; gap:8px; font-size:11px; font-family:monospace; color:#64748b; }
+.fi-stream-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#475569; min-width:80px; }
+.fi-chars { font-size:11px; font-family:monospace; color:#64748b; line-height:1.7; }
+.fi-impact { font-size:12px; color:#94a3b8; font-style:italic; line-height:1.5; padding:10px 12px; background:rgba(255,255,255,0.02); border-radius:8px; border-left:2px solid; }
 
-/* runtime pulse on SVG */
-@keyframes ef-dash-flow {
-  to { stroke-dashoffset:-20; }
-}
+/* SVG animations */
+@keyframes ef-dash-flow { to { stroke-dashoffset:-20; } }
 
 /* responsive */
+@media (max-width:1200px) {
+  .flow-inspector { right:16px; width:340px; }
+}
+@media (max-width:900px) {
+  .flow-inspector { right:50%; top:auto; bottom:16px; transform:translateX(50%); width:92vw; max-height:50vh; }
+  .flow-inspector.is-open { transform:translateX(50%); }
+}
 @media (max-width:768px) {
   .ef-view { padding:0 16px 32px; }
-  .ef-layer-nodes { gap:14px; }
-  .ef-node { min-width:130px; padding:12px 14px; }
-  .ef-node-title { font-size:13px; }
-  .ef-arrow-label { font-size:9px; }
+  .ef-layer { padding:16px 20px; }
+  .ef-layer-nodes { gap:12px; }
+  .ef-node { min-width:120px; padding:10px 14px; }
 }
 @media (max-width:480px) {
   .view-toggle-btn { padding:8px 12px; font-size:10px; }
-  .ef-layer-nodes { flex-direction:column; gap:10px; }
-  .ef-node { min-width:auto; width:85%; }
+  .ef-layer-nodes { flex-direction:column; gap:8px; }
+  .ef-node { min-width:auto; width:100%; }
   .ef-cc-chip { font-size:10px; padding:6px 10px; }
 }
 </style>
@@ -552,6 +571,7 @@ body::after {
 
 <!-- ===== EXECUTION FLOW VIEW ===== -->
 <div class="ef-view" id="executionFlowView"></div>
+<div class="flow-inspector" id="flowInspector"></div>
 
 <!-- ===== CTA ===== -->
 <section class="cta-section">
@@ -1404,18 +1424,18 @@ body::after {
       nodes:[
         { id:2, icon:'🔄', title:'n8n Runtime', sub:'workflow engine', color:'#10b981' },
         { id:102, icon:'🤖', title:'Agente Runtime', sub:'deterministic cognition', color:'#8b5cf6', isVNode:true, vtype:'agente' },
-        { id:14, icon:'🧠', title:'Decision Engine', sub:'policy evaluation', color:'#8b5cf6' }
+        { id:14, icon:'🧠', title:'Decision Engine', sub:'policy evaluation', color:'#8b5cf6', adjacent:true }
       ]
     },
     {
-      label:'CORE SYSTEM', color:'#10b981', bidir:true,
+      label:'CORE SYSTEM', color:'#60a5fa', bidir:true,
       nodes:[
         { id:100, icon:'⚙️', title:'Backend API', sub:'source of truth', color:'#10b981', isVNode:true, vtype:'backend' },
         { id:101, icon:'🖥️', title:'Panel Owner', sub:'management surface', color:'#60a5fa', isVNode:true, vtype:'panel' }
       ]
     },
     {
-      label:'PERSISTENCE & STATE', color:'#60a5fa',
+      label:'PERSISTENCE & STATE', color:'#3b82f6',
       nodes:[
         { id:4, icon:'🗄️', title:'PostgreSQL', sub:'ACID persistence', color:'#60a5fa' },
         { id:5, icon:'⚡', title:'Redis', sub:'operational state', color:'#60a5fa' }
@@ -1429,9 +1449,30 @@ body::after {
     { id:12, icon:'🏢', title:'Multi-tenancy', color:'#60a5fa' }
   ];
 
+  /* Runtime inspector data — runtime-oriented, NOT orbital narrative */
+  var inspectorData = {
+    1:   { step:'STEP 01 · INGRESS', role:'Receives inbound WhatsApp messages and routes them to the orchestration layer via webhook.', inputs:['WhatsApp Business API webhook','HMAC-SHA256 validated payload'], outputs:['Authenticated message event to n8n'], upstream:'Client (WhatsApp)', downstream:'n8n Runtime', chars:['~50ms avg latency','HMAC signature enforced','rate limited: 5 creates/h'], impact:'Inbound message flow halts. No new conversations can be initiated.' },
+    2:   { step:'STEP 02 · ORCHESTRATION', role:'Interprets intent, manages conversation context, and dispatches tool calls to the agent runtime.', inputs:['Validated webhook event','Redis conversation context'], outputs:['Tool call payload to Agente','Context state updates'], upstream:'WhatsApp', downstream:'Agente Runtime', chars:['~200ms orchestration cycle','4 tool functions available','stale context detection (approach E)'], impact:'Conversations stall. Messages received but not processed.' },
+    102: { step:'STEP 03 · COGNITION', role:'Evaluates assignment policy, resolves availability, and commits booking decisions to the backend.', inputs:['Orchestrated tool call','Availability graph','Assignment policy config'], outputs:['Decision payload to Backend API','Audit event emission'], upstream:'n8n Runtime', downstream:'Backend API', chars:['deterministic policy evaluation','3 operational modes','explainable decision trail'], impact:'Booking decisions cannot be made. Pipeline blocked at cognition layer.' },
+    14:  { step:'ADJACENT · POLICY ENGINE', role:'Evaluates operational policies before each action. Conceptual governance layer — not in the direct runtime path.', inputs:['Policy configuration','Mode selection (recepcionista/autónomo/supervisado)'], outputs:['Policy evaluation result','Risk assessment score'], upstream:'Configuration', downstream:'Agente Runtime (advisory)', chars:['deterministic evaluation','LOW / MEDIUM / HIGH risk scoring','approval gate logic'], impact:'Policy evaluation unavailable. Agent falls back to default conservative mode.' },
+    100: { step:'STEP 04 · VALIDATION', role:'Validates assignment constraints and persists canonical booking state. Single source of truth.', inputs:['Assignment payload','Webhook events','Panel mutations'], outputs:['PostgreSQL writes','Redis state sync','Outbound notification events'], upstream:'Agente Runtime', downstream:'PostgreSQL · Redis', chars:['~30ms avg latency','transactional boundary enforced','optimistic concurrency (@Version)'], impact:'Bookings cannot be persisted. Runtime remains degraded.' },
+    101: { step:'MANAGEMENT SURFACE', role:'Owner-facing panel for approvals, calendar management, and operational oversight.', inputs:['Backend API responses','WebSocket events (future)'], outputs:['Panel mutations to Backend API','Approval/rejection decisions'], upstream:'Backend API', downstream:'Backend API', chars:['polling 60s interval','role-based access (OWNER/EMPLOYEE)','React Query server state'], impact:'Owner loses visibility. Approvals must happen via alternative channels.' },
+    4:   { step:'STEP 05 · PERSISTENCE', role:'ACID-compliant storage for all canonical booking state, audit trails, and tenant data.', inputs:['Validated writes from Backend API','Flyway migrations'], outputs:['Persisted booking state','Audit chain records','Query responses'], upstream:'Backend API', downstream:'Terminal (read path)', chars:['~5ms write latency','optimistic locking (@Version)','68 Flyway migrations (V1→V68)'], impact:'Complete data loss risk. All booking state unavailable.' },
+    5:   { step:'OPERATIONAL STATE', role:'Ephemeral conversational context, distributed rate limiting, and coordination state.', inputs:['Context updates from n8n','Rate limit counters','Lock acquisitions'], outputs:['Conversation context to n8n','Rate limit decisions','Distributed lock state'], upstream:'n8n Runtime · Backend API', downstream:'n8n Runtime', chars:['TTL 30 days (GDPR)','approach E stale detection','distributed coordination'], impact:'Conversation context lost. Rate limiting bypassed.' },
+    11:  { step:'OUTBOUND · NOTIFICATIONS', role:'Dispatches 6 types of automated WhatsApp notifications after each booking event.', inputs:['Booking event from Backend API','Notification template'], outputs:['WhatsApp message via Evolution API'], upstream:'Backend API', downstream:'Client (WhatsApp)', chars:['6 event types','correlationId deduplication','idempotent dispatch'], impact:'Clients not notified of booking changes.' },
+    10:  { step:'OUTBOUND · REMINDERS', role:'Scheduled reminder dispatch: 24h and 1h before each appointment.', inputs:['Scheduled trigger','Appointment lookup'], outputs:['WhatsApp reminder message'], upstream:'Backend API (scheduled)', downstream:'Client (WhatsApp)', chars:['24h + 1h windows','idempotent after revoke','Spring @Scheduled'], impact:'Clients miss appointment reminders.' },
+    7:   { step:'CROSS-CUTTING · SECURITY', role:'5-layer security chain intercepting every request before reaching services.', inputs:['All HTTP requests'], outputs:['Authenticated/rejected requests'], upstream:'All layers', downstream:'All layers', chars:['RateLimiting → ApiKey → HMAC → JWT → @PreAuthorize','tenant isolation enforced'], impact:'Security boundary breached. All requests rejected.' },
+    13:  { step:'CROSS-CUTTING · OBSERVABILITY', role:'Production monitoring with automatic failure detection and metric collection.', inputs:['Application events','Error signals'], outputs:['Sentry alerts','Prometheus gauges'], upstream:'All layers', downstream:'Operations team', chars:['Sentry error tracking','Prometheus app.appointments gauges','JVM TZ guard fail-fast'], impact:'Failures go undetected. No operational visibility.' },
+    15:  { step:'CROSS-CUTTING · GOVERNANCE', role:'Every agent action is observable, reversible, auditable, and policy-governed.', inputs:['Agent decisions','Booking mutations'], outputs:['Audit trail entries','BotEvent records'], upstream:'Agente Runtime', downstream:'Audit storage', chars:['11 frozen BotEventType','Option β reactivation','55 domain invariants'], impact:'Audit trail broken. Actions become unexplainable.' },
+    12:  { step:'CROSS-CUTTING · ISOLATION', role:'Multi-tenant architecture ensuring complete data isolation between businesses.', inputs:['JWT claims (businessId)'], outputs:['Scoped query context'], upstream:'Security layer', downstream:'All data access', chars:['businessId from JWT only (INV #1)','4 attack vectors audited','ADMIN/OWNER/EMPLOYEE roles'], impact:'Tenant boundary breached. Cross-business data leak.' }
+  };
+
+  var flowInspectorEl = document.getElementById('flowInspector');
+
   function efNodeHtml(n) {
     var rgb = toRGB(n.color);
-    return '<div class="ef-node" data-ef-id="' + n.id + '" data-ef-vnode="' + (n.isVNode ? n.vtype : '') + '" style="border-color:rgba(' + rgb + ',0.25);box-shadow:0 0 16px rgba(' + rgb + ',0.06)">' +
+    var adjClass = n.adjacent ? ' ef-adjacent' : '';
+    return '<div class="ef-node' + adjClass + '" data-ef-id="' + n.id + '" data-ef-vnode="' + (n.isVNode ? n.vtype : '') + '" style="border-color:rgba(' + rgb + ',0.25)">' +
       '<div class="ef-node-icon">' + n.icon + '</div>' +
       '<div class="ef-node-title">' + n.title + '</div>' +
       '<div class="ef-node-sub">' + n.sub + '</div></div>';
@@ -1440,43 +1481,35 @@ body::after {
   function buildExecutionFlow() {
     var html = '<div class="ef-topology" id="efTopology">';
 
-    efLayers.forEach(function(layer, li) {
+    efLayers.forEach(function(layer) {
       var lrgb = toRGB(layer.color);
-      html += '<div class="ef-layer">';
-      html += '<div class="ef-layer-label" style="color:rgba(' + lrgb + ',0.35)">' + layer.label + '</div>';
+      html += '<div class="ef-layer" style="border-left-color:rgba(' + lrgb + ',0.35)">';
+      html += '<div class="ef-layer-label" style="color:rgba(' + lrgb + ',0.7)">' + layer.label + '</div>';
       html += '<div class="ef-layer-nodes">';
       layer.nodes.forEach(function(n, ni) {
         html += efNodeHtml(n);
         if (ni < layer.nodes.length - 1) {
-          if (layer.arrows) {
-            html += '<div class="ef-arrow-label">→</div>';
-          } else if (layer.bidir) {
-            html += '<div class="ef-arrow-label">↔</div>';
-          }
+          if (layer.arrows) html += '<div class="ef-arrow-label">→</div>';
+          else if (layer.bidir) html += '<div class="ef-arrow-label">↔</div>';
         }
       });
       html += '</div></div>';
-      if (li < efLayers.length - 1) {
-        html += '<div class="ef-layer-sep"></div>';
-      }
     });
 
     /* cross-cutting */
     html += '<div class="ef-cc-layer">';
-    html += '<div class="ef-layer-label" style="color:rgba(245,158,11,0.3)">CROSS-CUTTING CAPABILITIES</div>';
+    html += '<div class="ef-layer-label" style="color:rgba(245,158,11,0.6)">CROSS-CUTTING CAPABILITIES</div>';
     html += '<div class="ef-cc-grid">';
     efCrossCutting.forEach(function(c) {
       var rgb = toRGB(c.color);
-      html += '<div class="ef-cc-chip" data-ef-id="' + c.id + '" style="border-color:rgba(' + rgb + ',0.12)">';
+      html += '<div class="ef-cc-chip" data-ef-id="' + c.id + '" style="border-color:rgba(' + rgb + ',0.15)">';
       html += '<span>' + c.icon + '</span><span>' + c.title + '</span></div>';
     });
     html += '</div></div>';
     html += '</div>';
 
     efView.innerHTML = html;
-
-    /* draw SVG connections after DOM render */
-    setTimeout(drawEfConnections, 20);
+    setTimeout(drawEfConnections, 30);
     bindEfClicks();
   }
 
@@ -1484,74 +1517,47 @@ body::after {
     var topo = document.getElementById('efTopology');
     if (!topo) return;
     var rect = topo.getBoundingClientRect();
-
-    /* remove old SVG */
     var old = topo.querySelector('svg.ef-lines');
     if (old) old.remove();
 
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'ef-lines');
-    svg.setAttribute('width', rect.width);
-    svg.setAttribute('height', rect.height);
     svg.style.width = rect.width + 'px';
     svg.style.height = rect.height + 'px';
 
-    /* add defs for animated dash + arrowhead */
     var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-    marker.setAttribute('id', 'ef-arrowhead');
-    marker.setAttribute('markerWidth', '6');
-    marker.setAttribute('markerHeight', '4');
-    marker.setAttribute('refX', '5');
-    marker.setAttribute('refY', '2');
-    marker.setAttribute('orient', 'auto');
+    marker.setAttribute('id', 'ef-arrow'); marker.setAttribute('markerWidth', '6'); marker.setAttribute('markerHeight', '4');
+    marker.setAttribute('refX', '5'); marker.setAttribute('refY', '2'); marker.setAttribute('orient', 'auto');
     var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    poly.setAttribute('points', '0 0, 6 2, 0 4');
-    poly.setAttribute('fill', 'rgba(139,92,246,0.3)');
-    marker.appendChild(poly);
-    defs.appendChild(marker);
-    svg.appendChild(defs);
+    poly.setAttribute('points', '0 0, 6 2, 0 4'); poly.setAttribute('fill', 'rgba(255,255,255,0.15)');
+    marker.appendChild(poly); defs.appendChild(marker); svg.appendChild(defs);
 
-    /* helper: get center of a node relative to topology container */
-    function nodeCenter(id) {
+    function nc(id) {
       var el = topo.querySelector('[data-ef-id="' + id + '"]');
       if (!el) return null;
-      var nr = el.getBoundingClientRect();
-      return { x: nr.left - rect.left + nr.width / 2, y: nr.top - rect.top + nr.height / 2, b: nr.top - rect.top + nr.height, t: nr.top - rect.top };
+      var r = el.getBoundingClientRect();
+      return { x:r.left-rect.left+r.width/2, b:r.top-rect.top+r.height, t:r.top-rect.top };
     }
-
-    function drawLine(from, to, color, dashed, arrow) {
-      var a = nodeCenter(from);
-      var b = nodeCenter(to);
+    function line(from, to, color) {
+      var a = nc(from), b = nc(to);
       if (!a || !b) return;
-
-      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', a.x); line.setAttribute('y1', a.b);
-      line.setAttribute('x2', b.x); line.setAttribute('y2', b.t);
-      line.setAttribute('stroke', color);
-      line.setAttribute('stroke-width', '1');
-      if (dashed) {
-        line.setAttribute('stroke-dasharray', '4 4');
-        line.style.animation = 'ef-dash-flow 1.5s linear infinite';
-      }
-      if (arrow) line.setAttribute('marker-end', 'url(#ef-arrowhead)');
-      svg.appendChild(line);
+      var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1',a.x); l.setAttribute('y1',a.b);
+      l.setAttribute('x2',b.x); l.setAttribute('y2',b.t);
+      l.setAttribute('stroke',color); l.setAttribute('stroke-width','1');
+      l.setAttribute('stroke-dasharray','4 4');
+      l.style.animation = 'ef-dash-flow 2.5s linear infinite';
+      l.setAttribute('marker-end','url(#ef-arrow)');
+      svg.appendChild(l);
     }
 
-    /* Communication → Orchestration: WhatsApp → n8n */
-    drawLine(1, 2, 'rgba(16,185,129,0.15)', true, true);
-
-    /* Orchestration → Core: Decision Engine → Backend */
-    drawLine(14, 100, 'rgba(139,92,246,0.12)', true, true);
-
-    /* Core → Persistence: Backend → PostgreSQL, Backend → Redis */
-    drawLine(100, 4, 'rgba(96,165,250,0.12)', true, true);
-    drawLine(100, 5, 'rgba(96,165,250,0.12)', true, true);
-
-    /* Backend → Notificaciones (outbound path) */
-    drawLine(100, 11, 'rgba(16,185,129,0.08)', false, false);
-    /* Backend → Recordatorios */
-    drawLine(100, 10, 'rgba(16,185,129,0.08)', false, false);
+    /* ONLY critical runtime path */
+    line(1, 2, 'rgba(16,185,129,0.18)');
+    line(2, 102, 'rgba(139,92,246,0.15)');
+    line(102, 100, 'rgba(16,185,129,0.15)');
+    line(100, 4, 'rgba(96,165,250,0.15)');
+    line(100, 5, 'rgba(96,165,250,0.12)');
 
     topo.insertBefore(svg, topo.firstChild);
   }
@@ -1561,139 +1567,57 @@ body::after {
       el.addEventListener('click', function(e) {
         e.stopPropagation();
         var nid = parseInt(el.getAttribute('data-ef-id'));
-        var vtype = el.getAttribute('data-ef-vnode');
-        if (vtype === 'agente') { openAgentModalFromEf(); }
-        else if (vtype === 'backend') { openVCoreCardFromEf('backend'); }
-        else if (vtype === 'panel') { openVCoreCardFromEf('panel'); }
-        else { openNodeFromEf(nid); }
+        openFlowInspector(nid);
       });
     });
   }
 
-  /* Reuse existing card/modal system from execution flow */
-  function openNodeFromEf(id) {
-    var n = nodes.find(function(nd) { return nd.id === id; });
-    if (!n) return;
+  function openFlowInspector(id) {
+    var data = inspectorData[id];
+    if (!data) return;
+    closeFlowInspector();
 
-    closeAll();
-    var ac = n.accent;
-    var rgb = toRGB(ac);
-    var badgeClass = 'card-badge--' + n.status;
-    var badgeText = n.status === 'live' ? 'LIVE' : n.status === 'soon' ? 'PRÓXIMO' : 'ROADMAP';
+    /* find node color */
+    var color = '#94a3b8';
+    efLayers.forEach(function(l) { l.nodes.forEach(function(n) { if (n.id === id) color = n.color; }); });
+    efCrossCutting.forEach(function(c) { if (c.id === id) color = c.color; });
+    var rgb = toRGB(color);
 
-    var checksHtml = '';
-    if (n.checks && n.checks.length) {
-      checksHtml = '<div class="card-checks">';
-      n.checks.forEach(function(c) {
-        checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
-      });
-      checksHtml += '</div>';
-    }
-    var connHtml = buildConnectedWith(n.relatedIds);
+    var html = '<div class="fi-step-label" style="color:' + color + '">' + data.step + '</div>';
+    html += '<div class="fi-role">' + data.role + '</div>';
 
-    card.innerHTML =
-      '<div class="card-header">' +
-        '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + n.icon + '</div>' +
-        '<div><div class="card-title">' + n.title + '</div><div class="card-subtitle">' + n.subtitle + '</div></div>' +
-      '</div>' +
-      '<span class="card-badge ' + badgeClass + '">' + badgeText + '</span>' +
-      '<div class="card-fn" style="border-left-color:' + ac + '">' +
-        '<div class="card-fn-label" style="color:' + ac + '">FUNCIÓN</div>' +
-        '<p class="card-fn-text">' + n.fn + '</p>' +
-      '</div>' +
-      checksHtml +
-      '<div class="card-tech-box">' + n.tech + '</div>' +
-      connHtml;
+    html += '<div class="fi-section"><div class="fi-section-label">INPUTS</div><ul class="fi-list">';
+    data.inputs.forEach(function(i) { html += '<li>' + i + '</li>'; });
+    html += '</ul></div>';
 
-    card.style.borderColor = 'rgba(' + rgb + ',0.3)';
-    card.style.position = 'fixed';
-    card.style.left = '50%';
-    card.style.top = '50%';
-    card.style.transform = 'translate(-50%, -50%)';
-    card.classList.add('is-open');
+    html += '<div class="fi-section"><div class="fi-section-label">OUTPUTS</div><ul class="fi-list">';
+    data.outputs.forEach(function(o) { html += '<li>' + o + '</li>'; });
+    html += '</ul></div>';
 
-    /* overlay for EF */
+    html += '<div class="fi-section" style="display:flex;gap:20px">';
+    html += '<div><div class="fi-stream-label">UPSTREAM</div><div class="fi-chars">' + data.upstream + '</div></div>';
+    html += '<div><div class="fi-stream-label">DOWNSTREAM</div><div class="fi-chars">' + data.downstream + '</div></div>';
+    html += '</div>';
+
+    html += '<div class="fi-section"><div class="fi-section-label">RUNTIME CHARACTERISTICS</div><div class="fi-chars">';
+    data.chars.forEach(function(c) { html += c + '<br>'; });
+    html += '</div></div>';
+
+    html += '<div class="fi-impact" style="border-left-color:rgba(' + rgb + ',0.4)">' + data.impact + '</div>';
+
+    flowInspectorEl.innerHTML = html;
+    flowInspectorEl.classList.add('is-open');
+
     if (!overlay) {
       overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
-      overlay.addEventListener('click', function() { closeEfCard(); });
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.3);';
+      overlay.addEventListener('click', function() { closeFlowInspector(); });
       document.body.appendChild(overlay);
     }
   }
 
-  function openVCoreCardFromEf(type) {
-    closeAll();
-    var data = vCoreCards[type];
-    vCoreActiveTab = 0;
-    card.innerHTML = buildTabbedCard(data, 0);
-    card.style.borderColor = data.borderColor;
-    card.style.position = 'fixed';
-    card.style.left = '50%';
-    card.style.top = '50%';
-    card.style.transform = 'translate(-50%, -50%)';
-    card.classList.add('is-open');
-
-    card.querySelectorAll('.vcore-tab').forEach(function(tab) {
-      tab.addEventListener('click', function(e) {
-        e.stopPropagation();
-        vCoreActiveTab = parseInt(tab.getAttribute('data-vcore-tab'));
-        card.innerHTML = buildTabbedCard(data, vCoreActiveTab);
-        /* re-bind tabs */
-        card.querySelectorAll('.vcore-tab').forEach(function(t2) {
-          t2.addEventListener('click', function(e2) {
-            e2.stopPropagation();
-            vCoreActiveTab = parseInt(t2.getAttribute('data-vcore-tab'));
-            card.innerHTML = buildTabbedCard(data, vCoreActiveTab);
-          });
-        });
-      });
-    });
-
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
-      overlay.addEventListener('click', function() { closeEfCard(); });
-      document.body.appendChild(overlay);
-    }
-  }
-
-  function openAgentModalFromEf() {
-    closeAll();
-    agentModalOpen = true;
-    activeAgentTab = 0;
-    buildAgentTabs();
-    renderAgentTab(0);
-
-    agentModal.style.position = 'fixed';
-    agentModal.style.width = '680px';
-    agentModal.style.maxWidth = '95vw';
-    agentModal.style.left = '50%';
-    agentModal.style.top = '50%';
-    agentModal.style.transform = 'translate(-50%, -50%)';
-    agentModal.classList.add('is-open');
-    startFlowAnimation();
-
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
-      overlay.addEventListener('click', function() { closeEfCard(); });
-      document.body.appendChild(overlay);
-    }
-  }
-
-  function closeEfCard() {
-    card.classList.remove('is-open');
-    card.style.position = '';
-    card.style.left = '';
-    card.style.top = '';
-    card.style.transform = '';
-    agentModal.classList.remove('is-open');
-    agentModal.style.position = '';
-    agentModal.style.left = '';
-    agentModal.style.top = '';
-    agentModal.style.transform = '';
-    agentModalOpen = false;
-    clearFlowAnimation();
+  function closeFlowInspector() {
+    flowInspectorEl.classList.remove('is-open');
     if (overlay) { overlay.remove(); overlay = null; }
   }
 
@@ -1734,10 +1658,10 @@ body::after {
     if (btn) switchView(btn.getAttribute('data-view'));
   });
 
-  /* close EF cards on click outside */
+  /* close flow inspector on click outside */
   document.addEventListener('click', function(e) {
-    if (currentView === 'execution' && !e.target.closest('.detail-card') && !e.target.closest('.agent-modal') && !e.target.closest('[data-ef-id]')) {
-      closeEfCard();
+    if (currentView === 'execution' && !e.target.closest('.flow-inspector') && !e.target.closest('[data-ef-id]')) {
+      closeFlowInspector();
     }
   });
 
