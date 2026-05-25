@@ -110,8 +110,8 @@ body::after {
 /* ===== ZONE LABELS ===== */
 .zone-label {
   position: absolute; left: 50%; transform: translateX(-50%);
-  font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.38);
-  text-transform: uppercase; font-weight: 500; pointer-events: none;
+  font-size: 13px; letter-spacing: 0.28em; color: rgba(255,255,255,0.32);
+  text-transform: uppercase; font-weight: 700; pointer-events: none;
   z-index: 1; white-space: nowrap;
 }
 
@@ -142,6 +142,91 @@ body::after {
 .v-badge--green { background: rgba(16,185,129,0.15); color: #10b981; }
 .v-badge--lila { background: rgba(139,92,246,0.15); color: #8b5cf6; }
 .v-badge--blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
+
+/* ===== DECISION ENGINE CENTRAL NODE ===== */
+.v-node--engine { z-index: 8; }
+.v-node--engine .v-icon {
+  width: 64px; height: 64px; font-size: 28px; border-width: 2.5px;
+  box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06);
+  animation: engine-idle 4s ease-in-out infinite;
+}
+.v-node--engine .v-name { font-size: 15px; }
+.v-node--engine .v-sub { font-size: 12px; }
+.v-engine-halo {
+  position: absolute; inset: -20px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+  pointer-events: none; z-index: -1;
+}
+@keyframes engine-idle {
+  0%, 100% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); }
+  50% { box-shadow: 0 0 28px rgba(139,92,246,0.2), 0 0 56px rgba(139,92,246,0.08); }
+}
+@keyframes core-link-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+/* ===== DECISION ENGINE MODAL ===== */
+.de-modal {
+  position: absolute; z-index: 300;
+  width: 800px; max-width: 92vw; padding: 28px;
+  background: rgba(26,29,33,0.97);
+  border: 1px solid rgba(139,92,246,0.25); border-radius: 16px;
+  backdrop-filter: blur(14px);
+  max-height: 85vh; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent;
+  opacity: 0; transform: translateY(8px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+}
+.de-modal::-webkit-scrollbar { width: 4px; }
+.de-modal::-webkit-scrollbar-track { background: transparent; }
+.de-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.de-modal.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.de-header { margin-bottom: 20px; }
+.de-title-row { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.de-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2); }
+.de-title { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.de-subtitle { font-size: 13px; color: #8b5cf6; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.de-tagline { font-size: 14px; color: #94a3b8; line-height: 1.5; margin: 8px 0 12px; }
+.de-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.de-pill { padding: 5px 14px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.15); color: #c4b5fd; }
+.de-section { margin-top: 24px; }
+.de-section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #8b5cf6; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(139,92,246,0.1); }
+.de-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.de-card { padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; }
+.de-card-icon { font-size: 16px; margin-bottom: 6px; }
+.de-card-title { font-size: 13px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+.de-card-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+.de-pipeline { display: flex; align-items: center; gap: 0; overflow-x: auto; padding: 8px 0; }
+.de-pipe-step { display: flex; flex-direction: column; align-items: center; min-width: 90px; text-align: center; flex-shrink: 0; }
+.de-pipe-chip { padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; color: #c4b5fd; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.12); white-space: nowrap; }
+.de-pipe-label { font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+.de-pipe-arrow { color: rgba(139,92,246,0.3); font-size: 14px; flex-shrink: 0; margin: 0 2px; }
+.de-inv { padding: 10px 14px; background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.1); border-radius: 8px; margin-bottom: 8px; }
+.de-inv-id { font-size: 10px; font-weight: 700; color: #f59e0b; letter-spacing: 0.06em; margin-bottom: 2px; }
+.de-inv-text { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+.de-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.de-tile { padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; gap: 8px; }
+.de-tile-icon { font-size: 14px; flex-shrink: 0; }
+.de-tile-text { font-size: 12px; color: #cbd5e1; font-weight: 500; }
+.de-rel { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px; }
+.de-rel-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.de-rel-name { font-size: 13px; font-weight: 600; color: #f1f5f9; }
+.de-rel-role { font-size: 12px; color: #94a3b8; line-height: 1.4; }
+.de-principles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.de-principle { padding: 10px 14px; border-left: 2px solid rgba(139,92,246,0.25); background: rgba(255,255,255,0.015); border-radius: 0 8px 8px 0; }
+.de-principle-text { font-size: 12px; color: #cbd5e1; font-weight: 500; line-height: 1.4; }
+@media (max-width: 768px) {
+  .de-modal { width: 95% !important; padding: 20px !important; }
+  .de-grid, .de-principles { grid-template-columns: 1fr; }
+  .de-tiles { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .de-modal { padding: 16px !important; }
+  .de-tiles { grid-template-columns: 1fr; }
+  .de-pipeline { flex-wrap: wrap; gap: 6px; }
+}
 
 /* ===== ORBITAL NODES ===== */
 .orbital-node {
@@ -507,25 +592,29 @@ body::after {
   <!-- V-CENTER LINES -->
   <svg class="v-center-lines" id="vLines" width="100%" height="100%">
     <defs>
-      <linearGradient id="gBkAg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#10b981" stop-opacity="0.5"/>
-        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+      <linearGradient id="gDeBk" x1="0.5" y1="0.5" x2="0" y2="0">
+        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#10b981" stop-opacity="0.5"/>
       </linearGradient>
-      <linearGradient id="gPlAg" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
-        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+      <linearGradient id="gDePl" x1="0.5" y1="0.5" x2="1" y2="0">
+        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.5"/>
+      </linearGradient>
+      <linearGradient id="gDeAg" x1="0.5" y1="0.5" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.35"/>
       </linearGradient>
     </defs>
-    <line id="lineBkAg" stroke="url(#gBkAg)" stroke-width="1.5" stroke-linecap="round"/>
-    <line id="linePlAg" stroke="url(#gPlAg)" stroke-width="1.5" stroke-linecap="round"/>
-    <line id="lineBkPl" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+    <line id="lineDeBk" stroke="url(#gDeBk)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite"/>
+    <line id="lineDePl" stroke="url(#gDePl)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite;animation-delay:1s"/>
+    <line id="lineDeAg" stroke="url(#gDeAg)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite;animation-delay:2s"/>
   </svg>
 
   <!-- V-CENTER NODES -->
   <div class="v-node" id="vBackend">
     <div class="v-icon" style="border-color:#10b981">&#x2699;&#xFE0F;</div>
     <span class="v-name">Backend API</span>
-    <span class="v-sub">Java &amp; Spring Boot 4</span>
+    <span class="v-sub">Source of truth</span>
     <span class="v-badge v-badge--green">LIVE</span>
   </div>
 
@@ -534,16 +623,28 @@ body::after {
       <div class="v-ring"></div>
       <div class="v-icon" style="border-color:#8b5cf6">&#x1F916;</div>
     </div>
-    <span class="v-name">Agente</span>
-    <span class="v-sub">n8n &middot; OpenAI</span>
+    <span class="v-name">Agente Runtime</span>
+    <span class="v-sub">Conversational orchestration</span>
     <span class="v-badge v-badge--lila">LIVE</span>
   </div>
 
   <div class="v-node" id="vPanel">
     <div class="v-icon" style="border-color:#60a5fa">&#x1F5A5;&#xFE0F;</div>
     <span class="v-name">Panel Owner</span>
-    <span class="v-sub">Next.js 16</span>
+    <span class="v-sub">Operational control plane</span>
     <span class="v-badge v-badge--blue">LIVE</span>
+  </div>
+
+  <!-- DECISION ENGINE (central node) -->
+  <div class="v-node v-node--engine" id="vEngine">
+    <div class="v-icon-wrap">
+      <div class="v-engine-halo"></div>
+      <div class="v-ring" style="border-color:rgba(139,92,246,0.2)"></div>
+      <div class="v-icon" style="border-color:#8b5cf6">&#x1F9E0;</div>
+    </div>
+    <span class="v-name">Decision Engine</span>
+    <span class="v-sub">Governed runtime core</span>
+    <span class="v-badge v-badge--lila">LIVE</span>
   </div>
 
   <!-- ORBITAL CONNECTION LINES -->
@@ -562,6 +663,9 @@ body::after {
     <div class="agent-tabs" id="agentTabs"></div>
     <div class="agent-content" id="agentContent"></div>
   </div>
+
+  <!-- DECISION ENGINE MODAL -->
+  <div class="de-modal" id="deModal"></div>
 
   <!-- DETAIL CARD (orbital + V-center) -->
   <div class="detail-card" id="detailCard"></div>
@@ -655,10 +759,6 @@ body::after {
       fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
       checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
       tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100,102] },
-    { id:14, title:"Decision Engine", subtitle:"Policy evaluation", icon:"🧠", status:"live", accent:"#8b5cf6",
-      fn:"El motor de decisiones que evalúa políticas antes de cada acción. El agente nunca actúa a ciegas — cada paso pasa por un gate de decisión explícito.",
-      checks:["Intent classification con confidence score","Availability graph resolution en tiempo real","Assignment policy: least-loaded employee algorithm","Operational risk assessment: LOW / MEDIUM / HIGH","Approval policy gate según modo configurado","Pending timeout armado automáticamente"],
-      tech:"BotEventResolver · AppointmentService · EmployeeAvailabilityService", relatedIds:[102,100] },
     { id:15, title:"Gobernanza", subtitle:"Observable · Reversible · Auditable", icon:"⚖️", status:"live", accent:"#f59e0b",
       fn:"Cada acción del agente es observable, reversible, auditable y gobernada por políticas. El sistema nunca es una caja negra.",
       checks:["Observable: 11 BotEventType frozen — cada evento trazado","Reversible: Reactivar cita con Option β — audit trail preservado","Auditable: narrativas ES pre-rendered por BotNarrativeRenderer","Policy-governed: 55 invariantes de dominio petrificados en AGENTS.md","Explainable: cada decisión del agente tiene justificación técnica"],
@@ -693,7 +793,8 @@ body::after {
   var vNodeMap = {
     100: { icon:"⚙️", title:"Backend API", vtype:"backend" },
     101: { icon:"🖥️", title:"Panel Owner", vtype:"panel" },
-    102: { icon:"🤖", title:"Agente", vtype:"agente" }
+    102: { icon:"🤖", title:"Agente Runtime", vtype:"agente" },
+    14:  { icon:"🧠", title:"Decision Engine", vtype:"engine" }
   };
 
   /* AGENT MODES DATA */
@@ -767,6 +868,7 @@ body::after {
   var animFrameId = null;
   var lastTime = 0;
   var agentModalOpen = false;
+  var deModalOpen = false;
   var vCoreActiveTab = 0;
   var activeAgentTab = 0;
   var vCoreCardOpen = null;
@@ -784,9 +886,11 @@ body::after {
   var vAgenteEl = document.getElementById('vAgente');
   var vBackendEl = document.getElementById('vBackend');
   var vPanelEl = document.getElementById('vPanel');
-  var lineBkAg = document.getElementById('lineBkAg');
-  var linePlAg = document.getElementById('linePlAg');
-  var lineBkPl = document.getElementById('lineBkPl');
+  var vEngineEl = document.getElementById('vEngine');
+  var deModal = document.getElementById('deModal');
+  var lineDeBk = document.getElementById('lineDeBk');
+  var lineDePl = document.getElementById('lineDePl');
+  var lineDeAg = document.getElementById('lineDeAg');
   var labelCore = document.getElementById('labelCore');
   var labelInfra = document.getElementById('labelInfra');
   var nodeEls = {};
@@ -802,9 +906,9 @@ body::after {
 
   function getVOffsets() {
     var w = wrap.offsetWidth;
-    if (w < 480) return { ox: 55, oy: 42 };
-    if (w < 768) return { ox: 80, oy: 60 };
-    return { ox: 110, oy: 80 };
+    if (w < 480) return { ox: 65, oy: 50 };
+    if (w < 768) return { ox: 92, oy: 70 };
+    return { ox: 125, oy: 92 };
   }
 
   /* ================================================================
@@ -848,10 +952,17 @@ body::after {
     var cy = wrap.offsetHeight / 2;
     var v = getVOffsets();
 
+    /* Decision Engine at absolute center */
+    var ex = cx, ey = cy;
+    /* Backend upper-left */
     var bx = cx - v.ox, by = cy - v.oy;
-    var ax = cx, ay = cy + v.oy;
+    /* Panel upper-right */
     var px = cx + v.ox, py = cy - v.oy;
+    /* Agente bottom-center */
+    var ax = cx, ay = cy + v.oy;
 
+    vEngineEl.style.left = ex + 'px'; vEngineEl.style.top = ey + 'px';
+    vEngineEl.style.transform = 'translate(-50%, -50%)';
     vBackendEl.style.left = bx + 'px'; vBackendEl.style.top = by + 'px';
     vBackendEl.style.transform = 'translate(-50%, -50%)';
     vAgenteEl.style.left = ax + 'px'; vAgenteEl.style.top = ay + 'px';
@@ -859,14 +970,15 @@ body::after {
     vPanelEl.style.left = px + 'px'; vPanelEl.style.top = py + 'px';
     vPanelEl.style.transform = 'translate(-50%, -50%)';
 
-    lineBkAg.setAttribute('x1', bx); lineBkAg.setAttribute('y1', by);
-    lineBkAg.setAttribute('x2', ax); lineBkAg.setAttribute('y2', ay);
-    linePlAg.setAttribute('x1', px); linePlAg.setAttribute('y1', py);
-    linePlAg.setAttribute('x2', ax); linePlAg.setAttribute('y2', ay);
-    lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
-    lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
+    /* All core links converge on Decision Engine */
+    lineDeBk.setAttribute('x1', ex); lineDeBk.setAttribute('y1', ey);
+    lineDeBk.setAttribute('x2', bx); lineDeBk.setAttribute('y2', by);
+    lineDePl.setAttribute('x1', ex); lineDePl.setAttribute('y1', ey);
+    lineDePl.setAttribute('x2', px); lineDePl.setAttribute('y2', py);
+    lineDeAg.setAttribute('x1', ex); lineDeAg.setAttribute('y1', ey);
+    lineDeAg.setAttribute('x2', ax); lineDeAg.setAttribute('y2', ay);
 
-    labelCore.style.top = (cy - 100) + 'px';
+    labelCore.style.top = (cy - v.oy - 55) + 'px';
     labelInfra.style.top = (cy + 195) + 'px';
   }
 
@@ -906,6 +1018,7 @@ body::after {
     if (nodeEls[id]) {
       return { x: parseFloat(nodeEls[id].style.left), y: parseFloat(nodeEls[id].style.top) };
     }
+    if (id === 14) return { x: parseFloat(vEngineEl.style.left), y: parseFloat(vEngineEl.style.top) };
     if (id === 100) return { x: parseFloat(vBackendEl.style.left), y: parseFloat(vBackendEl.style.top) };
     if (id === 101) return { x: parseFloat(vPanelEl.style.left), y: parseFloat(vPanelEl.style.top) };
     if (id === 102) return { x: parseFloat(vAgenteEl.style.left), y: parseFloat(vAgenteEl.style.top) };
@@ -1009,6 +1122,7 @@ body::after {
     if (nid === 100) openVCoreCard('backend');
     else if (nid === 101) openVCoreCard('panel');
     else if (nid === 102) openAgentModal();
+    else if (nid === 14) openDeModal();
     else openNode(nid);
   }
 
@@ -1025,6 +1139,7 @@ body::after {
    * ================================================================ */
   function openNode(id) {
     closeAgentModal();
+    closeDeModal();
     closeVCoreCard();
     autoRotate = false;
     activeNodeId = id;
@@ -1099,6 +1214,7 @@ body::after {
    * ================================================================ */
   function openVCoreCard(type) {
     closeAgentModal();
+    closeDeModal();
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
@@ -1310,6 +1426,7 @@ body::after {
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     activeNodeId = null;
+    closeDeModal();
     closeVCoreCard();
     Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
 
@@ -1341,6 +1458,132 @@ body::after {
   }
 
   /* ================================================================
+   * DECISION ENGINE MODAL
+   * ================================================================ */
+  function renderDeModal() {
+    var html = '<div class="de-header">';
+    html += '<div class="de-title-row"><div class="de-icon">🧠</div><div><div class="de-title">Decision Engine</div><div class="de-subtitle">Governed Runtime Core</div></div></div>';
+    html += '<span class="card-badge card-badge--live" style="margin-bottom:8px">LIVE</span>';
+    html += '<div class="de-tagline">The deterministic decision authority behind every operational action.</div>';
+    html += '<div class="de-pills"><span class="de-pill">Deterministic</span><span class="de-pill">Auditable</span><span class="de-pill">Policy-Governed</span></div>';
+    html += '</div>';
+
+    /* Section 1 — Runtime Authority */
+    html += '<div class="de-section"><div class="de-section-title">Runtime Authority</div><div class="de-grid">';
+    var auth = [
+      {i:'🛡️',t:'Gate enforcement',d:'No operational action executes without deterministic evaluation.'},
+      {i:'🔒',t:'LLM has no authority',d:'The language model proposes — the engine decides. Never the reverse.'},
+      {i:'📋',t:'Policy validation',d:'Assignment policies, approval gates and risk assessment run before every mutation.'},
+      {i:'🔄',t:'Rollback safety',d:'Every committed decision is reversible with full audit trail preservation.'},
+      {i:'👤',t:'Ownership semantics',d:'businessId from JWT enforced at every decision boundary. Zero cross-tenant leakage.'},
+      {i:'⚖️',t:'Assignment guarantees',d:'Least-loaded algorithm with conflict detection. No double bookings by design.'}
+    ];
+    auth.forEach(function(a) {
+      html += '<div class="de-card"><div class="de-card-icon">' + a.i + '</div><div class="de-card-title">' + a.t + '</div><div class="de-card-desc">' + a.d + '</div></div>';
+    });
+    html += '</div></div>';
+
+    /* Section 2 — Decision Pipeline */
+    html += '<div class="de-section"><div class="de-section-title">Decision Pipeline</div><div class="de-pipeline">';
+    var pipe = [
+      {c:'Intent',l:'deterministic'},
+      {c:'Policy Eval',l:'configurable'},
+      {c:'Constraint Check',l:'reversible'},
+      {c:'Assignment',l:'conflict-safe'},
+      {c:'Governance Gate',l:'auditable'},
+      {c:'Exec Auth',l:'traceable'},
+      {c:'Audit Commit',l:'immutable'}
+    ];
+    pipe.forEach(function(p, i) {
+      if (i > 0) html += '<span class="de-pipe-arrow">→</span>';
+      html += '<div class="de-pipe-step"><div class="de-pipe-chip">' + p.c + '</div><div class="de-pipe-label">' + p.l + '</div></div>';
+    });
+    html += '</div></div>';
+
+    /* Section 3 — Governance Enforcement */
+    html += '<div class="de-section"><div class="de-section-title">Governance Enforcement</div>';
+    var invs = [
+      {id:'INV #57',t:'No autonomous assignment execution without policy evaluation. The engine must evaluate operational mode and approval requirements before any booking mutation.'},
+      {id:'INV #58',t:'Every operational decision must produce an auditable BotEvent trace. Decisions without audit records violate governance contracts.'},
+      {id:'INV #59',t:'Intent classification must precede any booking mutation. The engine never acts on unclassified or ambiguous requests.'},
+      {id:'INV #60',t:'Approval gate evaluation is mandatory — mode determines enforcement. RECEPCIONISTA requires explicit owner approval; AUTÓNOMO enforces conflict-safe auto-confirmation.'}
+    ];
+    invs.forEach(function(inv) {
+      html += '<div class="de-inv"><div class="de-inv-id">' + inv.id + '</div><div class="de-inv-text">' + inv.t + '</div></div>';
+    });
+    html += '</div>';
+
+    /* Section 4 — Connected Runtime Dependencies */
+    html += '<div class="de-section"><div class="de-section-title">Connected Runtime Dependencies</div>';
+    var rels = [
+      {i:'⚙️',n:'Backend API',r:'Receives validated decision payloads. Persists canonical booking state and enforces transactional boundaries.'},
+      {i:'🤖',n:'Agente Runtime',r:'Dispatches orchestrated tool calls. The engine evaluates each call before authorizing execution.'},
+      {i:'🖥️',n:'Panel Owner',r:'Surfaces approval queues and operational overrides. Human decisions feed back into the engine.'},
+      {i:'📊',n:'Audit Layer',r:'Every engine decision emits a frozen BotEvent. 11 event types, immutable once committed.'},
+      {i:'📐',n:'Assignment Policies',r:'Configurable per business: approval mode, timeout window, employee assignment algorithm.'}
+    ];
+    rels.forEach(function(r) {
+      html += '<div class="de-rel"><div class="de-rel-icon">' + r.i + '</div><div><div class="de-rel-name">' + r.n + '</div><div class="de-rel-role">' + r.r + '</div></div></div>';
+    });
+    html += '</div>';
+
+    /* Section 5 — Operational Guarantees */
+    html += '<div class="de-section"><div class="de-section-title">Operational Guarantees</div><div class="de-tiles">';
+    var guar = [
+      {i:'🎯',t:'Deterministic execution'},{i:'📋',t:'Full auditability'},{i:'🏢',t:'Multi-tenant isolation'},
+      {i:'⚖️',t:'Policy enforcement'},{i:'👤',t:'Human override compatible'},{i:'🔄',t:'Reversible operations'},
+      {i:'💡',t:'Explainable decisions'},{i:'🔒',t:'Transaction-safe assignments'}
+    ];
+    guar.forEach(function(g) {
+      html += '<div class="de-tile"><div class="de-tile-icon">' + g.i + '</div><div class="de-tile-text">' + g.t + '</div></div>';
+    });
+    html += '</div></div>';
+
+    /* Section 6 — Architectural Principles */
+    html += '<div class="de-section"><div class="de-section-title">Architectural Principles</div><div class="de-principles">';
+    var princ = [
+      'AI is not authority','Backend remains source of truth','Governance over autonomy',
+      'Explicit approval over hidden automation','Observable runtime state','Human override precedence'
+    ];
+    princ.forEach(function(p) {
+      html += '<div class="de-principle"><div class="de-principle-text">' + p + '</div></div>';
+    });
+    html += '</div></div>';
+
+    deModal.innerHTML = html;
+  }
+
+  function openDeModal() {
+    card.classList.remove('is-open');
+    connSvg.innerHTML = '';
+    activeNodeId = null;
+    closeAgentModal();
+    closeVCoreCard();
+    Object.keys(nodeEls).forEach(function(k) { nodeEls[k].classList.remove('is-active','is-pulsing'); });
+
+    autoRotate = false;
+    deModalOpen = true;
+
+    renderDeModal();
+
+    var wrapW = wrap.offsetWidth;
+    var modalW = 800;
+    if (wrapW < 768) modalW = Math.floor(wrapW * 0.95);
+
+    deModal.style.width = modalW + 'px';
+    deModal.style.left = Math.max(0, (wrapW - modalW) / 2) + 'px';
+    deModal.style.top = '20px';
+    deModal.classList.add('is-open');
+    showOverlay();
+    hint.textContent = 'Haz clic fuera para cerrar';
+  }
+
+  function closeDeModal() {
+    deModalOpen = false;
+    deModal.classList.remove('is-open');
+  }
+
+  /* ================================================================
    * CLOSE ALL
    * ================================================================ */
   function closeAll() {
@@ -1349,6 +1592,7 @@ body::after {
     card.classList.remove('is-open');
     connSvg.innerHTML = '';
     closeAgentModal();
+    closeDeModal();
     closeVCoreCard();
     removeOverlay();
 
@@ -1380,9 +1624,14 @@ body::after {
     vAgenteEl.addEventListener('click', function(e) { e.stopPropagation(); openAgentModal(); });
     vBackendEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('backend'); });
     vPanelEl.addEventListener('click', function(e) { e.stopPropagation(); openVCoreCard('panel'); });
+    vEngineEl.addEventListener('click', function(e) { e.stopPropagation(); openDeModal(); });
 
-    // Prevent clicks inside agent modal from propagating to wrap/overlay
+    // Prevent clicks inside modals from propagating to wrap/overlay
     agentModal.addEventListener('click', function(e) { e.stopPropagation(); });
+    deModal.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    // ESC closes everything
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAll(); });
 
     wrap.addEventListener('click', function(e) {
       if (e.target === wrap || e.target.classList.contains('orbital-ring') ||
