@@ -93,11 +93,11 @@ body::after {
 /* ===== ORBITAL CONTAINER ===== */
 .orbital-wrap {
   position: relative; z-index: 2;
-  width: 100%; max-width: 800px; height: 700px;
+  width: 100%; max-width: 860px; height: 760px;
   margin: 0 auto; cursor: default;
 }
 .orbital-ring {
-  position: absolute; top: 50%; left: 50%; width: 540px; height: 540px;
+  position: absolute; top: 50%; left: 50%; width: 600px; height: 600px;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; pointer-events: none;
 }
@@ -261,25 +261,26 @@ body::after {
 .agent-left { flex: 3; min-width: 0; }
 .agent-right { flex: 1; min-width: 160px; border-left: 1px solid rgba(255,255,255,0.06); padding-left: 16px; }
 
-/* ===== FLOW ANIMATION ===== */
-.agent-flow { position: relative; padding-left: 22px; }
-.agent-flow::before {
-  content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
-  border-left: 1px dashed rgba(255,255,255,0.12);
-}
-.flow-step {
-  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px;
-  opacity: 0; transform: translateX(-6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.flow-step.visible { opacity: 1; transform: translateX(0); }
-.flow-icon { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; font-size: 12px; line-height: 1; }
-.flow-text { font-size: 11px; font-family: monospace; color: #9ca3af; line-height: 1.5; }
-.flow-step.completed .flow-text { color: #d1fae5; }
-.flow-step.active .flow-text { color: #c4b5fd; }
-.flow-step.pending .flow-text { color: #4b5563; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.spin { display: inline-block; animation: spin 1.5s linear infinite; }
+/* ===== FLOW ANIMATION (agent-plan style) ===== */
+.agent-flow { position: relative; padding-left: 28px; }
+.agent-flow::before { content:''; position:absolute; left:9px; top:14px; bottom:14px; border-left:1px dashed rgba(255,255,255,0.1); }
+.flow-step { display:flex; align-items:flex-start; gap:10px; margin-bottom:14px; opacity:0; transform:translateX(-8px); transition:opacity 0.3s ease, transform 0.3s ease; }
+.flow-step.visible { opacity:1; transform:translateX(0); }
+.flow-step-icon { width:16px; height:16px; flex-shrink:0; margin-top:3px; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:9px; font-weight:700; }
+.flow-step-icon.completed { background:rgba(16,185,129,0.15); color:#10b981; border:1px solid rgba(16,185,129,0.25); }
+.flow-step-icon.active { background:rgba(139,92,246,0.15); color:#8b5cf6; border:1px solid rgba(139,92,246,0.25); }
+.flow-step-icon.pending { background:rgba(55,65,81,0.3); color:#4b5563; border:1px solid rgba(55,65,81,0.4); }
+.flow-step-content { flex:1; min-width:0; }
+.flow-step-header { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:2px; }
+.flow-step-title { font-size:11px; font-family:monospace; line-height:1.4; }
+.flow-step.completed .flow-step-title { color:#d1fae5; }
+.flow-step.active .flow-step-title { color:#c4b5fd; }
+.flow-step.pending .flow-step-title { color:#374151; }
+.flow-step-latency { font-size:9px; font-family:monospace; color:#4b5563; white-space:nowrap; flex-shrink:0; }
+.flow-step.completed .flow-step-latency { color:#065f46; }
+.flow-step-detail { font-size:10px; color:#6b7280; font-family:monospace; line-height:1.4; padding-left:0; margin-top:1px; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+.pulse { animation:pulse-dot 1.4s ease-in-out infinite; }
 
 /* ===== INSTRUCTION ===== */
 .orbital-hint { text-align: center; padding: 8px 24px 0; font-size: 13px; color: var(--text-muted); position: relative; z-index: 1; }
@@ -364,6 +365,7 @@ body::after {
   <span class="arch-eyebrow">Arquitectura t&eacute;cnica</span>
   <h1 class="arch-h1">La arquitectura de Vookedme</h1>
   <p class="arch-sub">Un agente de IA construido sobre infraestructura de producci&oacute;n real. Cada pieza dise&ntilde;ada para no fallar.</p>
+  <p style="font-size:13px;color:rgba(255,255,255,0.25);font-style:italic;letter-spacing:0.02em;margin-bottom:32px">&ldquo;Every autonomous action is: observable, reversible, auditable, and policy-governed.&rdquo;</p>
 </header>
 
 <!-- ===== ORBITAL DIAGRAM ===== -->
@@ -494,14 +496,14 @@ body::after {
       fn:"Orquestador de la conversación. Interpreta mensajes, llama al LLM y ejecuta las 4 herramientas del agente.",
       checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Stale context detection con flag Redis approach E"],
       tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[102,100,5] },
-    { id:4, title:"PostgreSQL", subtitle:"68 migraciones", icon:"🗄️", status:"live", accent:"#60a5fa",
+    { id:4, title:"PostgreSQL", subtitle:"ACID · Transactional integrity", icon:"🗄️", status:"live", accent:"#60a5fa",
       fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
-      checks:["68 migraciones Flyway — zero downtime","@Version optimistic locking en appointments","7 estados de cita con state machine definida","Audit trail preservado en revoke y cancelaciones"],
-      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[100] },
-    { id:5, title:"Redis", subtitle:"Chat history", icon:"⚡", status:"live", accent:"#60a5fa",
+      checks:["ACID persistence — transactional consistency garantizada","Optimistic concurrency (@Version) — sin dobles reservas","Scheduling integrity — 7 estados de cita con state machine","Audit chain — operaciones reversibles con trail preservado","Schema evolution — zero downtime migrations"],
+      tech:"PostgreSQL 16 · Flyway · @Version · índices compuestos", relatedIds:[100] },
+    { id:5, title:"Redis", subtitle:"Operational state", icon:"⚡", status:"live", accent:"#60a5fa",
       fn:"Cache de contexto conversacional y rate limiting distribuido.",
-      checks:["Buffer de mensajes TTL 120s por sesión","Historial de chat TTL 30 días (GDPR)","Stale context flag por approach E","Rate limiting 5 creates/h + 20/día por número"],
-      tech:"Redis 7 · TTL policies · approach E flag", relatedIds:[2,100] },
+      checks:["Conversational context — TTL 30 días (GDPR)","Ephemeral operational state por sesión","Rate limiting distribuido — 5 creates/h por número","Stale context detection — approach E flag","Distributed coordination entre n8n y Backend"],
+      tech:"Redis 7 · TTL policies · approach E · distributed locks", relatedIds:[2,100] },
     { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
       fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
       checks:["RateLimitingFilter → WebhookApiKeyFilter → HMAC-SHA256","JwtAuthenticationFilter → @PreAuthorize por rol","Tenant isolation: businessId del JWT en cada query","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
@@ -521,7 +523,15 @@ body::after {
     { id:13, title:"Observabilidad", subtitle:"Sentry + Prometheus", icon:"🔍", status:"live", accent:"#f59e0b",
       fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
       checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
-      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100,102] }
+      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100,102] },
+    { id:14, title:"Decision Engine", subtitle:"Policy evaluation", icon:"🧠", status:"live", accent:"#8b5cf6",
+      fn:"El motor de decisiones que evalúa políticas antes de cada acción. El agente nunca actúa a ciegas — cada paso pasa por un gate de decisión explícito.",
+      checks:["Intent classification con confidence score","Availability graph resolution en tiempo real","Assignment policy: least-loaded employee algorithm","Operational risk assessment: LOW / MEDIUM / HIGH","Approval policy gate según modo configurado","Pending timeout armado automáticamente"],
+      tech:"BotEventResolver · AppointmentService · EmployeeAvailabilityService", relatedIds:[102,100] },
+    { id:15, title:"Gobernanza", subtitle:"Observable · Reversible · Auditable", icon:"⚖️", status:"live", accent:"#10b981",
+      fn:"Cada acción del agente es observable, reversible, auditable y gobernada por políticas. El sistema nunca es una caja negra.",
+      checks:["Observable: 11 BotEventType frozen — cada evento trazado","Reversible: Reactivar cita con Option β — audit trail preservado","Auditable: narrativas ES pre-rendered por BotNarrativeRenderer","Policy-governed: 55 invariantes de dominio petrificados en AGENTS.md","Explainable: cada decisión del agente tiene justificación técnica"],
+      tech:"BotAuditService · BotEventResolver · INV #1-#56 · Option β", relatedIds:[100,14,102] }
   ];
 
   /* V-CENTER CARD DATA (with tabs) */
@@ -563,14 +573,14 @@ body::after {
       checks:["Timeout configurable 1-24h (por defecto 2h)","BOT_PROPOSED → OWNER_APPROVED/REJECTED","Si no hay respuesta: cita liberada automáticamente","PendingApprovalTimeoutJob cada 5 minutos"],
       tech:"APPROVAL_REQUIRED · BotEventType · Spring @Scheduled",
       flow:[
-        {s:"completed",t:"Webhook recibido (Evolution API)"},
-        {s:"completed",t:"HMAC-SHA256 verificado"},
-        {s:"completed",t:"Rate limit OK — 3/5 por hora"},
-        {s:"completed",t:"Contexto Redis cargado"},
-        {s:"completed",t:"Intent: crear_cita detectado"},
-        {s:"completed",t:"verificar_disponibilidad → API"},
-        {s:"completed",t:"Cita creada → estado PENDING"},
-        {s:"active",t:"Esperando aprobación owner..."}
+        {s:"completed",t:"Intent detected",l:"12ms",d:"type: reserva · confidence: 94%"},
+        {s:"completed",t:"Availability graph resolved",l:"38ms",d:"3 slots · tomorrow 10:00, 11:30, 16:00"},
+        {s:"completed",t:"Assignment policy evaluated",l:"8ms",d:"least-loaded → employee selected"},
+        {s:"completed",t:"Operational risk: LOW",l:"4ms",d:"no conflicts detected"},
+        {s:"completed",t:"Approval gate: REQUIRED",l:"2ms",d:"RECEPCIONISTA mode active"},
+        {s:"completed",t:"Appointment created → PENDING",l:"22ms",d:"appointmentId persisted"},
+        {s:"completed",t:"Timeout armed",l:"3ms",d:"approval window: 2h"},
+        {s:"active",t:"Owner notified",l:"—",d:"awaiting decision..."}
       ]
     },
     {
@@ -579,14 +589,14 @@ body::after {
       checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout — confirmación en segundos"],
       tech:"AUTO_CONFIRM · auto-assign algorithm · BOT_AUTO_CONFIRMED",
       flow:[
-        {s:"completed",t:"Webhook recibido (Evolution API)"},
-        {s:"completed",t:"HMAC-SHA256 verificado"},
-        {s:"completed",t:"Rate limit OK"},
-        {s:"completed",t:"Intent: crear_cita detectado"},
-        {s:"completed",t:"Empleado auto-asignado (menor carga)"},
-        {s:"completed",t:"Disponibilidad verificada"},
-        {s:"completed",t:"Cita confirmada directamente"},
-        {s:"completed",t:"Confirmación enviada al cliente"}
+        {s:"completed",t:"Intent detected",l:"11ms",d:"type: reserva · confidence: 97%"},
+        {s:"completed",t:"Availability graph resolved",l:"35ms",d:"3 slots available"},
+        {s:"completed",t:"Assignment policy evaluated",l:"7ms",d:"least-loaded → auto-assigned"},
+        {s:"completed",t:"Operational risk: LOW",l:"4ms",d:"no conflicts"},
+        {s:"completed",t:"Approval gate: BYPASS",l:"1ms",d:"AUTÓNOMO mode active"},
+        {s:"completed",t:"Auto-confirmation executed",l:"19ms",d:"status: CONFIRMED"},
+        {s:"completed",t:"Audit chain persisted",l:"6ms",d:"BOT_AUTO_CONFIRMED emitted"},
+        {s:"completed",t:"Confirmation dispatched",l:"14ms",d:"client notified via WhatsApp"}
       ]
     },
     {
@@ -595,12 +605,12 @@ body::after {
       checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
       tech:"TRIAGE · WebSocket · BotRequest entity",
       flow:[
-        {s:"completed",t:"Mensaje recibido"},
-        {s:"completed",t:"Enviado a cola de revisión"},
-        {s:"active",t:"Owner revisando mensaje..."},
-        {s:"active",t:"Esperando aprobación..."},
-        {s:"pending",t:"Respuesta enviada al cliente"},
-        {s:"pending",t:"Próximo mensaje en cola"}
+        {s:"completed",t:"Request received",l:"9ms",d:"WhatsApp · Evolution API"},
+        {s:"completed",t:"Review queue enqueued",l:"5ms",d:"BotRequest created"},
+        {s:"active",t:"Owner reviewing",l:"—",d:"message in queue..."},
+        {s:"active",t:"Awaiting approval",l:"—",d:"window active..."},
+        {s:"pending",t:"Response dispatched",l:"—",d:"pending resolution"},
+        {s:"pending",t:"Audit chain",l:"—",d:"pending resolution"}
       ]
     }
   ];
@@ -637,14 +647,14 @@ body::after {
   var labelCore = document.getElementById('labelCore');
   var labelInfra = document.getElementById('labelInfra');
   var nodeEls = {};
-  var RADIUS = 270;
+  var RADIUS = 300;
   var centerX, centerY;
 
   function getRadius() {
     var w = wrap.offsetWidth;
     if (w < 480) return 160;
     if (w < 768) return 200;
-    return 270;
+    return 300;
   }
 
   function getVOffsets() {
@@ -1023,10 +1033,10 @@ body::after {
       steps.forEach(function(el, i) {
         flowTimers.push(setTimeout(function() {
           el.classList.add('visible');
-        }, i * 350));
+        }, i * 120));
       });
 
-      var totalTime = steps.length * 350 + 2500;
+      var totalTime = steps.length * 120 + 2500;
       flowLoopTimer = setTimeout(function() {
         if (agentModalOpen) runCycle();
       }, totalTime);
@@ -1067,21 +1077,26 @@ body::after {
   }
 
   function buildFlowHTML(flowSteps, accent) {
-    var html = '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:10px;opacity:0.7">FLUJO TÉCNICO</div>';
+    var html = '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:' + accent + ';margin-bottom:4px">DECISION ENGINE</div>';
+    html += '<div style="font-size:9px;font-style:italic;color:rgba(255,255,255,0.2);margin-bottom:12px">live simulation</div>';
     html += '<div class="agent-flow">';
     flowSteps.forEach(function(step) {
-      var icon, cls;
+      var iconHtml, cls;
       if (step.s === 'completed') {
-        icon = '<span style="color:' + accent + '">✓</span>';
+        iconHtml = '<div class="flow-step-icon completed">✓</div>';
         cls = 'completed';
       } else if (step.s === 'active') {
-        icon = '<span class="spin" style="color:' + accent + '">⟳</span>';
+        iconHtml = '<div class="flow-step-icon active pulse">·</div>';
         cls = 'active';
       } else {
-        icon = '<span style="color:#374151">○</span>';
+        iconHtml = '<div class="flow-step-icon pending">○</div>';
         cls = 'pending';
       }
-      html += '<div class="flow-step ' + cls + '"><div class="flow-icon">' + icon + '</div><div class="flow-text">' + step.t + '</div></div>';
+      html += '<div class="flow-step ' + cls + '">' + iconHtml +
+        '<div class="flow-step-content">' +
+          '<div class="flow-step-header"><span class="flow-step-title">' + step.t + '</span><span class="flow-step-latency">' + (step.l || '') + '</span></div>' +
+          '<div class="flow-step-detail">' + (step.d || '') + '</div>' +
+        '</div></div>';
     });
     html += '</div>';
     return html;
