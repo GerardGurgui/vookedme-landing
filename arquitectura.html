@@ -592,22 +592,21 @@ body::after {
   <!-- V-CENTER LINES -->
   <svg class="v-center-lines" id="vLines" width="100%" height="100%">
     <defs>
-      <linearGradient id="gDeBk" x1="0.5" y1="0.5" x2="0" y2="0">
-        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
-        <stop offset="100%" stop-color="#10b981" stop-opacity="0.5"/>
+      <linearGradient id="gBkAg" x1="0" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="#10b981" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.45"/>
       </linearGradient>
-      <linearGradient id="gDePl" x1="0.5" y1="0.5" x2="1" y2="0">
-        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
-        <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.5"/>
-      </linearGradient>
-      <linearGradient id="gDeAg" x1="0.5" y1="0.5" x2="0.5" y2="1">
-        <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.6"/>
-        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.35"/>
+      <linearGradient id="gPlAg" x1="1" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.45"/>
       </linearGradient>
     </defs>
-    <line id="lineDeBk" stroke="url(#gDeBk)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite"/>
-    <line id="lineDePl" stroke="url(#gDePl)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite;animation-delay:1s"/>
-    <line id="lineDeAg" stroke="url(#gDeAg)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite;animation-delay:2s"/>
+    <!-- Backend → Agente (clear) -->
+    <line id="lineBkAg" stroke="url(#gBkAg)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite"/>
+    <!-- Panel → Agente (clear) -->
+    <line id="linePlAg" stroke="url(#gPlAg)" stroke-width="1.5" stroke-linecap="round" style="animation:core-link-pulse 3s ease-in-out infinite;animation-delay:1s"/>
+    <!-- Backend → Panel (subtle) -->
+    <line id="lineBkPl" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/>
   </svg>
 
   <!-- V-CENTER NODES -->
@@ -888,9 +887,9 @@ body::after {
   var vPanelEl = document.getElementById('vPanel');
   var vEngineEl = document.getElementById('vEngine');
   var deModal = document.getElementById('deModal');
-  var lineDeBk = document.getElementById('lineDeBk');
-  var lineDePl = document.getElementById('lineDePl');
-  var lineDeAg = document.getElementById('lineDeAg');
+  var lineBkAg = document.getElementById('lineBkAg');
+  var linePlAg = document.getElementById('linePlAg');
+  var lineBkPl = document.getElementById('lineBkPl');
   var labelCore = document.getElementById('labelCore');
   var labelInfra = document.getElementById('labelInfra');
   var nodeEls = {};
@@ -970,13 +969,13 @@ body::after {
     vPanelEl.style.left = px + 'px'; vPanelEl.style.top = py + 'px';
     vPanelEl.style.transform = 'translate(-50%, -50%)';
 
-    /* All core links converge on Decision Engine */
-    lineDeBk.setAttribute('x1', ex); lineDeBk.setAttribute('y1', ey);
-    lineDeBk.setAttribute('x2', bx); lineDeBk.setAttribute('y2', by);
-    lineDePl.setAttribute('x1', ex); lineDePl.setAttribute('y1', ey);
-    lineDePl.setAttribute('x2', px); lineDePl.setAttribute('y2', py);
-    lineDeAg.setAttribute('x1', ex); lineDeAg.setAttribute('y1', ey);
-    lineDeAg.setAttribute('x2', ax); lineDeAg.setAttribute('y2', ay);
+    /* Triangle: Backend↔Agente, Panel↔Agente (clear), Backend↔Panel (subtle) */
+    lineBkAg.setAttribute('x1', bx); lineBkAg.setAttribute('y1', by);
+    lineBkAg.setAttribute('x2', ax); lineBkAg.setAttribute('y2', ay);
+    linePlAg.setAttribute('x1', px); linePlAg.setAttribute('y1', py);
+    linePlAg.setAttribute('x2', ax); linePlAg.setAttribute('y2', ay);
+    lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
+    lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
 
     labelCore.style.top = (cy - v.oy - 55) + 'px';
     labelInfra.style.top = (cy + 195) + 'px';
