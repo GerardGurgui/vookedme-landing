@@ -93,7 +93,7 @@ body::after {
 /* ===== ORBITAL CONTAINER ===== */
 .orbital-wrap {
   position: relative; z-index: 2;
-  width: 100%; max-width: 940px; height: 820px;
+  width: 100%; max-width: 960px; height: 860px;
   margin: 0 auto; cursor: default;
 }
 .orbital-ring {
@@ -148,7 +148,7 @@ body::after {
 .v-node--engine .v-icon {
   width: 64px; height: 64px; font-size: 28px; border-width: 2.5px;
   box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06);
-  animation: engine-idle 4s ease-in-out infinite;
+  animation: engine-heartbeat 2.4s ease-in-out infinite;
 }
 .v-node--engine .v-name { font-size: 15px; }
 .v-node--engine .v-sub { font-size: 12px; }
@@ -156,10 +156,22 @@ body::after {
   position: absolute; inset: -20px; border-radius: 50%;
   background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
   pointer-events: none; z-index: -1;
+  animation: halo-heartbeat 2.4s ease-in-out infinite;
 }
-@keyframes engine-idle {
-  0%, 100% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); }
-  50% { box-shadow: 0 0 28px rgba(139,92,246,0.2), 0 0 56px rgba(139,92,246,0.08); }
+/* Heartbeat: two quick pulses then rest — like a real heart */
+@keyframes engine-heartbeat {
+  0%, 100% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); transform: scale(1); }
+  8%  { box-shadow: 0 0 32px rgba(139,92,246,0.3), 0 0 60px rgba(139,92,246,0.12); transform: scale(1.045); }
+  16% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); transform: scale(1); }
+  24% { box-shadow: 0 0 28px rgba(139,92,246,0.22), 0 0 54px rgba(139,92,246,0.09); transform: scale(1.03); }
+  32% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); transform: scale(1); }
+}
+@keyframes halo-heartbeat {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  8%  { transform: scale(1.15); opacity: 1; }
+  16% { transform: scale(1); opacity: 0.8; }
+  24% { transform: scale(1.1); opacity: 0.95; }
+  32% { transform: scale(1); opacity: 0.8; }
 }
 @keyframes core-link-pulse {
   0%, 100% { opacity: 1; }
@@ -905,9 +917,9 @@ body::after {
 
   function getVOffsets() {
     var w = wrap.offsetWidth;
-    if (w < 480) return { ox: 72, oy: 58 };
-    if (w < 768) return { ox: 100, oy: 80 };
-    return { ox: 145, oy: 108 };
+    if (w < 480) return { ox: 80, oy: 68 };
+    if (w < 768) return { ox: 110, oy: 95 };
+    return { ox: 165, oy: 130 };
   }
 
   /* ================================================================
