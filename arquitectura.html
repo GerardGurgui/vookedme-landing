@@ -577,14 +577,14 @@ body::after {
       flowSubtitle:"runtime pipeline · human-gated · audit-backed",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"RESOLUTION"},{before:2,label:"POLICY"},{before:4,label:"ORCHESTRATION"},{before:5,label:"EXECUTION"},{before:7,label:"HUMAN REVIEW"}],
       flow:[
-        {s:"completed",t:"Intent detected",l:"12ms",d:"type: reserva · confidence: 94%"},
+        {s:"completed",t:"Intent detected",l:"12ms",d:"booking request · classification: HIGH"},
         {s:"completed",t:"Availability graph resolved",l:"38ms",d:"3 slots · tomorrow 10:00, 11:30, 16:00"},
         {s:"completed",t:"Assignment policy evaluated",l:"8ms",d:"└ least-loaded selected\n└ 0 conflicts detected\n└ specialty compatible"},
         {s:"completed",t:"Operational risk: LOW",l:"4ms",d:"no conflicts detected"},
         {s:"completed",t:"Approval gate: REQUIRED",l:"2ms",d:"RECEPCIONISTA mode active"},
         {s:"completed",t:"Appointment created → PENDING",l:"22ms",d:"appointmentId persisted"},
         {s:"completed",t:"Timeout armed",l:"3ms",d:"approval window: 2h"},
-        {s:"active",t:"Owner notified",l:"—",d:"approval window active · audit entry created"}
+        {s:"active",t:"Human approval pending",l:"—",d:"owner decision window active"}
       ]
     },
     {
@@ -597,7 +597,7 @@ body::after {
       flowSubtitle:"runtime pipeline · fully automated · conflict-safe",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"RESOLUTION"},{before:2,label:"POLICY"},{before:4,label:"ORCHESTRATION"},{before:5,label:"EXECUTION"}],
       flow:[
-        {s:"completed",t:"Intent detected",l:"11ms",d:"type: reserva · confidence: 97%"},
+        {s:"completed",t:"Intent detected",l:"11ms",d:"reservation flow · classification: HIGH"},
         {s:"completed",t:"Availability graph resolved",l:"35ms",d:"3 slots available"},
         {s:"completed",t:"Assignment policy evaluated",l:"7ms",d:"└ least-loaded selected\n└ 0 conflicts detected\n└ specialty compatible"},
         {s:"completed",t:"Operational risk: LOW",l:"4ms",d:"no conflicts"},
@@ -617,7 +617,7 @@ body::after {
       flowSubtitle:"runtime pipeline · human-reviewed · zero autonomy",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"ORCHESTRATION"},{before:2,label:"HUMAN REVIEW"},{before:4,label:"EXECUTION"}],
       flow:[
-        {s:"completed",t:"Request received",l:"9ms",d:"WhatsApp · Evolution API"},
+        {s:"completed",t:"Request received",l:"9ms",d:"inbound messaging gateway"},
         {s:"completed",t:"Review queue enqueued",l:"5ms",d:"BotRequest created"},
         {s:"active",t:"Owner reviewing",l:"—",d:"message in queue..."},
         {s:"active",t:"Awaiting approval",l:"—",d:"window active..."},
