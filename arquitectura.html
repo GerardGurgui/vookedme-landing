@@ -213,6 +213,7 @@ body::after {
   font-size: 11px; color: #6b7280; font-family: monospace;
   padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; line-height: 1.5;
 }
+.vcore-tab:hover { color: #9ca3af !important; }
 .connected-section { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
 .connected-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; margin-bottom: 8px; }
 .connected-pills { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -242,15 +243,19 @@ body::after {
 .agent-modal::-webkit-scrollbar-track { background: transparent; }
 .agent-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
 .agent-modal.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.am-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.am-subtitle { font-size: 13px; color: #9ca3af; margin-bottom: 16px; line-height: 1.5; }
-.agent-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px; }
+.am-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+.am-accent-bar { width: 3px; border-radius: 2px; align-self: stretch; flex-shrink: 0; transition: background 0.3s; }
+.am-title { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 4px; letter-spacing: -0.02em; }
+.am-subtitle { font-size: 14px; color: #9ca3af; line-height: 1.5; margin-bottom: 0; }
+.am-separator { border: none; border-bottom: 1px solid rgba(255,255,255,0.06); margin: 0 0 16px; }
+.agent-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
 .agent-tab {
-  padding: 8px 16px; font-size: 13px; font-weight: 600; color: #6b7280;
-  cursor: pointer; border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+  padding: 7px 14px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45);
+  cursor: pointer; border-radius: 20px; background: rgba(255,255,255,0.04);
+  border: 1px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
 }
-.agent-tab:hover { color: #9ca3af; }
+.agent-tab:hover { color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.06); }
 .agent-tab.is-active { color: #fff; }
 .agent-content { display: flex; gap: 16px; }
 .agent-left { flex: 3; min-width: 0; }
@@ -320,7 +325,8 @@ body::after {
   .zone-label { display: none; }
   .detail-card { width: 260px; font-size: 12px; }
   .agent-modal { width: 95% !important; padding: 16px !important; }
-  .agent-tab { padding: 6px 10px; font-size: 11px; }
+  .agent-tab { padding: 5px 10px; font-size: 10px; }
+  .agent-tabs { gap: 4px; flex-wrap: wrap; }
 }
 </style>
 </head>
@@ -416,8 +422,14 @@ body::after {
 
   <!-- AGENT MODAL (tabs + visible cognition) -->
   <div class="agent-modal" id="agentModal">
-    <div class="am-title">Agente Vookedme</div>
-    <div class="am-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
+    <div class="am-header">
+      <div class="am-accent-bar" id="amAccentBar" style="background:#8b5cf6"></div>
+      <div>
+        <div class="am-title">Agente Vookedme</div>
+        <div class="am-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
+      </div>
+    </div>
+    <hr class="am-separator">
     <div class="agent-tabs" id="agentTabs"></div>
     <div class="agent-content" id="agentContent"></div>
   </div>
@@ -464,7 +476,9 @@ body::after {
    * ================================================================ */
   var rgbMap = {
     '#10b981':'16,185,129', '#60a5fa':'96,165,250',
-    '#f59e0b':'245,158,11', '#8b5cf6':'139,92,246'
+    '#f59e0b':'245,158,11', '#8b5cf6':'139,92,246',
+    '#6b7280':'107,114,128',
+    '#25D366':'37,211,102', '#F59E0B':'245,158,11'
   };
   function toRGB(hex) { return rgbMap[hex] || '16,185,129'; }
 
@@ -475,56 +489,62 @@ body::after {
     { id:1, title:"WhatsApp", subtitle:"Evolution API", icon:"💬", status:"live", accent:"#10b981",
       fn:"Puerta de entrada del sistema. Los clientes escriben por WhatsApp Business y el agente responde en tiempo real.",
       checks:["Evolution API como gateway","HMAC-SHA256 en todos los webhooks","Rate limiting: 5 creates/h + 20/día por cliente"],
-      tech:"Evolution API · WhatsApp Business API", relatedIds:[2,11] },
+      tech:"Evolution API · WhatsApp Business API", relatedIds:[2,11,10] },
     { id:2, title:"n8n", subtitle:"Orchestration", icon:"🔄", status:"live", accent:"#10b981",
       fn:"Orquestador de la conversación. Interpreta mensajes, llama al LLM y ejecuta las 4 herramientas del agente.",
       checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Stale context detection con flag Redis approach E"],
-      tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[1,4,5] },
+      tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[102,100,5] },
     { id:4, title:"PostgreSQL", subtitle:"68 migraciones", icon:"🗄️", status:"live", accent:"#60a5fa",
       fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
       checks:["68 migraciones Flyway — zero downtime","@Version optimistic locking en appointments","7 estados de cita con state machine definida","Audit trail preservado en revoke y cancelaciones"],
-      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[5] },
+      tech:"PostgreSQL 16 · Flyway · índices compuestos", relatedIds:[100] },
     { id:5, title:"Redis", subtitle:"Chat history", icon:"⚡", status:"live", accent:"#60a5fa",
       fn:"Cache de contexto conversacional y rate limiting distribuido.",
       checks:["Buffer de mensajes TTL 120s por sesión","Historial de chat TTL 30 días (GDPR)","Stale context flag por approach E","Rate limiting 5 creates/h + 20/día por número"],
-      tech:"Redis 7 · TTL policies · approach E flag", relatedIds:[2,4] },
+      tech:"Redis 7 · TTL policies · approach E flag", relatedIds:[2,100] },
     { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
       fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
       checks:["RateLimitingFilter → WebhookApiKeyFilter → HMAC-SHA256","JwtAuthenticationFilter → @PreAuthorize por rol","Tenant isolation: businessId del JWT en cada query","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
-      tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize", relatedIds:[12,13] },
+      tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize", relatedIds:[100,101,12] },
     { id:10, title:"Recordatorios", subtitle:"WhatsApp automático", icon:"🔔", status:"live", accent:"#10b981",
       fn:"6 tipos de notificaciones outbound automáticas hacia los clientes por WhatsApp.",
       checks:["Confirmación de cita al reservar","Recordatorio 24h antes de la cita","Recordatorio 1h antes de la cita","Notificación aprobación/rechazo del owner","Idempotencia: sin duplicados tras revoke"],
-      tech:"n8n outbound · Evolution API", relatedIds:[1,11] },
+      tech:"n8n outbound · Evolution API", relatedIds:[100,1] },
     { id:11, title:"Notificaciones", subtitle:"6 tipos outbound", icon:"📨", status:"live", accent:"#10b981",
       fn:"Sistema de notificaciones automáticas por WhatsApp tras cada evento del agente.",
       checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId — sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
-      tech:"WhatsApp Business API · n8n outbound · correlationId", relatedIds:[1,102] },
+      tech:"WhatsApp Business API · n8n outbound · correlationId", relatedIds:[100,1,102] },
     { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#8b5cf6",
       fn:"Arquitectura multi-tenant real. Cada negocio es un tenant completamente aislado. Ningún dato cruza entre negocios.",
       checks:["businessId siempre del JWT, nunca del body (INV #1)","Cada query filtra por businessId obligatoriamente","4 vectores de ataque auditados y bloqueados","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
-      tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[100,7] },
+      tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[100,7,101] },
     { id:13, title:"Observabilidad", subtitle:"Sentry + Prometheus", icon:"🔍", status:"live", accent:"#f59e0b",
       fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
       checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
-      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100] }
+      tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100,102] }
   ];
 
-  /* V-CENTER CARD DATA */
+  /* V-CENTER CARD DATA (with tabs) */
   var vCoreCards = {
     backend: {
       icon:"⚙️", title:"Backend API", subtitle:"Java & Spring Boot 4",
       accent:"#10b981", borderColor:"rgba(16,185,129,0.3)",
-      fn:"Fuente de verdad del sistema. Toda la lógica de negocio vive aquí. El agente es solo la capa conversacional.",
-      checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados","68 migraciones Flyway V1→V68 sin rollback","@Version optimistic locking — sin dobles reservas concurrentes","businessId siempre del JWT, nunca del body"],
-      tech:"Java 21 · Spring Boot 4.0.3 · JUnit + Testcontainers · Hibernate 7"
+      relatedIds:[4,5,7,13,12],
+      tabs:[
+        { name:"Arquitectura", checks:["Fuente de verdad — bot es solo capa conversacional","State machine: 7 estados de cita con transiciones válidas","businessId siempre del JWT, nunca del body (INV #1)","Tenant isolation: cada query filtra por businessId","@Version optimistic locking — sin dobles reservas"], tech:"Java 21 · Spring Boot 4.0.3 · Hibernate 7" },
+        { name:"Calidad", checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados y petrificados","68 migraciones Flyway V1→V68 — zero downtime","Testcontainers PostgreSQL para integration tests","SonarQube análisis local en cada PR"], tech:"JUnit 5 · Mockito · Testcontainers · Flyway" },
+        { name:"Seguridad", checks:["5 capas: RateLimitingFilter → ApiKey → HMAC → JWT → @PreAuthorize","HMAC-SHA256 en todos los webhooks de n8n","Rate limiting: 5 creates/h + 20/día por número de teléfono","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido","4 vectores de ataque auditados y bloqueados"], tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize" }
+      ]
     },
     panel: {
       icon:"🖥️", title:"Panel Owner", subtitle:"Next.js 16",
       accent:"#60a5fa", borderColor:"rgba(96,165,250,0.3)",
-      fn:"Dashboard de gestión para el dueño del negocio. Acceso completo a citas, clientes, empleados y configuración del agente.",
-      checks:["Panel Bot FASE 1: /bot/overview, /bot/audit, /bot/activity","Reactivar citas canceladas con audit trail preservado (Option β)","React Query v5 — polling 60s, refetchIntervalInBackground false","Roles OWNER/EMPLOYEE/ADMIN con permisos granulares"],
-      tech:"Next.js 16 · TypeScript · shadcn/ui · React Query v5 · Tailwind v4"
+      relatedIds:[100,7,12],
+      tabs:[
+        { name:"Panel Bot", checks:["Bot overview: estado operacional y actividad reciente","Bot activity: feed de eventos con paginación offset","Bot audit: trazabilidad completa de cada cita del bot","Botón Reactivar con audit trail Option β preservado","Polling 60s — refetchIntervalInBackground: false"], tech:"React Query v5 · useQueries · useMutation" },
+        { name:"Gestión", checks:["Calendario semanal/diario con chips de citas","Gestión de clientes con historial completo","Empleados con horarios individuales y servicios asignados","Revenue snapshot con métricas en tiempo real","AppointmentDetailSheet con todas las acciones por rol"], tech:"React 19 · Next.js 16 · shadcn/ui · Recharts" },
+        { name:"Stack", checks:["Next.js 16 App Router con TypeScript estricto","Tailwind v4 CSS-first (sin tailwind.config.ts)","React Query v5 para server state + cache","Axios interceptors para JWT refresh automático","shadcn/ui como base de componentes"], tech:"Next.js 16 · TypeScript · Tailwind v4 · shadcn/ui" }
+      ]
     }
   };
 
@@ -538,7 +558,7 @@ body::after {
   /* AGENT MODES DATA */
   var agentModes = [
     {
-      id:"recepcionista", name:"Modo Recepcionista", badge:"LIVE", badgeColor:"#10b981",
+      id:"recepcionista", name:"Modo Recepcionista", badge:"LIVE", badgeColor:"#8b5cf6",
       desc:"El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable.",
       checks:["Timeout configurable 1-24h (por defecto 2h)","BOT_PROPOSED → OWNER_APPROVED/REJECTED","Si no hay respuesta: cita liberada automáticamente","PendingApprovalTimeoutJob cada 5 minutos"],
       tech:"APPROVAL_REQUIRED · BotEventType · Spring @Scheduled",
@@ -554,7 +574,7 @@ body::after {
       ]
     },
     {
-      id:"autonomo", name:"Modo Autónomo", badge:"PRÓXIMO", badgeColor:"#8b5cf6",
+      id:"autonomo", name:"Modo Autónomo", badge:"PRÓXIMO", badgeColor:"#F59E0B",
       desc:"El agente confirma citas directamente sin intervención del owner. Algoritmo de auto-asignación por menor carga del día.",
       checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout — confirmación en segundos"],
       tech:"AUTO_CONFIRM · auto-assign algorithm · BOT_AUTO_CONFIRMED",
@@ -570,7 +590,7 @@ body::after {
       ]
     },
     {
-      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#6b7280",
+      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#25D366",
       desc:"El owner revisa cada conversación antes de que el agente responda. Aprobación mensaje a mensaje.",
       checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
       tech:"TRIAGE · WebSocket · BotRequest entity",
@@ -594,6 +614,7 @@ body::after {
   var animFrameId = null;
   var lastTime = 0;
   var agentModalOpen = false;
+  var vCoreActiveTab = 0;
   var activeAgentTab = 0;
   var vCoreCardOpen = null;
   var overlay = null;
@@ -793,19 +814,28 @@ body::after {
   }
 
   /* ================================================================
-   * BUILD STYLE C CARD HTML
+   * BUILD TABBED V-CORE CARD HTML
    * ================================================================ */
-  function buildStyleC(data) {
+  function buildTabbedCard(data, activeTab) {
     var ac = data.accent;
     var rgb = toRGB(ac);
-    var checksHtml = '';
-    if (data.checks && data.checks.length) {
-      checksHtml = '<div class="card-checks">';
-      data.checks.forEach(function(c) {
-        checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
-      });
-      checksHtml += '</div>';
-    }
+    var tabsHtml = '<div style="display:flex;gap:4px;margin-bottom:14px">';
+    data.tabs.forEach(function(tab, i) {
+      var isActive = i === activeTab;
+      var style = isActive
+        ? 'background:rgba(' + rgb + ',0.12);color:' + ac + ';border:0.5px solid rgba(' + rgb + ',0.2)'
+        : 'color:#6b7280;border:0.5px solid transparent';
+      tabsHtml += '<div class="vcore-tab" data-vcore-tab="' + i + '" style="font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;' + style + '">' + tab.name + '</div>';
+    });
+    tabsHtml += '</div>';
+
+    var tab = data.tabs[activeTab];
+    var checksHtml = '<div class="card-checks">';
+    tab.checks.forEach(function(c) {
+      checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
+    });
+    checksHtml += '</div>';
+
     var connHtml = buildConnectedWith(data.relatedIds);
 
     return '<div class="card-header">' +
@@ -813,12 +843,9 @@ body::after {
       '<div><div class="card-title">' + data.title + '</div><div class="card-subtitle">' + data.subtitle + '</div></div>' +
     '</div>' +
     '<span class="card-badge card-badge--live">LIVE</span>' +
-    '<div class="card-fn" style="border-left-color:' + ac + '">' +
-      '<div class="card-fn-label" style="color:' + ac + '">FUNCIÓN</div>' +
-      '<p class="card-fn-text">' + data.fn + '</p>' +
-    '</div>' +
+    tabsHtml +
     checksHtml +
-    '<div class="card-tech-box">' + data.tech + '</div>' +
+    '<div class="card-tech-box" style="border-left:2px solid ' + ac + '">' + tab.tech + '</div>' +
     connHtml;
   }
 
@@ -928,7 +955,8 @@ body::after {
     vCoreCardOpen = type;
 
     var data = vCoreCards[type];
-    card.innerHTML = buildStyleC(data);
+    vCoreActiveTab = 0;
+    renderVCoreCard(type);
     card.style.borderColor = data.borderColor;
 
     var vEl = type === 'backend' ? vBackendEl : vPanelEl;
@@ -958,6 +986,18 @@ body::after {
     showOverlay();
 
     hint.textContent = 'Haz clic fuera para cerrar';
+  }
+
+  function renderVCoreCard(type) {
+    var data = vCoreCards[type];
+    card.innerHTML = buildTabbedCard(data, vCoreActiveTab);
+    card.querySelectorAll('.vcore-tab').forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        vCoreActiveTab = parseInt(tab.getAttribute('data-vcore-tab'));
+        renderVCoreCard(type);
+      });
+    });
   }
 
   function closeVCoreCard() {
@@ -998,12 +1038,23 @@ body::after {
   /* ================================================================
    * AGENT MODAL (tabs + visible cognition)
    * ================================================================ */
+  function getTabAccent(mode) {
+    if (mode.id === 'recepcionista') return { color:'#8b5cf6', bg:'rgba(139,92,246,0.15)', border:'rgba(139,92,246,0.3)', text:'#c4b5fd' };
+    if (mode.id === 'autonomo') return { color:'#F59E0B', bg:'rgba(245,158,11,0.12)', border:'rgba(245,158,11,0.3)', text:'#fbbf24' };
+    return { color:'#25D366', bg:'rgba(37,211,102,0.10)', border:'rgba(37,211,102,0.25)', text:'#6ee7b7' };
+  }
+
   function buildAgentTabs() {
     var html = '';
     agentModes.forEach(function(mode, i) {
       var activeClass = i === activeAgentTab ? ' is-active' : '';
-      var borderColor = i === activeAgentTab ? mode.badgeColor : 'transparent';
-      html += '<div class="agent-tab' + activeClass + '" data-tab="' + i + '" style="border-bottom-color:' + borderColor + '">' + mode.name + '</div>';
+      var ta = getTabAccent(mode);
+      var style = i === activeAgentTab
+        ? 'background:' + ta.bg + ';color:' + ta.text + ';border-color:' + ta.border
+        : '';
+      var label = mode.name.replace('Modo ', '');
+      var badgeHtml = i === activeAgentTab ? ' <span style="font-size:9px;opacity:0.7;margin-left:4px">' + mode.badge + '</span>' : '';
+      html += '<div class="agent-tab' + activeClass + '" data-tab="' + i + '" style="' + style + '">' + label + badgeHtml + '</div>';
     });
     agentTabsEl.innerHTML = html;
 
@@ -1021,10 +1072,10 @@ body::after {
     flowSteps.forEach(function(step) {
       var icon, cls;
       if (step.s === 'completed') {
-        icon = '<span style="color:#10b981">✓</span>';
+        icon = '<span style="color:' + accent + '">✓</span>';
         cls = 'completed';
       } else if (step.s === 'active') {
-        icon = '<span class="spin" style="color:#8b5cf6">⟳</span>';
+        icon = '<span class="spin" style="color:' + accent + '">⟳</span>';
         cls = 'active';
       } else {
         icon = '<span style="color:#374151">○</span>';
@@ -1038,28 +1089,24 @@ body::after {
 
   function renderAgentTab(index) {
     var mode = agentModes[index];
-    // Mode-specific color scheme
-    var accent, badgeBg, badgeText, badgeBorder;
-    if (mode.id === 'recepcionista') {
-      accent = '#10b981'; badgeBg = 'rgba(16,185,129,0.15)'; badgeText = '#10b981'; badgeBorder = 'rgba(16,185,129,0.3)';
-    } else if (mode.id === 'autonomo') {
-      accent = '#8b5cf6'; badgeBg = 'rgba(139,92,246,0.15)'; badgeText = '#a78bfa'; badgeBorder = 'rgba(139,92,246,0.3)';
-    } else {
-      accent = '#6b7280'; badgeBg = 'rgba(107,114,128,0.15)'; badgeText = '#9ca3af'; badgeBorder = 'rgba(107,114,128,0.3)';
-    }
+    var ta = getTabAccent(mode);
+    var accent = ta.color;
+    var rgb = toRGB(accent);
+
+    var accentBar = document.getElementById('amAccentBar');
+    if (accentBar) accentBar.style.background = accent;
+    agentModal.style.borderColor = ta.border;
 
     var checksHtml = '';
     mode.checks.forEach(function(c) {
-      checksHtml += '<div style="font-size:13px;color:#9ca3af;line-height:1.8;display:flex;align-items:flex-start"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + accent + ';margin-right:10px;flex-shrink:0;margin-top:7px"></span><span>' + c + '</span></div>';
+      checksHtml += '<div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;display:flex;align-items:flex-start"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + ta.text + ';margin-right:10px;flex-shrink:0;margin-top:7px"></span><span>' + c + '</span></div>';
     });
 
     var leftHtml =
-      '<span style="display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:3px 10px;border-radius:999px;margin-bottom:10px;background:' + badgeBg + ';color:' + badgeText + ';border:0.5px solid ' + badgeBorder + '">' + mode.badge + '</span>' +
-      '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px">' + mode.name + '</div>' +
-      '<p style="font-size:13px;color:#d1d5db;line-height:1.6;margin-bottom:14px">' + mode.desc + '</p>' +
-      '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:8px;opacity:0.7">DESCRIPCIÓN</div>' +
-      '<div style="margin-bottom:14px">' + checksHtml + '</div>' +
-      '<div style="font-size:11px;color:#6b7280;font-family:monospace;padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:6px;line-height:1.5;border-left:2px solid ' + accent + '">' + mode.tech + '</div>';
+      '<div style="font-size:15px;font-weight:500;color:#f1f1f1;margin-bottom:8px">' + mode.name + '</div>' +
+      '<p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:14px">' + mode.desc + '</p>' +
+      '<div style="border-left:2px solid rgba(' + rgb + ',0.3);padding-left:14px;margin-bottom:14px">' + checksHtml + '</div>' +
+      '<div style="font-size:11px;font-family:monospace;padding:8px 12px;background:rgba(' + rgb + ',0.06);border-radius:6px;line-height:1.5;border:1px solid rgba(' + rgb + ',0.15);color:' + ta.text + '"><span style="font-size:10px;color:rgba(255,255,255,0.3);margin-right:6px">TECH</span>' + mode.tech + '</div>';
 
     var rightHtml = buildFlowHTML(mode.flow, accent);
 
@@ -1070,12 +1117,7 @@ body::after {
 
   function switchAgentTab(index) {
     activeAgentTab = index;
-    var tabs = agentTabsEl.querySelectorAll('.agent-tab');
-    tabs.forEach(function(t, i) {
-      var isActive = i === index;
-      t.classList.toggle('is-active', isActive);
-      t.style.borderBottomColor = isActive ? agentModes[i].badgeColor : 'transparent';
-    });
+    buildAgentTabs();
     renderAgentTab(index);
     startFlowAnimation();
   }
