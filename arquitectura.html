@@ -329,6 +329,132 @@ body::after {
   .agent-tab { padding: 5px 10px; font-size: 10px; }
   .agent-tabs { gap: 4px; flex-wrap: wrap; }
 }
+
+/* ===== VIEW TOGGLE ===== */
+.view-toggle {
+  display:flex; gap:8px; padding:6px; width:fit-content;
+  margin:0 auto 32px auto; position:relative; z-index:2;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px; backdrop-filter:blur(12px);
+}
+.view-toggle-btn {
+  padding:10px 18px; border-radius:8px; font-size:11px; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
+  background:transparent; color:#6b7280; border:1px solid transparent;
+  transition:all 180ms ease; font-family:var(--font);
+}
+.view-toggle-btn:hover { color:#9ca3af; }
+.view-toggle-btn.is-active {
+  background:rgba(139,92,246,0.12); border-color:rgba(139,92,246,0.25); color:#c4b5fd;
+}
+
+/* ===== EXECUTION FLOW VIEW ===== */
+.ef-view {
+  position:relative; z-index:2; max-width:800px; margin:0 auto;
+  padding:0 24px 48px; opacity:0; transform:translateY(4px);
+  transition:opacity 0.35s ease, transform 0.35s ease;
+  pointer-events:none; height:0; overflow:hidden;
+}
+.ef-view.is-visible {
+  opacity:1; transform:translateY(0); pointer-events:auto; height:auto; overflow:visible;
+}
+
+/* pipeline vertical */
+.ef-pipeline { display:flex; flex-direction:column; align-items:center; gap:0; position:relative; }
+
+/* node */
+.ef-node {
+  position:relative; z-index:5; min-width:190px; padding:18px 22px;
+  text-align:center; border-radius:14px; cursor:pointer;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px); transition:all 220ms ease;
+}
+.ef-node:hover { transform:translateY(-2px); }
+.ef-node-icon { font-size:24px; margin-bottom:6px; }
+.ef-node-title { font-size:15px; font-weight:600; color:#f9fafb; margin-bottom:2px; }
+.ef-node-sub { font-size:11px; color:#6b7280; letter-spacing:0.04em; }
+
+/* vertical connector */
+.ef-connector {
+  width:1px; height:38px; background:rgba(255,255,255,0.12); position:relative;
+}
+.ef-connector-label {
+  position:absolute; left:16px; top:50%; transform:translateY(-50%);
+  font-size:10px; font-family:monospace; color:#4b5563; letter-spacing:0.03em; white-space:nowrap;
+}
+
+/* lateral connections */
+.ef-lateral-row {
+  display:flex; align-items:center; justify-content:center; gap:0; width:100%;
+}
+.ef-lateral-line {
+  width:60px; height:0; border-top:1px dashed rgba(255,255,255,0.08);
+  flex-shrink:0;
+}
+.ef-lateral-node {
+  position:relative; z-index:5; min-width:140px; padding:14px 18px;
+  text-align:center; border-radius:12px; cursor:pointer;
+  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px); transition:all 220ms ease; opacity:0.85;
+}
+.ef-lateral-node:hover { transform:translateY(-2px); opacity:1; }
+.ef-lateral-node .ef-node-title { font-size:13px; }
+.ef-lateral-node .ef-node-sub { font-size:10px; }
+.ef-lateral-node .ef-node-icon { font-size:20px; margin-bottom:4px; }
+
+/* support capabilities */
+.ef-support {
+  margin-top:48px; padding-top:28px;
+  border-top:1px dashed rgba(255,255,255,0.06); text-align:center;
+}
+.ef-support-label {
+  font-size:10px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.18em; color:rgba(255,255,255,0.22); margin-bottom:18px;
+}
+.ef-support-grid {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+}
+.ef-support-chip {
+  padding:10px 14px; border-radius:10px; min-width:110px;
+  font-size:11px; font-weight:500; opacity:0.92; cursor:pointer;
+  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; gap:8px; justify-content:center;
+  transition:all 200ms ease; color:#9ca3af;
+}
+.ef-support-chip:hover { opacity:1; transform:translateY(-1px); }
+
+/* runtime pulse */
+@keyframes ef-pulse-travel {
+  0% { top:0; opacity:0; }
+  5% { opacity:0.7; }
+  90% { opacity:0.7; }
+  100% { top:100%; opacity:0; }
+}
+.ef-pulse-track {
+  position:absolute; left:50%; width:1px; top:0; bottom:0;
+  transform:translateX(-50%); pointer-events:none; z-index:6;
+  overflow:hidden;
+}
+.ef-pulse-dot {
+  position:absolute; left:50%; transform:translateX(-50%);
+  width:5px; height:5px; border-radius:50%;
+  background:#8b5cf6; box-shadow:0 0 8px rgba(139,92,246,0.5);
+  animation:ef-pulse-travel 4s linear infinite;
+}
+
+/* responsive */
+@media (max-width:768px) {
+  .ef-lateral-row { flex-direction:column; gap:8px; }
+  .ef-lateral-line { width:0; height:20px; border-top:none; border-left:1px dashed rgba(255,255,255,0.08); }
+  .ef-node { min-width:160px; }
+  .ef-lateral-node { min-width:140px; }
+}
+@media (max-width:480px) {
+  .view-toggle-btn { padding:8px 12px; font-size:10px; }
+  .ef-node { min-width:auto; width:90%; padding:14px 16px; }
+  .ef-lateral-node { min-width:auto; width:80%; }
+  .ef-support-chip { min-width:90px; font-size:10px; padding:8px 10px; }
+}
 </style>
 </head>
 <body>
@@ -367,6 +493,12 @@ body::after {
   <p class="arch-sub">Un agente de IA construido sobre infraestructura de producci&oacute;n real. Cada pieza dise&ntilde;ada para no fallar.</p>
   <p style="font-size:13px;color:rgba(255,255,255,0.25);font-style:italic;letter-spacing:0.02em;margin-bottom:32px">&ldquo;Every autonomous action is: observable, reversible, auditable, and policy-governed.&rdquo;</p>
 </header>
+
+<!-- ===== VIEW TOGGLE ===== -->
+<div class="view-toggle" id="viewToggle">
+  <button class="view-toggle-btn is-active" data-view="orbital">ORBITAL</button>
+  <button class="view-toggle-btn" data-view="execution">EXECUTION FLOW</button>
+</div>
 
 <!-- ===== ORBITAL DIAGRAM ===== -->
 <div class="orbital-wrap" id="orbitalWrap">
@@ -441,6 +573,9 @@ body::after {
 </div>
 
 <p class="orbital-hint" id="orbitalHint">Haz clic en cualquier nodo para ver los detalles</p>
+
+<!-- ===== EXECUTION FLOW VIEW ===== -->
+<div class="ef-view" id="executionFlowView"></div>
 
 <!-- ===== CTA ===== -->
 <section class="cta-section">
@@ -1267,6 +1402,285 @@ body::after {
 
     window.addEventListener('resize', function() { positionVCenter(); positionNodes(); });
   }
+
+  /* ================================================================
+   * EXECUTION FLOW VIEW
+   * ================================================================ */
+  var efView = document.getElementById('executionFlowView');
+  var viewToggle = document.getElementById('viewToggle');
+  var currentView = 'orbital';
+
+  /* Pipeline data — maps to existing node IDs for card reuse */
+  var efPipeline = [
+    { id:1, icon:'💬', title:'WhatsApp', sub:'ingress gateway', color:'#10b981' },
+    { id:2, icon:'🔄', title:'n8n Runtime', sub:'orchestration runtime', color:'#10b981' },
+    { id:102, icon:'🤖', title:'Agente Runtime', sub:'deterministic cognition', color:'#8b5cf6', isVNode:true, vtype:'agente' },
+    { id:100, icon:'⚙️', title:'Backend API', sub:'source of truth', color:'#10b981', isVNode:true, vtype:'backend' },
+    { id:4, icon:'🗄️', title:'PostgreSQL', sub:'ACID persistence', color:'#60a5fa' }
+  ];
+  var efLaterals = [
+    { id:101, icon:'🖥️', title:'Panel Owner', sub:'management surface', color:'#60a5fa', isVNode:true, vtype:'panel' },
+    { id:5, icon:'⚡', title:'Redis', sub:'operational state', color:'#60a5fa' }
+  ];
+  var efLabels = [
+    '~50ms ingress',
+    '~200ms orchestration',
+    '~30ms decision commit',
+    '~5ms persistence'
+  ];
+  var efSupport = [
+    { id:7, icon:'🔒', title:'Seguridad', color:'#f59e0b' },
+    { id:15, icon:'⚖️', title:'Gobernanza', color:'#f59e0b' },
+    { id:13, icon:'🔍', title:'Observabilidad', color:'#f59e0b' },
+    { id:14, icon:'🧠', title:'Decision Engine', color:'#8b5cf6' },
+    { id:12, icon:'🏢', title:'Multi-tenancy', color:'#60a5fa' },
+    { id:11, icon:'📨', title:'Notificaciones', color:'#10b981' },
+    { id:10, icon:'🔔', title:'Recordatorios', color:'#10b981' }
+  ];
+
+  function buildExecutionFlow() {
+    var html = '<div class="ef-pipeline" style="position:relative">';
+    html += '<div class="ef-pulse-track"><div class="ef-pulse-dot"></div></div>';
+
+    efPipeline.forEach(function(node, i) {
+      var rgb = toRGB(node.color);
+      var glow = 'box-shadow:0 0 12px rgba(' + rgb + ',0.08)';
+      html += '<div class="ef-node" data-ef-id="' + node.id + '" data-ef-vnode="' + (node.isVNode ? node.vtype : '') + '" style="border-color:rgba(' + rgb + ',0.3);' + glow + '">';
+      html += '<div class="ef-node-icon">' + node.icon + '</div>';
+      html += '<div class="ef-node-title">' + node.title + '</div>';
+      html += '<div class="ef-node-sub">' + node.sub + '</div>';
+      html += '</div>';
+
+      /* insert lateral row after Backend API (index 3) */
+      if (i === 3) {
+        var rgbL = toRGB(efLaterals[0].color);
+        var rgbR = toRGB(efLaterals[1].color);
+        html += '<div class="ef-connector"></div>';
+        html += '<div class="ef-lateral-row">';
+        html += '<div class="ef-lateral-node" data-ef-id="' + efLaterals[0].id + '" data-ef-vnode="' + (efLaterals[0].vtype || '') + '" style="border-color:rgba(' + rgbL + ',0.2)">';
+        html += '<div class="ef-node-icon">' + efLaterals[0].icon + '</div>';
+        html += '<div class="ef-node-title">' + efLaterals[0].title + '</div>';
+        html += '<div class="ef-node-sub">' + efLaterals[0].sub + '</div>';
+        html += '</div>';
+        html += '<div class="ef-lateral-line"></div>';
+        html += '<div style="font-size:10px;color:#4b5563;font-family:monospace;padding:0 6px;white-space:nowrap">↔ backend</div>';
+        html += '<div class="ef-lateral-line"></div>';
+        html += '<div class="ef-lateral-node" data-ef-id="' + efLaterals[1].id + '" data-ef-vnode="' + (efLaterals[1].vtype || '') + '" style="border-color:rgba(' + rgbR + ',0.2)">';
+        html += '<div class="ef-node-icon">' + efLaterals[1].icon + '</div>';
+        html += '<div class="ef-node-title">' + efLaterals[1].title + '</div>';
+        html += '<div class="ef-node-sub">' + efLaterals[1].sub + '</div>';
+        html += '</div>';
+        html += '</div>';
+      }
+
+      /* connector + label between pipeline steps */
+      if (i < efPipeline.length - 1) {
+        html += '<div class="ef-connector"><span class="ef-connector-label">' + efLabels[i] + '</span></div>';
+      }
+    });
+
+    html += '</div>';
+
+    /* support capabilities */
+    html += '<div class="ef-support">';
+    html += '<div class="ef-support-label">SUPPORT CAPABILITIES</div>';
+    html += '<div class="ef-support-grid">';
+    efSupport.forEach(function(s) {
+      var rgb = toRGB(s.color);
+      html += '<div class="ef-support-chip" data-ef-id="' + s.id + '" style="border-color:rgba(' + rgb + ',0.12)">';
+      html += '<span>' + s.icon + '</span><span style="color:#d1d5db">' + s.title + '</span>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+
+    efView.innerHTML = html;
+    bindEfClicks();
+  }
+
+  function bindEfClicks() {
+    efView.querySelectorAll('[data-ef-id]').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var nid = parseInt(el.getAttribute('data-ef-id'));
+        var vtype = el.getAttribute('data-ef-vnode');
+        if (vtype === 'agente') { openAgentModalFromEf(); }
+        else if (vtype === 'backend') { openVCoreCardFromEf('backend'); }
+        else if (vtype === 'panel') { openVCoreCardFromEf('panel'); }
+        else { openNodeFromEf(nid); }
+      });
+    });
+  }
+
+  /* Reuse existing card/modal system from execution flow */
+  function openNodeFromEf(id) {
+    var n = nodes.find(function(nd) { return nd.id === id; });
+    if (!n) return;
+
+    closeAll();
+    var ac = n.accent;
+    var rgb = toRGB(ac);
+    var badgeClass = 'card-badge--' + n.status;
+    var badgeText = n.status === 'live' ? 'LIVE' : n.status === 'soon' ? 'PRÓXIMO' : 'ROADMAP';
+
+    var checksHtml = '';
+    if (n.checks && n.checks.length) {
+      checksHtml = '<div class="card-checks">';
+      n.checks.forEach(function(c) {
+        checksHtml += '<div class="card-check"><span class="card-check-mark" style="color:' + ac + '">✓</span><span>' + c + '</span></div>';
+      });
+      checksHtml += '</div>';
+    }
+    var connHtml = buildConnectedWith(n.relatedIds);
+
+    card.innerHTML =
+      '<div class="card-header">' +
+        '<div class="card-icon" style="background:rgba(' + rgb + ',0.1);border:1px solid rgba(' + rgb + ',0.2)">' + n.icon + '</div>' +
+        '<div><div class="card-title">' + n.title + '</div><div class="card-subtitle">' + n.subtitle + '</div></div>' +
+      '</div>' +
+      '<span class="card-badge ' + badgeClass + '">' + badgeText + '</span>' +
+      '<div class="card-fn" style="border-left-color:' + ac + '">' +
+        '<div class="card-fn-label" style="color:' + ac + '">FUNCIÓN</div>' +
+        '<p class="card-fn-text">' + n.fn + '</p>' +
+      '</div>' +
+      checksHtml +
+      '<div class="card-tech-box">' + n.tech + '</div>' +
+      connHtml;
+
+    card.style.borderColor = 'rgba(' + rgb + ',0.3)';
+    card.style.position = 'fixed';
+    card.style.left = '50%';
+    card.style.top = '50%';
+    card.style.transform = 'translate(-50%, -50%)';
+    card.classList.add('is-open');
+
+    /* overlay for EF */
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
+      overlay.addEventListener('click', function() { closeEfCard(); });
+      document.body.appendChild(overlay);
+    }
+  }
+
+  function openVCoreCardFromEf(type) {
+    closeAll();
+    var data = vCoreCards[type];
+    vCoreActiveTab = 0;
+    card.innerHTML = buildTabbedCard(data, 0);
+    card.style.borderColor = data.borderColor;
+    card.style.position = 'fixed';
+    card.style.left = '50%';
+    card.style.top = '50%';
+    card.style.transform = 'translate(-50%, -50%)';
+    card.classList.add('is-open');
+
+    card.querySelectorAll('.vcore-tab').forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        vCoreActiveTab = parseInt(tab.getAttribute('data-vcore-tab'));
+        card.innerHTML = buildTabbedCard(data, vCoreActiveTab);
+        /* re-bind tabs */
+        card.querySelectorAll('.vcore-tab').forEach(function(t2) {
+          t2.addEventListener('click', function(e2) {
+            e2.stopPropagation();
+            vCoreActiveTab = parseInt(t2.getAttribute('data-vcore-tab'));
+            card.innerHTML = buildTabbedCard(data, vCoreActiveTab);
+          });
+        });
+      });
+    });
+
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
+      overlay.addEventListener('click', function() { closeEfCard(); });
+      document.body.appendChild(overlay);
+    }
+  }
+
+  function openAgentModalFromEf() {
+    closeAll();
+    agentModalOpen = true;
+    activeAgentTab = 0;
+    buildAgentTabs();
+    renderAgentTab(0);
+
+    agentModal.style.position = 'fixed';
+    agentModal.style.width = '680px';
+    agentModal.style.maxWidth = '95vw';
+    agentModal.style.left = '50%';
+    agentModal.style.top = '50%';
+    agentModal.style.transform = 'translate(-50%, -50%)';
+    agentModal.classList.add('is-open');
+    startFlowAnimation();
+
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:249;background:rgba(0,0,0,0.4);';
+      overlay.addEventListener('click', function() { closeEfCard(); });
+      document.body.appendChild(overlay);
+    }
+  }
+
+  function closeEfCard() {
+    card.classList.remove('is-open');
+    card.style.position = '';
+    card.style.left = '';
+    card.style.top = '';
+    card.style.transform = '';
+    agentModal.classList.remove('is-open');
+    agentModal.style.position = '';
+    agentModal.style.left = '';
+    agentModal.style.top = '';
+    agentModal.style.transform = '';
+    agentModalOpen = false;
+    clearFlowAnimation();
+    if (overlay) { overlay.remove(); overlay = null; }
+  }
+
+  /* ================================================================
+   * VIEW TOGGLE
+   * ================================================================ */
+  function switchView(view) {
+    if (view === currentView) return;
+    currentView = view;
+
+    var btns = viewToggle.querySelectorAll('.view-toggle-btn');
+    btns.forEach(function(b) { b.classList.toggle('is-active', b.getAttribute('data-view') === view); });
+
+    if (view === 'orbital') {
+      efView.classList.remove('is-visible');
+      wrap.style.opacity = '0';
+      wrap.style.transform = 'translateY(4px)';
+      wrap.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      wrap.style.display = '';
+      hint.style.display = '';
+      setTimeout(function() { wrap.style.opacity = '1'; wrap.style.transform = 'translateY(0)'; }, 30);
+      autoRotate = true;
+    } else {
+      closeAll();
+      wrap.style.opacity = '0';
+      wrap.style.transform = 'translateY(4px)';
+      setTimeout(function() {
+        wrap.style.display = 'none';
+        hint.style.display = 'none';
+        buildExecutionFlow();
+        efView.classList.add('is-visible');
+      }, 350);
+    }
+  }
+
+  viewToggle.addEventListener('click', function(e) {
+    var btn = e.target.closest('.view-toggle-btn');
+    if (btn) switchView(btn.getAttribute('data-view'));
+  });
+
+  /* close EF cards on click outside */
+  document.addEventListener('click', function(e) {
+    if (currentView === 'execution' && !e.target.closest('.detail-card') && !e.target.closest('.agent-modal') && !e.target.closest('[data-ef-id]')) {
+      closeEfCard();
+    }
+  });
 
   if (document.readyState !== 'loading') init();
   else document.addEventListener('DOMContentLoaded', init);
