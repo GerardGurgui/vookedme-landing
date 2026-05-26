@@ -110,7 +110,7 @@ body::after {
 /* ===== ZONE LABELS ===== */
 .zone-label {
   position: absolute; left: 50%; transform: translateX(-50%);
-  font-size: 13px; letter-spacing: 0.28em; color: rgba(255,255,255,0.32);
+  font-size: 13px; letter-spacing: 0.28em; color: rgba(255,255,255,0.5);
   text-transform: uppercase; font-weight: 700; pointer-events: none;
   z-index: 1; white-space: nowrap;
 }
@@ -343,7 +343,7 @@ body::after {
 .am-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
 .am-accent-bar { width: 3px; border-radius: 2px; align-self: stretch; flex-shrink: 0; transition: background 0.3s; }
 .am-title { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px; letter-spacing: -0.02em; }
-.am-subtitle { font-size: 16px; color: #9ca3af; line-height: 1.5; margin-bottom: 0; }
+.am-subtitle { font-size: 16px; color: #c4b5fd; line-height: 1.5; margin-bottom: 0; font-weight: 500; }
 .am-separator { border: none; border-bottom: 1px solid rgba(255,255,255,0.06); margin: 0 0 16px; }
 .agent-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
 .agent-tab {
@@ -989,8 +989,8 @@ body::after {
     lineBkPl.setAttribute('x1', bx); lineBkPl.setAttribute('y1', by);
     lineBkPl.setAttribute('x2', px); lineBkPl.setAttribute('y2', py);
 
-    labelCore.style.top = (by - 58) + 'px';
-    labelInfra.style.top = (ay + 65) + 'px';
+    labelCore.style.top = (by - 42) + 'px';
+    labelInfra.style.top = (ay + 90) + 'px';
   }
 
   /* ================================================================
@@ -1390,34 +1390,34 @@ body::after {
 
     var checksHtml = '';
     mode.checks.forEach(function(c) {
-      checksHtml += '<div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;display:flex;align-items:flex-start"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + ta.text + ';margin-right:6px;flex-shrink:0;margin-top:7px"></span><span>' + c + '</span></div>';
+      checksHtml += '<div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;display:flex;align-items:flex-start"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + ta.text + ';margin-right:6px;flex-shrink:0;margin-top:9px"></span><span>' + c + '</span></div>';
     });
 
     var opsHtml = '';
     if (mode.ops && mode.ops.length) {
-      opsHtml = '<div style="margin-top:12px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:6px">COMPORTAMIENTO OPERACIONAL</div>';
+      opsHtml = '<div style="margin-top:12px"><div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:6px">COMPORTAMIENTO OPERACIONAL</div>';
       mode.ops.forEach(function(o) {
-        opsHtml += '<div style="font-size:13px;color:#6b7280;line-height:1.7;display:flex;align-items:flex-start;gap:6px"><span style="color:' + accent + ';flex-shrink:0">⚡</span><span>' + o + '</span></div>';
+        opsHtml += '<div style="font-size:15px;color:#9ca3af;line-height:1.7;display:flex;align-items:flex-start;gap:6px"><span style="color:' + accent + ';flex-shrink:0">⚡</span><span>' + o + '</span></div>';
       });
       opsHtml += '</div>';
     }
 
     var riskHtml = '';
     if (mode.risk) {
-      riskHtml = '<div style="margin-top:10px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:6px">RISK PROFILE</div>' +
+      riskHtml = '<div style="margin-top:10px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:' + accent + ';margin-bottom:6px">RISK PROFILE</div>' +
         '<div style="background:rgba(' + rgb + ',0.1);border:0.5px solid ' + accent + ';border-radius:6px;padding:8px 12px;display:flex;gap:10px;align-items:center">' +
-          '<div><div style="font-size:12px;font-weight:700;color:' + ta.text + '">' + mode.risk.title + '</div>' +
-          '<div style="font-size:11px;color:#9ca3af;margin-top:2px">' + mode.risk.sub + '</div></div>' +
+          '<div><div style="font-size:14px;font-weight:700;color:' + ta.text + '">' + mode.risk.title + '</div>' +
+          '<div style="font-size:13px;color:#9ca3af;margin-top:2px">' + mode.risk.sub + '</div></div>' +
         '</div></div>';
     }
 
     var leftHtml =
-      '<div style="font-size:15px;font-weight:500;color:#f1f1f1;margin-bottom:8px">' + mode.name + '</div>' +
-      '<p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:12px">' + mode.desc + '</p>' +
+      '<div style="font-size:17px;font-weight:600;color:#f1f1f1;margin-bottom:8px">' + mode.name + '</div>' +
+      '<p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:12px">' + mode.desc + '</p>' +
       '<div style="border-left:2px solid rgba(' + rgb + ',0.3);padding-left:12px;margin-bottom:12px">' + checksHtml + '</div>' +
       opsHtml +
       riskHtml +
-      '<div style="font-size:11px;font-family:monospace;padding:8px 12px;background:rgba(' + rgb + ',0.06);border-radius:6px;line-height:1.5;border:1px solid rgba(' + rgb + ',0.15);color:' + ta.text + ';margin-top:12px"><span style="font-size:10px;color:rgba(255,255,255,0.3);margin-right:6px">TECH</span>' + mode.tech + '</div>';
+      '<div style="font-size:13px;font-family:monospace;padding:8px 12px;background:rgba(' + rgb + ',0.06);border-radius:6px;line-height:1.5;border:1px solid rgba(' + rgb + ',0.15);color:' + ta.text + ';margin-top:12px"><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-right:6px">TECH</span>' + mode.tech + '</div>';
 
     var rightHtml = buildFlowHTML(mode.flow, accent, mode.flowSubtitle, mode.flowPhases);
 
