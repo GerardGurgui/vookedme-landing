@@ -1956,13 +1956,14 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
 
   function runLoop() {
     at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); showCard(cards.a); });
-    at(1200, () => { drawLine(lines.l1); });
-    at(2200, () => fireParticle('hvP1Motion', 'hvP1Op'));
-    at(2600, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
-    at(3800, () => drawLine(lines.l2));
-    at(4800, () => fireParticle('hvP2Motion', 'hvP2Op'));
-    at(5200, () => { setStep(2); activate(nodes.biz); showCard(cards.c); });
-    at(8000, () => { clearTimers(); runLoop(); });
+    /* Card A bubbles: CSS delays 0.6s, 1.5s, 2.4s, 3.2s — wait until 4s */
+    at(4000, () => { drawLine(lines.l1); });
+    at(4800, () => fireParticle('hvP1Motion', 'hvP1Op'));
+    at(5200, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
+    at(7000, () => drawLine(lines.l2));
+    at(7800, () => fireParticle('hvP2Motion', 'hvP2Op'));
+    at(8200, () => { setStep(2); activate(nodes.biz); showCard(cards.c); });
+    at(11000, () => { clearTimers(); runLoop(); });
   }
 
   function start() { runLoop(); }
