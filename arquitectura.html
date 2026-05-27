@@ -426,11 +426,15 @@ body::after {
   .orbital-ring { width: 400px; height: 400px; }
   .orbital-ring-inner { width: 200px; height: 200px; }
   .detail-card {
-    position: fixed; top: 10%; left: 50%; transform: translateX(-50%);
-    width: 92vw; max-width: 420px; max-height: 78vh;
+    position: fixed !important; top: 10% !important; left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 92vw !important; max-width: 420px; max-height: 78vh;
     overflow-y: auto; overflow-x: hidden; z-index: 300;
     padding: 16px;
     scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .detail-card.is-open {
+    transform: translateX(-50%) !important;
   }
   .agent-modal {
     position: fixed !important; top: 5% !important; left: 50% !important; transform: translateX(-50%) !important;
