@@ -1087,13 +1087,45 @@ body::after {
 
 /* ===== V-FLOW RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .hero-vflow { padding: 56px 16px 40px; gap: 20px; min-height: auto; }
+  .hero-vflow { padding: 64px 16px 32px; gap: 16px; min-height: auto; }
   .hv-stage {
-    max-width: 100%; overflow: hidden;
-    transform: scale(0.62); transform-origin: top center;
-    margin-bottom: -120px; /* compensate scale whitespace */
+    aspect-ratio: auto; perspective: none; max-width: 100%; overflow: visible;
   }
-  .hv-card { font-size: 13px; }
+  .hv-v {
+    position: relative !important; inset: auto !important;
+    transform: none !important; transform-style: flat;
+    width: 100%; padding-top: 280px;
+    display: flex; gap: 12px;
+    overflow-x: auto; overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 16px; padding-right: 16px; padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .hv-v::-webkit-scrollbar { display: none; }
+  /* SVG stays absolute in the top 280px zone */
+  .hv-svg { position: absolute; top: 0; left: 5%; width: 90%; height: 260px; }
+  /* Nodes: absolute, inside top zone */
+  .hv-node { z-index: 5; }
+  .hv-node--client { left: 18% !important; top: 30px !important; }
+  .hv-node--biz    { left: 82% !important; top: 30px !important; }
+  .hv-node--bot    { left: 50% !important; top: 210px !important; transform: translate(-50%, -50%) !important; }
+  .hv-circle { width: 50px; height: 50px; }
+  .hv-circle svg { width: 22px; height: 22px; }
+  .hv-node--bot .hv-circle { width: 58px; height: 58px; }
+  .hv-node--bot .hv-circle svg { width: 26px; height: 26px; }
+  .hv-label { font-size: 14px; }
+  .hv-sublabel { font-size: 11px; }
+  /* Cards: horizontal scroll row below the V */
+  .hv-card {
+    position: relative !important; inset: auto !important;
+    flex-shrink: 0; width: 75vw; max-width: 300px;
+    min-height: auto !important;
+    scroll-snap-align: center;
+    opacity: 1 !important; transform: none !important;
+    font-size: 13px;
+  }
+  .hv-card.is-on { transform: none !important; }
 }
 
 @media (max-width: 720px) {
