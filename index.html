@@ -130,9 +130,28 @@ body::after {
   border-color: rgba(16,185,129,0.5);
   background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25));
 }
-@media (max-width: 640px) {
+.nav-hamburger { display: none; position: relative; font-size: 24px; color: rgba(255,255,255,0.8); background: none; border: none; cursor: pointer; padding: 4px 8px; }
+@media (max-width: 768px) {
   .nav-links { display: none; }
   .navbar { padding: 0 20px; }
+  .nav-cta { font-size: 0.75rem; padding: 6px 14px; }
+  .nav-hamburger { display: block; }
+  .nav-mobile-menu {
+    position: absolute; top: 100%; right: 0;
+    min-width: 200px; background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    padding: 8px 0; z-index: 1000;
+    opacity: 0; transform: translateY(-8px); pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .nav-mobile-menu.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .nav-mobile-menu a {
+    display: block; padding: 12px 20px; color: rgba(255,255,255,0.8);
+    font-size: 15px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: rgba(255,255,255,0.04); }
+  .nav-mobile-menu a.mobile-cta { color: #10b981; font-weight: 600; }
 }
 
 /* ===== SECONDARY CTA ===== */
@@ -1065,7 +1084,7 @@ body::after {
 }
 
 /* ===== V-FLOW RESPONSIVE ===== */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .hero-vflow { padding: 56px 16px 40px; gap: 24px; min-height: auto; }
   .hv-stage { perspective: 600px; max-width: 100%; aspect-ratio: auto; }
   .hv-v { position: relative; transform: none; display: flex; flex-direction: column; gap: 24px; align-items: stretch; }
@@ -1100,20 +1119,28 @@ body::after {
   .mf-step { opacity: 1; transform: none; }
   .mf-node { transform: scale(1) rotate(0deg); }
   .mf-line { opacity: .5; transform: scaleY(1); }
+  /* Mode cards: collapsed initially, reveal on scroll */
+  .mode { max-height: 72px; overflow: hidden; transition: max-height 0.4s ease; }
+  .mode .mode__flow, .mode .mode__desc, .mode .mode__time { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .mode.is-revealed { max-height: 800px; }
+  .mode.is-revealed .mode__flow, .mode.is-revealed .mode__desc, .mode.is-revealed .mode__time { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .navbar { padding: 0 1rem; }
   .pain-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; gap: 2rem; }
   .steps::before { display: none; }
   .section { padding: 4rem 1.5rem; }
   .waitlist-box { padding: 2rem 1.5rem; }
   .proof-types { flex-direction: column; align-items: center; }
-  .nav-cta { font-size: 0.75rem; padding: 6px 14px; }
   /* Features */
-  .features-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feat-card { padding: 14px; }
+  .feat-emoji { font-size: 28px; }
+  .feat-card h3 { font-size: 13px; font-weight: 600; }
+  .feat-card p { font-size: 11px; line-height: 1.4; color: rgba(255,255,255,0.6); }
+  .feat-badge { font-size: 9px; padding: 2px 7px; }
   /* Sectors */
   .sector-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1170,6 +1197,14 @@ body::after {
     <a href="#waitlist">Precios</a>
   </div>
   <a href="#waitlist" class="nav-cta">Acceso anticipado &rarr;</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menú">&#9776;</button>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="#">Inicio</a>
+    <a href="#features">Características</a>
+    <a href="#sectors">Sectores</a>
+    <a href="/arquitectura">Arquitectura técnica</a>
+    <a href="#waitlist" class="mobile-cta">Acceso anticipado</a>
+  </div>
 </nav>
 
 <main>
@@ -1977,6 +2012,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
             flow.classList.add('is-open');
             clearAll();
             playSequence();
@@ -1998,6 +2034,25 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     }
   });
 })();
+
+  // Mobile hamburger menu
+  (function() {
+    var hamburger = document.getElementById('navHamburger');
+    var mobileMenu = document.getElementById('navMobileMenu');
+    if (!hamburger || !mobileMenu) return;
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('is-open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-mobile-menu') && !e.target.closest('.nav-hamburger')) {
+        mobileMenu.classList.remove('is-open');
+      }
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { mobileMenu.classList.remove('is-open'); });
+    });
+  })();
 </script>
 </body>
 </html>

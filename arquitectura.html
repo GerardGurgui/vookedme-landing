@@ -79,7 +79,23 @@ body::after {
   padding: 10px 20px; text-decoration: none; transition: all 0.2s;
 }
 .nav-cta:hover { border-color: rgba(16,185,129,0.5); background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25)); }
-@media (max-width: 640px) { .nav-links { display: none; } .navbar { padding: 0 20px; } }
+/* Hamburger base */
+.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:1001; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform 0.3s, opacity 0.3s; }
+.nav-hamburger.is-open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.nav-hamburger.is-open span:nth-child(2) { opacity:0; }
+.nav-hamburger.is-open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+.mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; background:rgba(17,19,23,0.97); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.06); padding:16px 24px; z-index:999; flex-direction:column; gap:4px; }
+.mobile-menu.is-open { display:flex; }
+.mobile-menu a { display:block; padding:12px 16px; color:#d1d5db; text-decoration:none; font-size:15px; font-weight:500; border-radius:8px; transition:background 0.2s, color 0.2s; }
+.mobile-menu a:hover, .mobile-menu a:active { background:rgba(255,255,255,0.05); color:#fff; }
+.mobile-menu a.mm-cta { color:#10b981; font-weight:600; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .navbar { padding: 0 20px; }
+}
 
 /* ===== HEADER ===== */
 .arch-header { text-align: center; padding: 128px 24px 48px; position: relative; z-index: 1; }
@@ -409,8 +425,26 @@ body::after {
   .orbital-wrap { height: 560px; }
   .orbital-ring { width: 400px; height: 400px; }
   .orbital-ring-inner { width: 200px; height: 200px; }
-  .detail-card { width: 280px; padding: 16px; }
-  .agent-modal { min-width: auto !important; width: 95% !important; padding: 20px !important; }
+  .detail-card {
+    position: fixed; top: 10%; left: 50%; transform: translateX(-50%);
+    width: 92vw; max-width: 420px; max-height: 78vh;
+    overflow-y: auto; overflow-x: hidden; z-index: 300;
+    padding: 16px;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .agent-modal {
+    position: fixed !important; top: 5% !important; left: 50% !important; transform: translateX(-50%) !important;
+    min-width: auto !important; width: 95vw !important; max-width: 520px !important;
+    max-height: 85vh; overflow-y: auto; overflow-x: hidden;
+    padding: 20px !important; z-index: 300;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .de-modal {
+    position: fixed !important; top: 5% !important; left: 50% !important; transform: translateX(-50%) !important;
+    max-height: 85vh; overflow-y: auto; overflow-x: hidden;
+    z-index: 300;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
   .agent-content { flex-direction: column; }
   .agent-right { min-width: auto; border-left: none !important; padding-left: 0 !important; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 }
@@ -418,14 +452,29 @@ body::after {
   .orbital-wrap { height: 460px; }
   .orbital-ring { width: 320px; height: 320px; }
   .orbital-ring-inner { width: 160px; height: 160px; }
-  .node-title, .node-sub { display: none; }
+  .node-title, .node-sub { opacity: 0; font-size: 9px; transition: opacity 0.2s; }
+  .show-labels .node-title, .show-labels .node-sub { opacity: 1; }
+  .node-icon { width: 42px; height: 42px; font-size: 18px; }
   .v-name, .v-sub, .v-badge { display: none; }
   .zone-label { display: none; }
-  .detail-card { width: 260px; font-size: 12px; }
-  .agent-modal { width: 95% !important; padding: 16px !important; }
+  .detail-card { max-width: 360px; font-size: 12px; }
+  .agent-modal { width: 95vw !important; padding: 16px !important; }
   .agent-tab { padding: 5px 10px; font-size: 10px; }
   .agent-tabs { gap: 4px; flex-wrap: wrap; }
 }
+
+/* ===== LABELS TOGGLE (mobile only) ===== */
+.labels-toggle {
+  display: none; margin: -16px auto 16px; padding: 8px 16px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; color: #9ca3af; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; font-family: var(--font);
+  position: relative; z-index: 2;
+}
+.labels-toggle:hover { background: rgba(255,255,255,0.08); color: #d1d5db; }
+.labels-toggle.is-active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #10b981; }
+.labels-toggle-icon { font-size: 14px; }
+@media (max-width: 480px) { .labels-toggle { display: inline-flex; align-items: center; gap: 6px; } }
 
 /* ===== VIEW TOGGLE ===== */
 .view-toggle {
@@ -574,6 +623,13 @@ body::after {
     <a href="/arquitectura" class="is-active">Arquitectura</a>
   </div>
   <a href="/#waitlist" class="nav-cta">Acceso anticipado &rarr;</a>
+  <button class="nav-hamburger" id="archHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="mobile-menu" id="archMobileMenu">
+    <a href="/">&larr; Volver a inicio</a>
+    <a href="#" onclick="switchView('orbital');closeArchMenu();return false;">Vista Orbital</a>
+    <a href="#" onclick="switchView('execution');closeArchMenu();return false;">Execution Flow</a>
+    <a href="/#waitlist" class="mm-cta">Acceso anticipado &rarr;</a>
+  </div>
 </nav>
 
 <main>
@@ -591,6 +647,11 @@ body::after {
   <button class="view-toggle-btn is-active" data-view="orbital">ORBITAL</button>
   <button class="view-toggle-btn" data-view="execution">EXECUTION FLOW</button>
 </div>
+
+<!-- ===== MOBILE LABELS TOGGLE ===== -->
+<button class="labels-toggle" id="labelsToggle" aria-label="Mostrar nombres">
+  <span class="labels-toggle-icon">🏷️</span> <span class="labels-toggle-text">Nombres</span>
+</button>
 
 <!-- ===== ORBITAL DIAGRAM ===== -->
 <div class="orbital-wrap" id="orbitalWrap">
@@ -1937,6 +1998,35 @@ body::after {
       }
     }
   });
+
+  /* Labels toggle (mobile) */
+  var labelsBtn = document.getElementById('labelsToggle');
+  if (labelsBtn) {
+    labelsBtn.addEventListener('click', function() {
+      labelsBtn.classList.toggle('is-active');
+      wrap.classList.toggle('show-labels');
+    });
+  }
+
+  /* Hamburger menu */
+  var archHam = document.getElementById('archHamburger');
+  var archMenu = document.getElementById('archMobileMenu');
+  window.closeArchMenu = function() {
+    archHam && archHam.classList.remove('is-open');
+    archMenu && archMenu.classList.remove('is-open');
+  };
+  if (archHam && archMenu) {
+    archHam.addEventListener('click', function(e) {
+      e.stopPropagation();
+      archHam.classList.toggle('is-open');
+      archMenu.classList.toggle('is-open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.mobile-menu') && !e.target.closest('.nav-hamburger')) {
+        closeArchMenu();
+      }
+    });
+  }
 
   if (document.readyState !== 'loading') init();
   else document.addEventListener('DOMContentLoaded', init);
