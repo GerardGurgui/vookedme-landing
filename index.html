@@ -2035,6 +2035,22 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
   });
 })();
 
+  // Mobile: mode cards scroll-reveal
+  (function() {
+    if (window.innerWidth > 720) return;
+    var modes = document.querySelectorAll('.mode');
+    if (!modes.length) return;
+    var modeObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          modeObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    modes.forEach(function(m) { modeObs.observe(m); });
+  })();
+
   // Mobile hamburger menu
   (function() {
     var hamburger = document.getElementById('navHamburger');
