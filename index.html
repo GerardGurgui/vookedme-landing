@@ -1102,8 +1102,8 @@ body::after {
   .hv-svg { position: absolute; top: 10px; left: 5%; width: 90%; height: 280px; }
   /* Nodes: absolute, inside top zone — pushed down so not cut */
   .hv-node { z-index: 5; }
-  .hv-node--client { left: 15% !important; top: 55px !important; }
-  .hv-node--biz    { left: 85% !important; top: 55px !important; }
+  .hv-node--client { left: 26% !important; top: 60px !important; }
+  .hv-node--biz    { left: 74% !important; top: 60px !important; }
   .hv-node--bot    { left: 50% !important; top: 245px !important; transform: translate(-50%, -50%) !important; }
   .hv-circle { width: 46px; height: 46px; }
   .hv-circle svg { width: 20px; height: 20px; }
@@ -1945,8 +1945,11 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
   function hideFirstMsg() { if (firstMsg) { firstMsg.classList.remove('is-visible'); } }
   function showFirstMsg() { if (firstMsg) { firstMsg.classList.add('is-visible'); } }
 
+  var isMobileV = window.innerWidth <= 768;
+
   function runLoop() {
-    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); hideFirstMsg(); showCard(cards.a); });
+    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); hideFirstMsg(); });
+    at(400,  () => { showCard(cards.a); });
     at(1200, () => { drawLine(lines.l1); showFirstMsg(); });
     at(2200, () => fireParticle('hvP1Motion', 'hvP1Op'));
     at(2600, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
