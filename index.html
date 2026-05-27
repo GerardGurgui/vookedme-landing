@@ -330,9 +330,16 @@ body::after {
   font-size: 14px; line-height: 1.4;
 }
 .bubble.in  { align-self: flex-end; background: #1e2522; color: #e5e7eb; border-bottom-right-radius: 3px; }
-.bubble--reveal { opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; }
-.bubble--reveal.is-visible { opacity: 1; transform: translateY(0); }
 .bubble.out { align-self: flex-start; background: var(--green); color: #062314; border-bottom-left-radius: 3px; font-weight: 500; }
+/* Sequential bubble reveal in Card A */
+.hv-card--a .bubble {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.hv-card--a.is-on .bubble:nth-of-type(1) { opacity: 1; transform: none; transition-delay: 0.6s; }
+.hv-card--a.is-on .bubble:nth-of-type(2) { opacity: 1; transform: none; transition-delay: 1.5s; }
+.hv-card--a.is-on .bubble:nth-of-type(3) { opacity: 1; transform: none; transition-delay: 2.4s; }
+.hv-card--a.is-on .bubble:nth-of-type(4) { opacity: 1; transform: none; transition-delay: 3.2s; }
 
 /* card B -- panel mock */
 .pmock { display: flex; flex-direction: column; gap: 8px; }
@@ -1319,7 +1326,7 @@ body::after {
             <span class="who">Mar&iacute;a Garc&iacute;a</span>
             <span style="margin-left:auto;">9:41</span>
           </div>
-          <div class="bubble in bubble--reveal" id="hvFirstMsg">Quiero cita ma&ntilde;ana &#128075;</div>
+          <div class="bubble in" id="hvFirstMsg">Quiero cita ma&ntilde;ana &#128075;</div>
           <div class="bubble out">&iquest;A qu&eacute; hora? Tenemos 10:00 y 11:30 &#128336;</div>
           <div class="bubble in">A las 11:30 perfecto</div>
           <div class="bubble out">&#10004; Cita confirmada</div>
@@ -1948,9 +1955,8 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
   var isMobileV = window.innerWidth <= 768;
 
   function runLoop() {
-    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); hideFirstMsg(); });
-    at(400,  () => { showCard(cards.a); });
-    at(1200, () => { drawLine(lines.l1); showFirstMsg(); });
+    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); showCard(cards.a); });
+    at(1200, () => { drawLine(lines.l1); });
     at(2200, () => fireParticle('hvP1Motion', 'hvP1Op'));
     at(2600, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
     at(3800, () => drawLine(lines.l2));
