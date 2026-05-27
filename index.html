@@ -1087,45 +1087,63 @@ body::after {
 
 /* ===== V-FLOW RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .hero-vflow { padding: 64px 16px 32px; gap: 16px; min-height: auto; }
+  .hero-vflow { padding: 64px 12px 32px; gap: 12px; min-height: auto; }
   .hv-stage {
     aspect-ratio: auto; perspective: none; max-width: 100%; overflow: visible;
   }
   .hv-v {
     position: relative !important; inset: auto !important;
     transform: none !important; transform-style: flat;
-    width: 100%; padding-top: 280px;
-    display: flex; gap: 12px;
-    overflow-x: auto; overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-left: 16px; padding-right: 16px; padding-bottom: 8px;
-    scrollbar-width: none;
+    width: 100%; padding-top: 300px;
+    display: flex; gap: 6px;
+    padding-left: 4px; padding-right: 4px;
   }
-  .hv-v::-webkit-scrollbar { display: none; }
-  /* SVG stays absolute in the top 280px zone */
-  .hv-svg { position: absolute; top: 0; left: 5%; width: 90%; height: 260px; }
-  /* Nodes: absolute, inside top zone */
+  /* SVG: V lines in the top zone */
+  .hv-svg { position: absolute; top: 10px; left: 5%; width: 90%; height: 280px; }
+  /* Nodes: absolute, inside top zone — pushed down so not cut */
   .hv-node { z-index: 5; }
-  .hv-node--client { left: 18% !important; top: 30px !important; }
-  .hv-node--biz    { left: 82% !important; top: 30px !important; }
-  .hv-node--bot    { left: 50% !important; top: 210px !important; transform: translate(-50%, -50%) !important; }
-  .hv-circle { width: 50px; height: 50px; }
-  .hv-circle svg { width: 22px; height: 22px; }
-  .hv-node--bot .hv-circle { width: 58px; height: 58px; }
-  .hv-node--bot .hv-circle svg { width: 26px; height: 26px; }
-  .hv-label { font-size: 14px; }
-  .hv-sublabel { font-size: 11px; }
-  /* Cards: horizontal scroll row below the V */
+  .hv-node--client { left: 15% !important; top: 55px !important; }
+  .hv-node--biz    { left: 85% !important; top: 55px !important; }
+  .hv-node--bot    { left: 50% !important; top: 245px !important; transform: translate(-50%, -50%) !important; }
+  .hv-circle { width: 46px; height: 46px; }
+  .hv-circle svg { width: 20px; height: 20px; }
+  .hv-node--bot .hv-circle { width: 54px; height: 54px; }
+  .hv-node--bot .hv-circle svg { width: 24px; height: 24px; }
+  .hv-label { font-size: 13px; }
+  .hv-sublabel { font-size: 10px; }
+
+  /* Cards: 3 side by side, collapsed by default, expand with flow */
   .hv-card {
     position: relative !important; inset: auto !important;
-    flex-shrink: 0; width: 75vw; max-width: 300px;
+    flex: 1 1 0; min-width: 0;
     min-height: auto !important;
-    scroll-snap-align: center;
-    opacity: 1 !important; transform: none !important;
-    font-size: 13px;
+    max-height: 42px; overflow: hidden;
+    opacity: 0.5 !important;
+    transform: none !important;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
+    font-size: 11px; line-height: 1.35;
+    padding: 8px !important;
+    border-radius: 10px;
   }
-  .hv-card.is-on { transform: none !important; }
+  .hv-card.is-on {
+    max-height: 320px; opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Compact internals */
+  .hv-card .chat { gap: 4px; }
+  .hv-card .chat__head { font-size: 11px; gap: 6px; margin-bottom: 2px; }
+  .hv-card .chat__avatar { width: 18px; height: 18px; font-size: 9px; }
+  .hv-card .bubble { padding: 5px 8px; font-size: 11px; border-radius: 8px; }
+  .hv-card .pmock__head { font-size: 10px; }
+  .hv-card .pmock__row { font-size: 10px; padding: 3px 0; gap: 4px; }
+  .hv-card .pmock__row svg { width: 12px; height: 12px; }
+  .hv-card .pmock__actions { gap: 3px; }
+  .hv-card .pmock__btn { font-size: 9px; padding: 3px 6px; }
+  .hv-card .conf__check { width: 36px; height: 36px; }
+  .hv-card .conf__check svg { width: 18px; height: 18px; }
+  .hv-card .conf__title { font-size: 12px; }
+  .hv-card .conf__row { font-size: 10px; }
+  .hv-card .conf__note { font-size: 10px; }
 }
 
 @media (max-width: 720px) {
