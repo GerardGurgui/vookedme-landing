@@ -452,29 +452,47 @@ body::after {
   .orbital-wrap { height: 460px; }
   .orbital-ring { width: 320px; height: 320px; }
   .orbital-ring-inner { width: 160px; height: 160px; }
+  /* All labels hidden by default in mobile */
   .node-title, .node-sub { opacity: 0; font-size: 9px; transition: opacity 0.2s; }
-  .show-labels .node-title, .show-labels .node-sub { opacity: 1; }
+  .v-name, .v-sub { opacity: 0; transition: opacity 0.2s; }
+  .v-badge { display: none; }
+  .zone-label { opacity: 0; transition: opacity 0.2s; }
+  /* show-infra: orbital infrastructure nodes */
+  .show-infra .node-title, .show-infra .node-sub { opacity: 1; }
+  .show-infra #labelInfra { opacity: 1; }
+  /* show-core: v-center core nodes */
+  .show-core .v-name, .show-core .v-sub { opacity: 1; }
+  .show-core #labelCore { opacity: 1; }
+  /* show-all: everything */
+  .show-all .node-title, .show-all .node-sub,
+  .show-all .v-name, .show-all .v-sub { opacity: 1; }
+  .show-all #labelCore, .show-all #labelInfra { opacity: 1; }
+  /* icon size reduction */
   .node-icon { width: 42px; height: 42px; font-size: 18px; }
-  .v-name, .v-sub, .v-badge { display: none; }
-  .zone-label { display: none; }
   .detail-card { max-width: 360px; font-size: 12px; }
   .agent-modal { width: 95vw !important; padding: 16px !important; }
   .agent-tab { padding: 5px 10px; font-size: 10px; }
   .agent-tabs { gap: 4px; flex-wrap: wrap; }
 }
 
-/* ===== LABELS TOGGLE (mobile only) ===== */
-.labels-toggle {
-  display: none; margin: -16px auto 16px; padding: 8px 16px;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px; color: #9ca3af; font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.2s; font-family: var(--font);
-  position: relative; z-index: 2;
+/* ===== LABELS SEGMENTED (mobile only) ===== */
+.labels-seg {
+  display: none; gap: 4px; padding: 4px;
+  width: fit-content; margin: -12px auto 16px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; position: relative; z-index: 2;
 }
-.labels-toggle:hover { background: rgba(255,255,255,0.08); color: #d1d5db; }
-.labels-toggle.is-active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #10b981; }
-.labels-toggle-icon { font-size: 14px; }
-@media (max-width: 480px) { .labels-toggle { display: inline-flex; align-items: center; gap: 6px; } }
+.labels-seg-btn {
+  padding: 7px 14px; border-radius: 7px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer;
+  background: transparent; color: #6b7280; border: 1px solid transparent;
+  transition: all 180ms ease; font-family: var(--font);
+}
+.labels-seg-btn:hover { color: #9ca3af; }
+.labels-seg-btn.is-active {
+  background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.25); color: #10b981;
+}
+@media (max-width: 480px) { .labels-seg { display: flex; } }
 
 /* ===== VIEW TOGGLE ===== */
 .view-toggle {
@@ -648,10 +666,12 @@ body::after {
   <button class="view-toggle-btn" data-view="execution">EXECUTION FLOW</button>
 </div>
 
-<!-- ===== MOBILE LABELS TOGGLE ===== -->
-<button class="labels-toggle" id="labelsToggle" aria-label="Mostrar nombres">
-  <span class="labels-toggle-icon">🏷️</span> <span class="labels-toggle-text">Nombres</span>
-</button>
+<!-- ===== MOBILE LABELS SEGMENTED ===== -->
+<div class="labels-seg" id="labelsSeg">
+  <button class="labels-seg-btn" data-labels="core">Core</button>
+  <button class="labels-seg-btn" data-labels="infra">Infra</button>
+  <button class="labels-seg-btn" data-labels="all">Todo</button>
+</div>
 
 <!-- ===== ORBITAL DIAGRAM ===== -->
 <div class="orbital-wrap" id="orbitalWrap">
@@ -1999,12 +2019,30 @@ body::after {
     }
   });
 
-  /* Labels toggle (mobile) */
-  var labelsBtn = document.getElementById('labelsToggle');
-  if (labelsBtn) {
-    labelsBtn.addEventListener('click', function() {
-      labelsBtn.classList.toggle('is-active');
-      wrap.classList.toggle('show-labels');
+  /* Labels segmented control (mobile) */
+  var labelsSeg = document.getElementById('labelsSeg');
+  var currentLabels = null; // null, 'core', 'infra', 'all'
+  function clearLabelClasses() {
+    wrap.classList.remove('show-core', 'show-infra', 'show-all');
+  }
+  if (labelsSeg) {
+    labelsSeg.addEventListener('click', function(e) {
+      var btn = e.target.closest('.labels-seg-btn');
+      if (!btn) return;
+      var mode = btn.getAttribute('data-labels');
+      // Toggle off if same button clicked
+      if (currentLabels === mode) {
+        currentLabels = null;
+        clearLabelClasses();
+        btn.classList.remove('is-active');
+        return;
+      }
+      // Deactivate all, activate clicked
+      currentLabels = mode;
+      clearLabelClasses();
+      labelsSeg.querySelectorAll('.labels-seg-btn').forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      wrap.classList.add('show-' + mode);
     });
   }
 
