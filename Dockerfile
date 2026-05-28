@@ -7,4 +7,5 @@ COPY aviso-legal.html /usr/share/nginx/html/aviso-legal.html
 COPY cookies.html /usr/share/nginx/html/cookies.html
 COPY robots.txt /usr/share/nginx/html/robots.txt
 COPY nginx.conf /etc/nginx/templates/default.conf.template
+ENV BEEHIIV_TOKEN=changeme
 EXPOSE 80
