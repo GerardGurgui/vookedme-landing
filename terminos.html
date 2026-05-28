@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T&eacute;rminos y Condiciones — Vookedme</title>
+<meta name="description" content="Términos y condiciones de uso de Vookedme">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='50' y1='82' x2='18' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='50' y1='82' x2='82' y2='22' stroke='%2310b981' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='22' r='12' fill='%231a1d21' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='82' cy='22' r='12' fill='%231a1d21' stroke='%2310b981' stroke-width='6'/%3E%3Ccircle cx='50' cy='82' r='12' fill='%231a1d21' stroke='%23a78bfa' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"></noscript>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1d21;
+  --surface: #1e2125;
+  --surface-2: #25282d;
+  --border: #2d3035;
+  --border-hi: #3a3d42;
+  --text: #f5f5f5;
+  --text-soft: #aaaaaa;
+  --text-muted: #666666;
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-glow: rgba(16,185,129,0.15);
+  --accent-dim: rgba(16,185,129,0.08);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.1);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.04;
+}
+body::after {
+  content: ''; position: fixed; top: 0; left: 0; right: 0; height: 60vh;
+  z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 800px 500px at 50% 0%, rgba(16,185,129,0.04), transparent 60%);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 40px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(13,17,23,0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s, border-color 0.3s;
+}
+.navbar.scrolled {
+  background: rgba(13,17,23,0.97);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: #fff;
+}
+.nav-logo svg { width: 32px; height: 32px; }
+.nav-logo span {
+  font-weight: 700; font-size: 20px; letter-spacing: 0.5px;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 0;
+}
+.nav-links a {
+  font-size: 16px; color: #9ca3af; text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #ffffff; }
+.nav-sep {
+  display: inline-block; width: 1px; height: 16px;
+  background: rgba(255,255,255,0.1); margin: 0 20px;
+  vertical-align: middle;
+}
+.nav-cta {
+  font-size: 15px; font-weight: 600; color: #fff;
+  background: linear-gradient(90deg, rgba(16,185,129,0.18), rgba(139,92,246,0.18));
+  border: 1px solid rgba(16,185,129,0.35); border-radius: 10px;
+  padding: 12px 24px; text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover {
+  border-color: rgba(16,185,129,0.5);
+  background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(139,92,246,0.25));
+}
+.nav-hamburger { display: none; position: relative; font-size: 24px; color: rgba(255,255,255,0.8); background: none; border: none; cursor: pointer; padding: 4px 8px; }
+.nav-mobile-menu { display: none; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .navbar { padding: 0 20px; }
+  .nav-cta { font-size: 0.75rem; padding: 6px 14px; }
+  .nav-hamburger { display: block; }
+  .nav-mobile-menu {
+    display: block;
+    position: absolute; top: 100%; right: 0;
+    min-width: 200px; background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    padding: 8px 0; z-index: 1000;
+    opacity: 0; transform: translateY(-8px); pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .nav-mobile-menu.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .nav-mobile-menu a {
+    display: block; padding: 12px 20px; color: rgba(255,255,255,0.8);
+    font-size: 15px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: rgba(255,255,255,0.04); }
+  .nav-mobile-menu a.mobile-cta { color: #10b981; font-weight: 600; }
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem; text-align: center;
+}
+.footer-logo {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 0.75rem;
+}
+.footer-logo svg { width: 24px; height: 24px; }
+.footer-logo span { font-weight: 700; font-size: 1rem; color: var(--text); }
+.footer-tagline {
+  font-size: 0.82rem; color: #9ca3af; margin-bottom: 1rem;
+}
+.footer-links {
+  display: flex; gap: 1.5rem; justify-content: center;
+  font-size: 0.8rem; flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--text-soft); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-copy {
+  font-size: 0.72rem; color: #6b7280; margin-top: 1.5rem;
+}
+
+/* ===== LEGAL CONTENT ===== */
+.legal-content h2 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+.legal-content h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+.legal-content p { font-size: 0.9rem; line-height: 1.7; opacity: 0.75; margin-bottom: 0.75rem; }
+.legal-content ul { font-size: 0.9rem; line-height: 1.7; opacity: 0.75; padding-left: 1.5rem; margin-bottom: 1rem; }
+.legal-content ul li { margin-bottom: 0.4rem; }
+.legal-content strong { opacity: 1; color: inherit; }
+
+@media (max-width: 768px) {
+  .footer-links { gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <a href="/index.html" class="nav-logo">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="22" r="14" fill="#10b981" opacity="0.12"/>
+      <circle cx="82" cy="22" r="14" fill="#10b981" opacity="0.12"/>
+      <circle cx="50" cy="82" r="14" fill="#a78bfa" opacity="0.12"/>
+      <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+      <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="18" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a2332" stroke="#a78bfa" stroke-width="6"/>
+    </svg>
+    <span>vookedme</span>
+  </a>
+  <div class="nav-links">
+    <a href="/index.html#como-funciona">C&oacute;mo funciona</a>
+    <span class="nav-sep"></span>
+    <a href="/index.html#para-quien">Para qui&eacute;n</a>
+    <span class="nav-sep"></span>
+    <a href="/arquitectura">Arquitectura</a>
+    <span class="nav-sep"></span>
+    <a href="/index.html#waitlist">Precios</a>
+  </div>
+  <a href="/index.html#waitlist" class="nav-cta">Acceso anticipado &rarr;</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Men&uacute;">&#9776;</button>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="/index.html">Inicio</a>
+    <a href="/index.html#features">Caracter&iacute;sticas</a>
+    <a href="/index.html#sectors">Sectores</a>
+    <a href="/arquitectura">Arquitectura t&eacute;cnica</a>
+    <a href="/index.html#waitlist" class="mobile-cta">Acceso anticipado</a>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:100px 24px 80px;position:relative;z-index:1;">
+  <div class="legal-content">
+    <p style="font-size:13px;opacity:0.4;margin-bottom:8px;">vookedme.com/terminos</p>
+    <h1 style="font-size:2rem;font-weight:700;margin-bottom:40px;">T&eacute;rminos y Condiciones de Uso</h1>
+
+    <h2>1. Identificaci&oacute;n del Prestador</h2>
+    <p>Los presentes T&eacute;rminos de Servicio regulan el uso de la plataforma Vookedme, un servicio de software propiedad de <strong>Gerard Gurgui Ballv&eacute;</strong> (en adelante, &ldquo;el Promotor&rdquo;), con localizaci&oacute;n en Barcelona, Espa&ntilde;a, y correo de atenci&oacute;n soporte@vookedme.com. DNI: 48032930Y.</p>
+
+    <h2>2. Descripci&oacute;n del Servicio y Fase Beta Privada</h2>
+    <p>Vookedme es una soluci&oacute;n SaaS (Software como Servicio) de car&aacute;cter exclusivamente B2B, dise&ntilde;ada para facilitar la automatizaci&oacute;n de la agenda de citas comerciales mediante canales de mensajer&iacute;a instant&aacute;nea y m&oacute;dulos integrados de procesamiento del lenguaje.</p>
+    <p>El software se ofrece en modalidad de <strong>Beta Privada</strong>. El Cliente comprende que el sistema est&aacute; en un entorno controlado de pruebas. No se garantiza ning&uacute;n tipo de Acuerdo de Nivel de Servicio (SLA) ni disponibilidad m&iacute;nima en esta fase.</p>
+
+    <h2>3. Condiciones de Uso y &Aacute;mbito Profesional</h2>
+    <p>La contrataci&oacute;n en Vookedme est&aacute; reservada &uacute;nicamente a profesionales, trabajadores aut&oacute;nomos y empresas comerciales. Queda prohibido el registro de consumidores finales. El Cliente se compromete a:</p>
+    <ul>
+      <li>Hacer un uso leg&iacute;timo conforme a la Ley espa&ntilde;ola y los t&eacute;rminos de la API de WhatsApp de Meta Platforms.</li>
+      <li>Custodiar de forma confidencial los tokens y credenciales de acceso al panel.</li>
+      <li><strong>Restricci&oacute;n de Datos de Salud (Art. 9 RGPD):</strong> El Cliente tiene prohibido usar el campo service_notes u otros campos de texto libre para introducir datos m&eacute;dicos, alergias, historiales cl&iacute;nicos, origen &eacute;tnico, orientaci&oacute;n sexual o datos biom&eacute;tricos. El incumplimiento exime de responsabilidad al Promotor y ser&aacute; imputable en exclusiva al Cliente.</li>
+    </ul>
+
+    <h2>4. Contrato de Encargado del Tratamiento (Art. 28 RGPD)</h2>
+    <p>La aceptaci&oacute;n de estos t&eacute;rminos constituye la formalizaci&oacute;n del acuerdo de encargo de tratamiento entre el <strong>Cliente</strong> (como Responsable del Tratamiento) y <strong>Vookedme</strong> (como Encargado del Tratamiento). Vookedme se compromete a:</p>
+    <ul>
+      <li>Tratar los datos personales &uacute;nicamente siguiendo las instrucciones t&eacute;cnicas derivadas del uso de la plataforma.</li>
+      <li>Garantizar la confidencialidad del personal t&eacute;cnico autorizado.</li>
+      <li>Aplicar medidas de seguridad del Art. 32 RGPD (aislamiento JWT, cifrado HTTPS, filtrado de errores).</li>
+      <li><strong>Subencargados autorizados:</strong> Hostinger (alojamiento UE), Evolution API (mensajer&iacute;a), Functional Software Inc./Sentry (logs an&oacute;nimos, UE) y Groq Inc. (inferencia LLM sin PII).</li>
+      <li>Cooperar cuando el Cliente deba responder a solicitudes de derechos de sus usuarios finales.</li>
+      <li><strong>Notificaci&oacute;n de Brechas:</strong> Informar al Cliente sobre cualquier incidente de seguridad en un plazo m&aacute;ximo de 72 horas desde su detecci&oacute;n.</li>
+      <li>A la terminaci&oacute;n del servicio, proceder a la seudonimizaci&oacute;n o eliminaci&oacute;n segura de los datos en los plazos legales aplicables.</li>
+    </ul>
+
+    <h2>5. Operativa del Asistente Conversacional de IA</h2>
+    <p>El asistente de reservas usa modelos matem&aacute;ticos para interpretar las peticiones del usuario final. El Cliente reconoce la <strong>obligaci&oacute;n legal</strong> derivada del Reglamento de IA de la UE de mantener activo el mensaje inicial donde el bot se identifica como un sistema automatizado. Es responsabilidad exclusiva del Cliente informar a sus propios clientes del uso de tecnolog&iacute;a de inteligencia artificial.</p>
+
+    <h2>6. L&iacute;mite de Pagos y Exclusi&oacute;n de Gesti&oacute;n Financiera</h2>
+    <p>Vookedme opera bajo un <strong>estricto principio de exclusi&oacute;n financiera</strong>. La plataforma no procesa transacciones bancarias, no almacena tarjetas de cr&eacute;dito, no intermedia cobros y no emite facturas con validez contable. La casilla de pago del panel es un marcador meramente informativo (booleano) gestionado manualmente por el negocio. Las disputas econ&oacute;micas con los clientes finales son ajenas al Promotor.</p>
+
+    <h2>7. Limitaci&oacute;n de Responsabilidad</h2>
+    <p>El Promotor no se responsabiliza de los da&ntilde;os directos, indirectos o p&eacute;rdidas de beneficios ocasionados por la p&eacute;rdida accidental de datos, desajustes en los horarios de citas o interpretaciones err&oacute;neas del asistente virtual durante la fase beta. La supervisi&oacute;n final de la agenda web corresponde al Cliente.</p>
+
+    <h2>8. Modificaci&oacute;n, Suspensi&oacute;n y Terminaci&oacute;n</h2>
+    <p>El Promotor se reserva el derecho de modificar estos t&eacute;rminos previo aviso por escrito con <strong>30 d&iacute;as de antelaci&oacute;n</strong>. El incumplimiento, especialmente el uso indebido de campos de texto para datos sensibles, facultar&aacute; al Promotor para suspender la cuenta de forma inmediata.</p>
+
+    <h2>9. Derecho Aplicable y Jurisdicci&oacute;n Competente</h2>
+    <p>Esta relaci&oacute;n contractual se rige por el derecho espa&ntilde;ol. Las partes se someten a los Juzgados y Tribunales de la ciudad de <strong>Barcelona, Espa&ntilde;a</strong>.</p>
+
+    <p style="font-size:12px;opacity:0.4;margin-top:48px;border-top:1px solid var(--border);padding-top:24px;">&Uacute;ltima actualizaci&oacute;n: mayo 2026 | Versi&oacute;n: 1.0 (beta)</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+      <line x1="50" y1="82" x2="18" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+      <line x1="50" y1="82" x2="82" y2="22" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="18" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="82" cy="22" r="12" fill="#1a2332" stroke="#10b981" stroke-width="6"/>
+      <circle cx="50" cy="82" r="12" fill="#1a2332" stroke="#a78bfa" stroke-width="6"/>
+    </svg>
+    <span>vookedme</span>
+  </div>
+  <p class="footer-tagline">Tu recepcionista por WhatsApp</p>
+  <div class="footer-links">
+    <a href="mailto:hola@vookedme.com">hola@vookedme.com</a>
+    <a href="https://instagram.com/vookedme" target="_blank" rel="noopener">@vookedme</a>
+  </div>
+  <div class="footer-links" style="margin-top:12px;">
+    <a href="/privacidad.html">Pol&iacute;tica de Privacidad</a>
+    <a href="/terminos.html">T&eacute;rminos y Condiciones</a>
+    <a href="/aviso-legal.html">Aviso Legal</a>
+    <a href="/cookies.html">Cookies</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Vookedme</p>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Hamburger menu
+const ham = document.getElementById('navHamburger');
+const mob = document.getElementById('navMobileMenu');
+if (ham && mob) {
+  ham.addEventListener('click', (e) => { e.stopPropagation(); mob.classList.toggle('is-open'); });
+  document.addEventListener('click', (e) => { if (!mob.contains(e.target) && e.target !== ham) mob.classList.remove('is-open'); });
+}
+</script>
+</body>
+</html>
