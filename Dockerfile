@@ -6,5 +6,5 @@ COPY terminos.html /usr/share/nginx/html/terminos.html
 COPY aviso-legal.html /usr/share/nginx/html/aviso-legal.html
 COPY cookies.html /usr/share/nginx/html/cookies.html
 COPY robots.txt /usr/share/nginx/html/robots.txt
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 EXPOSE 80
