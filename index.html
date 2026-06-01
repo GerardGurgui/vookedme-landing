@@ -544,7 +544,7 @@ body::after {
   display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;
 }
 .mode__chip {
-  font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px;
+  font-size: 13px; font-weight: 600; padding: 4px 11px; border-radius: 20px;
   letter-spacing: 0.01em; line-height: 1.4; white-space: nowrap;
 }
 .mode__chip--pro {
@@ -1188,7 +1188,7 @@ body::after {
   .mode .mode__flow, .mode .mode__desc, .mode .mode__time, .mode .mode__traits { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
   .mode.is-revealed { max-height: 800px; }
   .mode.is-revealed .mode__flow, .mode.is-revealed .mode__desc, .mode.is-revealed .mode__time, .mode.is-revealed .mode__traits { opacity: 1; transform: translateY(0); }
-  .mode__chip { font-size: 10px; padding: 2px 7px; }
+  .mode__chip { font-size: 12px; padding: 3px 9px; }
 }
 
 /* ===== RESPONSIVE ===== */
@@ -1420,7 +1420,7 @@ body::after {
           <div class="mode__title">Modo Supervisado</div>
           <div class="mode__subtitle">El agente recoge, t&uacute; gestionas</div>
         </div>
-        <div class="mode__time"><i data-lucide="shield-check"></i> De minutos a horas</div>
+        <div class="mode__time"><i data-lucide="shield-check"></i> Confirmas t&uacute; cuando puedas</div>
         <p class="mode__desc">El agente atiende al cliente y recoge todos los datos. T&uacute; consultas tu agenda, compruebas disponibilidad y creas la cita. Nada se reserva sin tu visto bueno.</p>
         <div class="mode__traits">
           <span class="mode__chip mode__chip--pro">Control total</span>
@@ -1505,7 +1505,7 @@ body::after {
           <div class="mode__title">Modo Recepcionista</div>
           <div class="mode__subtitle">El agente reserva, t&uacute; apruebas</div>
         </div>
-        <div class="mode__time"><i data-lucide="zap"></i> ~30 segundos</div>
+        <div class="mode__time"><i data-lucide="zap"></i> Listo en minutos</div>
         <p class="mode__desc">El agente comprueba disponibilidad y env&iacute;a solicitud de la cita. Te llega al panel sin confirmar, para que puedas comprobarla y aprobarla con un clic, o modificarla. El cliente apenas espera.</p>
         <div class="mode__traits">
           <span class="mode__chip mode__chip--pro">Equilibrio entre control y rapidez</span>
@@ -1578,7 +1578,7 @@ body::after {
           <div class="mode__title">Modo Aut&oacute;nomo</div>
           <div class="mode__subtitle">El agente gestiona todo solo</div>
         </div>
-        <div class="mode__time"><i data-lucide="rocket"></i> Respuesta instant&aacute;nea</div>
+        <div class="mode__time"><i data-lucide="rocket"></i> Cita confirmada al instante</div>
         <p class="mode__desc">El agente reserva y confirma al momento. El cliente nunca espera. T&uacute; recibes un resumen de todo lo gestionado.</p>
         <div class="mode__traits">
           <span class="mode__chip mode__chip--pro">Respuesta instant&aacute;nea</span>
