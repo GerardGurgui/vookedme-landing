@@ -1956,16 +1956,33 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
   function hideFirstMsg() { if (firstMsg) { firstMsg.classList.remove('is-visible'); } }
   function showFirstMsg() { if (firstMsg) { firstMsg.classList.add('is-visible'); } }
 
+  /* Typing → confirmed swap in chat A */
+  const typingBubble = cards.a?.querySelector('.bubble.typing');
+  const confirmedHTML = '&#10004; Cita confirmada';
+  const dotsHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+  function showConfirmedInChat() {
+    if (!typingBubble) return;
+    typingBubble.classList.remove('typing');
+    typingBubble.classList.add('out');
+    typingBubble.innerHTML = confirmedHTML;
+  }
+  function resetToTyping() {
+    if (!typingBubble) return;
+    typingBubble.classList.add('typing');
+    typingBubble.classList.remove('out');
+    typingBubble.innerHTML = dotsHTML;
+  }
+
   var isMobileV = window.innerWidth <= 768;
 
   function runLoop() {
-    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); showCard(cards.a); });
+    at(0,    () => { hideAllCards(); resetLines(); setStep(0); activate(nodes.client); showCard(cards.a); resetToTyping(); });
     at(1200, () => { drawLine(lines.l1); });
     at(2200, () => fireParticle('hvP1Motion', 'hvP1Op'));
     at(2600, () => { setStep(1); activate(nodes.bot); showCard(cards.b); });
     at(3800, () => drawLine(lines.l2));
     at(4800, () => fireParticle('hvP2Motion', 'hvP2Op'));
-    at(5200, () => { setStep(2); activate(nodes.biz); showCard(cards.c); });
+    at(5200, () => { setStep(2); activate(nodes.biz); showCard(cards.c); showConfirmedInChat(); });
     at(8000, () => { clearTimers(); runLoop(); });
   }
 
@@ -1985,6 +2002,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     Object.values(cards).forEach(c => c.classList.add('is-on'));
     drawLine(lines.l1); drawLine(lines.l2);
     setStep(2);
+    showConfirmedInChat();
   }
 })();
 
