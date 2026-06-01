@@ -220,7 +220,7 @@ body::after {
   background: linear-gradient(90deg, var(--green), var(--lila));
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.hv-sub { color: var(--fg-soft); font-size: 16px; line-height: 1.6; max-width: 540px; margin: 0 auto; }
+.hv-sub { color: var(--fg-soft); font-size: 20px; line-height: 1.5; max-width: 600px; margin: 0 auto; letter-spacing: -0.01em; }
 
 /* ============ V-flow stage ============ */
 .hv-stage {
@@ -1090,6 +1090,7 @@ body::after {
 
 /* ===== V-FLOW RESPONSIVE ===== */
 @media (max-width: 768px) {
+  .hv-sub { font-size: 15px; line-height: 1.5; max-width: 90%; }
   .hero-vflow { padding: 64px 12px 32px; gap: 12px; min-height: auto; }
   .hv-stage {
     aspect-ratio: auto; perspective: none; max-width: 100%; overflow: visible;
@@ -1262,11 +1263,11 @@ body::after {
   <header class="hv-head">
     <span class="hv-eyebrow">En beta &middot; 50+ negocios en lista</span>
     <h1 class="hv-h1">
-      Tu cliente escribe. <span class="ac-grad">Vookedme</span> responde.<br>
+      Escriben. <span class="ac-grad">Vookedme</span> gestiona.<br>
       T&uacute; <span class="ac-g">cobras</span>.
     </h1>
     <p class="hv-sub">
-      Un recepcionista por WhatsApp que reserva, confirma y avisa &mdash; mientras t&uacute; trabajas.
+      Un agente que atiende tu WhatsApp 24/7. Reserva, confirma y recuerda citas por ti.
     </p>
   </header>
 
