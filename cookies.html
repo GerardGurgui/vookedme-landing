@@ -208,31 +208,31 @@ body::after {
     <p style="font-size:13px;opacity:0.4;margin-bottom:8px;">vookedme.com/cookies</p>
     <h1 style="font-size:2rem;font-weight:700;margin-bottom:40px;">Pol&iacute;tica de Cookies</h1>
 
-    <p>De conformidad con el Art&iacute;culo 22.2 de la Ley 34/2002 (LSSI-CE) y las directrices de la Agencia Espa&ntilde;ola de Protecci&oacute;n de Datos (AEPD), te informamos de forma clara y transparente sobre el funcionamiento del almacenamiento local en vookedme.com.</p>
+    <p>De conformidad con el Art&iacute;culo 22.2 de la Ley 34/2002 (LSSI-CE) y las directrices de la Agencia Espa&ntilde;ola de Protecci&oacute;n de Datos (AEPD), te informamos de forma clara y transparente sobre el funcionamiento de las tecnolog&iacute;as de almacenamiento local en <code>vookedme.com</code>.</p>
 
     <h2>Declaraci&oacute;n de Inexistencia de Cookies de Rastreo</h2>
-    <p>La plataforma Vookedme mantiene un firme compromiso con la privacidad t&eacute;cnica por dise&ntilde;o. Esta web <strong>NO utiliza</strong> cookies anal&iacute;ticas, de seguimiento, publicitarias ni de perfilado conductual. No integramos herramientas de terceros como Google Analytics, c&oacute;digos de seguimiento de Meta Pixel ni tecnolog&iacute;as de remarketing.</p>
+    <p>La plataforma Vookedme mantiene un firme compromiso con la privacidad t&eacute;cnica por dise&ntilde;o. Esta web <strong>NO</strong> utiliza cookies anal&iacute;ticas, de seguimiento, publicitarias ni de perfilado conductual. No integramos herramientas de rastreo de terceros como Google Analytics, Meta Pixel ni tecnolog&iacute;as de remarketing.</p>
 
     <h2>Almacenamiento T&eacute;cnico Utilizado</h2>
-    <p>Para asegurar el correcto funcionamiento del panel de gesti&oacute;n, el sistema utiliza de forma exclusiva el siguiente mecanismo de almacenamiento t&eacute;cnico local:</p>
+    <p>Para asegurar el correcto funcionamiento del panel de gesti&oacute;n y la seguridad de los accesos, el sistema utiliza de forma exclusiva los siguientes mecanismos t&eacute;cnicos <strong>estrictamente indispensables</strong>:</p>
     <ul>
-      <li><strong>Identificador:</strong> JSON Web Token (JWT) albergado en el espacio de almacenamiento web local (localStorage) del propio navegador.</li>
-      <li><strong>Finalidad:</strong> Mantener activa la sesi&oacute;n t&eacute;cnica del usuario en el panel de administraci&oacute;n.</li>
-      <li><strong>Duraci&oacute;n:</strong> Los datos se destruyen autom&aacute;ticamente transcurridas 24 horas desde su generaci&oacute;n, o de manera inmediata al hacer clic en &ldquo;Cerrar Sesi&oacute;n&rdquo;.</li>
+      <li><strong>Token de sesi&oacute;n (JWT) en <code>localStorage</code>:</strong> almacenamiento web local del navegador para mantener la sesi&oacute;n t&eacute;cnica del usuario autorizado en el panel. El <strong>token de acceso</strong> caduca a las <strong>12 horas</strong> y opera con un <strong>token de actualizaci&oacute;n (refresh token)</strong> con una caducidad t&eacute;cnica m&aacute;xima de <strong>30 d&iacute;as</strong>; ambos se destruyen de inmediato al pulsar &ldquo;Cerrar Sesi&oacute;n&rdquo;.</li>
+      <li><strong>Cookie de sesi&oacute;n t&eacute;cnica (<code>at</code>):</strong> cookie de car&aacute;cter t&eacute;cnico (<em>host-only</em>), configurada con el atributo <code>SameSite=Lax</code>, asociada a la validaci&oacute;n de las solicitudes de autenticaci&oacute;n.</li>
     </ul>
 
     <h2>Exenci&oacute;n de Banner de Consentimiento Activo</h2>
-    <p>Al tratarse de una medida de almacenamiento estrictamente indispensable para la prestaci&oacute;n de un servicio expresamente solicitado por el usuario registrado, el uso de este identificador de sesi&oacute;n t&eacute;cnico se encuentra legalmente exento de la obligaci&oacute;n de mostrar un banner de aceptaci&oacute;n o requerir un consentimiento activo, de acuerdo con las excepciones recogidas en la LSSI-CE.</p>
+    <p>Al tratarse de medidas de almacenamiento <strong>estrictamente indispensables</strong> para la prestaci&oacute;n de un servicio expresamente solicitado por el usuario registrado (autenticaci&oacute;n y control de acceso multi-tenant al panel), el uso de estos identificadores t&eacute;cnicos se encuentra <strong>legalmente exento</strong> de la obligaci&oacute;n de mostrar un banner de aceptaci&oacute;n o requerir un consentimiento activo, conforme a las excepciones de la LSSI-CE.</p>
 
     <h2>Gesti&oacute;n del Almacenamiento desde tu Navegador</h2>
+    <p>Puedes eliminar el almacenamiento local/cookies t&eacute;cnicas desde las opciones de privacidad de tu navegador:</p>
     <ul>
       <li><strong>Google Chrome:</strong> Configuraci&oacute;n &rarr; Privacidad y seguridad &rarr; Cookies y otros datos de sitios.</li>
       <li><strong>Mozilla Firefox:</strong> Ajustes &rarr; Privacidad y seguridad &rarr; Cookies y datos del sitio.</li>
       <li><strong>Apple Safari:</strong> Preferencias &rarr; Privacidad &rarr; Gestionar datos del sitio web.</li>
     </ul>
-    <p>Ten en cuenta que si bloqueas el almacenamiento local, el panel web de Vookedme no podr&aacute; verificar tu identidad y la plataforma no resultar&aacute; operativa. Ante cualquier duda: hi@vookedme.com.</p>
+    <p>Si bloqueas por completo el almacenamiento local, el panel no podr&aacute; verificar tu identidad y no resultar&aacute; operativo. Ante cualquier duda: <strong>hi@vookedme.com</strong>.</p>
 
-    <p style="font-size:12px;opacity:0.4;margin-top:48px;border-top:1px solid var(--border);padding-top:24px;">&Uacute;ltima actualizaci&oacute;n: mayo 2026 | Versi&oacute;n: 1.0 (beta)</p>
+    <p style="font-size:12px;opacity:0.4;margin-top:48px;border-top:1px solid var(--border);padding-top:24px;">&Uacute;ltima actualizaci&oacute;n: junio 2026 | Versi&oacute;n: 1.0 (beta)</p>
   </div>
 </main>
 
