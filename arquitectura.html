@@ -936,8 +936,8 @@ body::after {
       ]
     },
     {
-      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#25D366",
-      desc:"El owner revisa cada conversación antes de que el agente responda. Aprobación mensaje a mensaje.",
+      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#9ca3af",
+      desc:"No disponible aún — previsto, disponible bajo petición. El owner revisaría cada conversación antes de que el agente responda; aprobación mensaje a mensaje.",
       checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
       tech:"TRIAGE · WebSocket · BotRequest entity",
       ops:["Cero respuestas automáticas sin revisión explícita","Cola con expiración configurable por el owner","Cada mensaje queda en el audit trail permanente","Máximo control — el owner aprueba cada interacción"],
@@ -945,10 +945,10 @@ body::after {
       flowSubtitle:"runtime pipeline · human-reviewed · zero autonomy",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"ORCHESTRATION"},{before:2,label:"HUMAN REVIEW"},{before:4,label:"EXECUTION"}],
       flow:[
-        {s:"completed",t:"Request received",l:"9ms",d:"inbound messaging gateway"},
-        {s:"completed",t:"Review queue enqueued",l:"5ms",d:"BotRequest created"},
-        {s:"active",t:"Owner reviewing",l:"—",d:"message in queue..."},
-        {s:"active",t:"Awaiting approval",l:"—",d:"window active..."},
+        {s:"pending",t:"Request received",l:"—",d:"inbound messaging gateway"},
+        {s:"pending",t:"Review queue enqueued",l:"—",d:"BotRequest (entidad no implementada)"},
+        {s:"pending",t:"Owner reviewing",l:"—",d:"message in queue..."},
+        {s:"pending",t:"Awaiting approval",l:"—",d:"window active..."},
         {s:"pending",t:"Response dispatched",l:"—",d:"pending resolution"},
         {s:"pending",t:"Resolution committed",l:"—",d:"audit trail finalized · conversation closed"}
       ]
