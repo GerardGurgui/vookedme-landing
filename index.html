@@ -519,6 +519,11 @@ body::after {
   border: 1px solid rgba(37,211,102,.25);
 }
 .mode__tag--rec { background: var(--lila); color: #ffffff; }
+.mode__tag--soon {
+  background: rgba(255,255,255,.06); color: #a1a1aa;
+  border: 1px solid rgba(255,255,255,.16);
+}
+.mode--soon { opacity: .8; }
 .mode__tag--adv {
   background: rgba(245,158,11,.12); color: #F59E0B;
   border: 1px solid rgba(245,158,11,.30);
@@ -1434,22 +1439,23 @@ body::after {
       T&uacute; eliges <span class="ac-l">cu&aacute;nto controla</span> el agente.
     </h2>
     <p class="modes__sub">
-      Empieza con Supervisado para tener el control total. La mayor&iacute;a acaba en Recepcionista, el equilibrio perfecto. Cambia cuando quieras.
+      La mayor&iacute;a elige Recepcionista, el equilibrio perfecto entre control y rapidez. Cambia cuando quieras. El Modo Supervisado estar&aacute; disponible pr&oacute;ximamente.
     </p>
+    <p class="modes__sub" style="font-size:13px;color:rgba(255,255,255,.42);margin-top:6px">Algunas funcionalidades avanzadas se habilitan progresivamente seg&uacute;n las necesidades de cada negocio.</p>
   </header>
 
   <div class="modes__grid">
 
     <!-- =============== MODE 1 — Supervisado =============== -->
-    <article class="mode mode--green" data-idx="0">
-      <span class="mode__tag mode__tag--default">M&aacute;ximo control</span>
+    <article class="mode mode--green mode--soon" data-idx="0">
+      <span class="mode__tag mode__tag--soon">Pr&oacute;ximamente</span>
       <div class="mode__compact">
         <div class="mode__head">
           <div class="mode__title">Modo Supervisado</div>
           <div class="mode__subtitle">El agente recoge, t&uacute; gestionas</div>
         </div>
         <div class="mode__time"><i data-lucide="shield-check"></i> Confirmas t&uacute; cuando puedas</div>
-        <p class="mode__desc">El agente atiende al cliente y recoge todos los datos. T&uacute; consultas tu agenda, compruebas disponibilidad y creas la cita. Nada se reserva sin tu visto bueno.</p>
+        <p class="mode__desc">El agente atiende al cliente y recoge todos los datos. T&uacute; consultas tu agenda, compruebas disponibilidad y creas la cita. Nada se reserva sin tu visto bueno. <strong style="color:#a1a1aa">Disponible bajo petici&oacute;n para sectores que requieren revisi&oacute;n manual completa del proceso.</strong></p>
         <div class="mode__traits">
           <span class="mode__chip mode__chip--pro">Control total</span>
           <span class="mode__chip mode__chip--pro">Nada sin tu visto bueno</span>
@@ -1689,7 +1695,7 @@ body::after {
       <span class="feat-badge">DIFERENCIADOR</span>
       <span class="feat-emoji">🤖</span>
       <h3>Agente IA con 3 modos de control</h3>
-      <p>Autónomo, Recepcionista o Supervisado. El negocio elige cuánto control delega al agente. Cambia de modo en un clic, sin reiniciar nada.</p>
+      <p>Autónomo y Recepcionista disponibles hoy; Supervisado próximamente. El negocio elige cuánto control delega al agente y cambia de modo en un clic, sin reiniciar nada.</p>
     </div>
     <div class="feat-card">
       <span class="feat-emoji">📅</span>
