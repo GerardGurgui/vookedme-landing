@@ -523,7 +523,26 @@ body::after {
   background: rgba(255,255,255,.06); color: #a1a1aa;
   border: 1px solid rgba(255,255,255,.16);
 }
-.mode--soon { opacity: .8; }
+.mode--soon { opacity: .6; pointer-events: none; cursor: default; }
+.mode--soon:hover { transform: none; box-shadow: none; }
+.mode--soon .mode__tag { opacity: 1; }
+.mode__available {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #10b981;
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+}
+.mode__available-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  flex-shrink: 0;
+}
 .mode__tag--adv {
   background: rgba(245,158,11,.12); color: #F59E0B;
   border: 1px solid rgba(245,158,11,.30);
@@ -1150,7 +1169,7 @@ body::after {
   }
   /* SVG: V lines in the top zone */
   .hv-svg { position: absolute; top: 10px; left: 5%; width: 90%; height: 280px; }
-  /* Nodes: absolute, inside top zone — pushed down so not cut */
+  /* Nodes: absolute, inside top zone - pushed down so not cut */
   .hv-node { z-index: 5; }
   .hv-node--client { left: 26% !important; top: 60px !important; }
   .hv-node--biz    { left: 74% !important; top: 60px !important; }
@@ -1393,7 +1412,7 @@ body::after {
             <i data-lucide="calendar-plus"></i><span>Nueva reserva recibida</span>
           </div>
           <div class="pmock__row">
-            <i data-lucide="user-round"></i><span>Mar&iacute;a Garc&iacute;a &mdash; ma&ntilde;ana 11:30</span>
+            <i data-lucide="user-round"></i><span>Mar&iacute;a Garc&iacute;a, ma&ntilde;ana 11:30</span>
           </div>
           <div class="pmock__row ok">
             <i data-lucide="check"></i><span>Agente verific&oacute; disponibilidad</span>
@@ -1446,93 +1465,9 @@ body::after {
 
   <div class="modes__grid">
 
-    <!-- =============== MODE 1 — Supervisado =============== -->
-    <article class="mode mode--green mode--soon" data-idx="0">
-      <span class="mode__tag mode__tag--soon">Pr&oacute;ximamente</span>
-      <div class="mode__compact">
-        <div class="mode__head">
-          <div class="mode__title">Modo Supervisado</div>
-          <div class="mode__subtitle">El agente recoge, t&uacute; gestionas</div>
-        </div>
-        <div class="mode__time"><i data-lucide="shield-check"></i> Confirmas t&uacute; cuando puedas</div>
-        <p class="mode__desc">El agente atiende al cliente y recoge todos los datos. T&uacute; consultas tu agenda, compruebas disponibilidad y creas la cita. Nada se reserva sin tu visto bueno. <strong style="color:#a1a1aa">Disponible bajo petici&oacute;n para sectores que requieren revisi&oacute;n manual completa del proceso.</strong></p>
-        <div class="mode__traits">
-          <span class="mode__chip mode__chip--pro">Control total</span>
-          <span class="mode__chip mode__chip--pro">Nada sin tu visto bueno</span>
-          <span class="mode__chip mode__chip--note">Respuesta m&aacute;s lenta</span>
-          <span class="mode__chip mode__chip--note">Requiere supervisi&oacute;n</span>
-        </div>
-      </div>
-      <div class="mode__flow" data-steps="4">
-        <!-- Step 1 -->
-        <div class="mf-step" data-step="0">
-          <div class="mf-rail">
-            <div class="mf-node mf-node--green"><i data-lucide="message-circle"></i></div>
-            <div class="mf-line" style="color:#25D366"></div>
-          </div>
-          <div class="mf-body">
-            <div class="mf-label">Cliente escribe por WhatsApp</div>
-            <div class="mf-bubble mf-bubble--client">Hola! Quer&iacute;a pedir cita para corte y mechas &#128075;</div>
-          </div>
-        </div>
-        <!-- Step 2 -->
-        <div class="mf-step" data-step="1">
-          <div class="mf-rail">
-            <div class="mf-node mf-node--purple"><i data-lucide="bot"></i></div>
-            <div class="mf-line" style="color:#8B5CF6"></div>
-          </div>
-          <div class="mf-body">
-            <div class="mf-label">Agente recoge la solicitud</div>
-            <div class="mf-bubble mf-bubble--bot">&iexcl;Hola Mar&iacute;a! Claro, &iquest;qu&eacute; d&iacute;a y hora te vendr&iacute;a bien? &#128522;</div>
-            <div class="mf-bubble mf-bubble--client" style="margin-top:4px">Ma&ntilde;ana a las 11 si puede ser</div>
-          </div>
-        </div>
-        <!-- Step 3: owner checks calendar -->
-        <div class="mf-step" data-step="2">
-          <div class="mf-rail">
-            <div class="mf-node mf-node--amber"><i data-lucide="calendar-search"></i></div>
-            <div class="mf-line" style="color:#F59E0B"></div>
-          </div>
-          <div class="mf-body">
-            <div class="mf-label">Consultas tu agenda</div>
-            <div class="mf-badge-info"><i data-lucide="user-cog"></i> T&uacute; gestionas la disponibilidad</div>
-            <div class="mf-mock">
-              <div class="mf-mock__header"><span class="mf-mock__bell"><i data-lucide="bell"></i></span><sup style="color:#ef4444;font-size:10px;font-weight:800">1</sup>&nbsp;Panel Vookedme</div>
-              <div class="mf-mock__row" style="font-weight:700;color:var(--fg)">Nueva solicitud recibida</div>
-              <div class="mf-mock__row">Mar&iacute;a &middot; ma&ntilde;ana 11:00 &middot; Corte y mechas</div>
-              <button class="mf-mock__btn mf-mock__btn--amber">Ver agenda</button>
-            </div>
-            <!-- Mini calendar showing owner checking availability -->
-            <div class="mf-calendar">
-              <div class="mf-cal__head"><span>Ma&ntilde;ana</span><span style="font-weight:400;color:#71717A">Ana</span></div>
-              <div class="mf-cal__grid">
-                <div class="mf-cal__hour">9:00</div>
-                <div class="mf-cal__slot mf-cal__slot--busy">Ocupado</div>
-                <div class="mf-cal__hour">10:00</div>
-                <div class="mf-cal__slot mf-cal__slot--busy">Ocupado</div>
-                <div class="mf-cal__hour">11:00</div>
-                <div class="mf-cal__slot mf-cal__slot--free">&#10003; Libre</div>
-                <div class="mf-cal__hour">12:00</div>
-                <div class="mf-cal__slot">&#8212;</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Step 4 -->
-        <div class="mf-step" data-step="3">
-          <div class="mf-rail">
-            <div class="mf-node mf-node--emerald"><i data-lucide="check-circle"></i></div>
-          </div>
-          <div class="mf-body">
-            <div class="mf-label">T&uacute; confirmas &rarr; cita creada</div>
-            <div class="mf-bubble mf-bubble--confirm">&iexcl;Listo Mar&iacute;a! Te esperamos ma&ntilde;ana a las 11:00 con Ana &#128515;</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- =============== MODE 2 — Recepcionista (FEATURED) =============== -->
-    <article class="mode mode--featured" data-idx="1">
+    <!-- =============== MODE 1 - Recepcionista (FEATURED) =============== -->
+    <article class="mode mode--featured" data-idx="0">
+      <span class="mode__available"><span class="mode__available-dot"></span> Disponible ahora</span>
       <span class="mode__tag mode__tag--rec">Recomendado</span>
       <div class="mode__compact">
         <div class="mode__head">
@@ -1605,8 +1540,9 @@ body::after {
       </div>
     </article>
 
-    <!-- =============== MODE 3 — Aut&oacute;nomo =============== -->
-    <article class="mode mode--amber" data-idx="2">
+    <!-- =============== MODE 2 - Aut&oacute;nomo =============== -->
+    <article class="mode mode--amber" data-idx="1">
+      <span class="mode__available"><span class="mode__available-dot"></span> Disponible ahora</span>
       <span class="mode__tag mode__tag--adv">Avanzado</span>
       <div class="mode__compact">
         <div class="mode__head">
@@ -1672,6 +1608,19 @@ body::after {
             <div class="mf-fyi-caption">Solo informativo &middot; el agente ya lo gestion&oacute;</div>
           </div>
         </div>
+      </div>
+    </article>
+
+    <!-- =============== MODE 3 - Supervisado =============== -->
+    <article class="mode mode--green mode--soon" data-idx="2">
+      <span class="mode__tag mode__tag--soon">Pr&oacute;ximamente</span>
+      <div class="mode__compact">
+        <div class="mode__head">
+          <div class="mode__title">Modo Supervisado</div>
+          <div class="mode__subtitle">El agente recoge, t&uacute; gestionas</div>
+        </div>
+        <div class="mode__time"><i data-lucide="shield-check"></i> Confirmas t&uacute; cuando puedas</div>
+        <p class="mode__desc">El bot recoge solicitudes. T&uacute; decides qu&eacute; hacer con cada una.</p>
       </div>
     </article>
 
@@ -1898,7 +1847,7 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// Waitlist form — calls our nginx proxy which forwards to Beehiiv API
+// Waitlist form - calls our nginx proxy which forwards to Beehiiv API
 document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const email = this.querySelector('input[name="email"]').value;
@@ -1958,7 +1907,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
 })();
 
 /* =================================================================
- * V-flow Animation timeline — loops every 8s.
+ * V-flow Animation timeline - loops every 8s.
  * Phase 1 (0.0s)  client glow + Card A
  * Line 1 draws   (1.2s, 0.8s)
  * Particle 1     (2.2s)
@@ -2002,7 +1951,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     try {
       document.getElementById(motionId).beginElement();
       document.getElementById(opId).beginElement();
-    } catch (e) { /* SMIL not supported — gracefully skip */ }
+    } catch (e) { /* SMIL not supported - gracefully skip */ }
   }
 
   const firstMsg = $('hvFirstMsg');
@@ -2060,12 +2009,12 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
 })();
 
 /* =================================================================
- * Mode cards — 4-step flow hover animation
+ * Mode cards - 4-step flow hover animation
  * Desktop: steps reveal sequentially on hover, hold at final state
  * Mobile: auto-play via IntersectionObserver when card enters viewport
  * ================================================================= */
 (function () {
-  const STEP_DELAY = 1700; // ~6.8s total for 4 steps — slower, more readable
+  const STEP_DELAY = 1700; // ~6.8s total for 4 steps - slower, more readable
   const modeCards = document.querySelectorAll('.mode[data-idx]');
   if (!modeCards.length) return;
   const isMobile = window.matchMedia('(max-width: 720px)').matches;

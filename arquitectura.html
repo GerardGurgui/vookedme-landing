@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arquitectura — Vookedme</title>
+<title>Arquitectura - Vookedme</title>
 <meta name="description" content="La arquitectura técnica de Vookedme: un agente de IA para reservas por WhatsApp construido con Java 21, Spring Boot, PostgreSQL, Redis y n8n.">
-<meta property="og:title" content="Arquitectura — Vookedme">
+<meta property="og:title" content="Arquitectura - Vookedme">
 <meta property="og:description" content="Un agente de IA construido sobre infraestructura de producción real. 524 tests, 68 migraciones, 1 developer.">
 <meta property="og:url" content="https://vookedme.com/arquitectura">
 <meta property="og:type" content="website">
@@ -148,8 +148,8 @@ body::after {
 .v-node:hover .v-icon { box-shadow: 0 0 12px rgba(255,255,255,0.1); }
 .v-icon-wrap { position: relative; }
 .v-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(139,92,246,0.15); }
-.v-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
-.v-sub { font-size: 11px; color: #9ca3af; white-space: nowrap; margin-top: -2px; text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
+.v-name { font-size: 10px; font-weight: 700; color: #fff; white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+.v-sub { font-size: 8px; color: #9ca3af; white-space: nowrap; margin-top: -2px; text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
 .v-badge {
   display: inline-block; font-size: 9px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
@@ -174,7 +174,7 @@ body::after {
   pointer-events: none; z-index: -1;
   animation: halo-heartbeat 2.4s ease-in-out infinite;
 }
-/* Heartbeat: two quick pulses then rest — like a real heart */
+/* Heartbeat: two quick pulses then rest - like a real heart */
 @keyframes engine-heartbeat {
   0%, 100% { box-shadow: 0 0 24px rgba(139,92,246,0.15), 0 0 48px rgba(139,92,246,0.06); transform: scale(1); }
   8%  { box-shadow: 0 0 32px rgba(139,92,246,0.3), 0 0 60px rgba(139,92,246,0.12); transform: scale(1.045); }
@@ -273,8 +273,8 @@ body::after {
 .orbital-node:hover .node-icon { box-shadow: 0 0 16px rgba(16,185,129,0.3); }
 .orbital-node[data-status="soon"] .node-icon { border-color: var(--lila); opacity: 0.85; }
 .orbital-node[data-status="roadmap"] .node-icon { border-color: #374151; opacity: 0.6; }
-.node-title { font-size: 14px; font-weight: 700; color: #f0fdf4; text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; }
-.node-sub { font-size: 12px; color: #9ca3af; text-shadow: 0 1px 6px rgba(0,0,0,0.8); white-space: nowrap; margin-top: -2px; }
+.node-title { font-size: 11px; font-weight: 700; color: #f0fdf4; text-shadow: 0 1px 6px rgba(0,0,0,0.7); white-space: nowrap; }
+.node-sub { font-size: 9px; color: #9ca3af; text-shadow: 0 1px 6px rgba(0,0,0,0.8); white-space: nowrap; margin-top: -2px; }
 .orbital-node.is-active .node-icon { box-shadow: 0 0 20px rgba(16,185,129,0.5); }
 .orbital-node.is-pulsing .node-icon { animation: node-pulse 0.8s ease-in-out 2; }
 @keyframes node-pulse {
@@ -457,8 +457,8 @@ body::after {
   .orbital-ring { width: 320px; height: 320px; }
   .orbital-ring-inner { width: 160px; height: 160px; }
   /* All labels hidden by default in mobile */
-  .node-title, .node-sub { opacity: 0; font-size: 9px; transition: opacity 0.2s; }
-  .v-name, .v-sub { opacity: 0; transition: opacity 0.2s; }
+  .node-title, .node-sub { opacity: 0; font-size: 7px; transition: opacity 0.2s; }
+  .v-name, .v-sub { opacity: 0; font-size: 7px; transition: opacity 0.2s; }
   .v-badge { display: none; }
   .zone-label { opacity: 0; transition: opacity 0.2s; }
   /* show-infra: orbital infrastructure nodes */
@@ -661,7 +661,6 @@ body::after {
   <span class="arch-eyebrow">Arquitectura t&eacute;cnica</span>
   <h1 class="arch-h1">La arquitectura de Vookedme</h1>
   <p class="arch-sub">Un agente de IA construido sobre infraestructura de producci&oacute;n real. Cada pieza dise&ntilde;ada para no fallar.</p>
-  <p style="font-size:13px;color:rgba(255,255,255,0.25);font-style:italic;letter-spacing:0.02em;margin-bottom:32px">&ldquo;Every autonomous action is: observable, reversible, auditable, and policy-governed.&rdquo;</p>
 </header>
 
 <!-- ===== VIEW TOGGLE ===== -->
@@ -752,7 +751,7 @@ body::after {
       <div class="am-accent-bar" id="amAccentBar" style="background:#8b5cf6"></div>
       <div>
         <div class="am-title">Agente Vookedme</div>
-        <div class="am-subtitle">3 modos de operaci&oacute;n &mdash; el negocio elige cu&aacute;nto controla</div>
+        <div class="am-subtitle">3 modos de operaci&oacute;n: el negocio elige cu&aacute;nto controla</div>
       </div>
     </div>
     <hr class="am-separator">
@@ -816,7 +815,7 @@ body::after {
   function toRGB(hex) { return rgbMap[hex] || '16,185,129'; }
 
   /* ================================================================
-   * DATA — 9 orbital nodes
+   * DATA - 9 orbital nodes
    * ================================================================ */
   var nodes = [
     { id:1, title:"WhatsApp", subtitle:"Messaging gateway", icon:"💬", status:"live", accent:"#10b981",
@@ -829,11 +828,11 @@ body::after {
       tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[102,100,5] },
     { id:4, title:"PostgreSQL", subtitle:"ACID · Transactional integrity", icon:"🗄️", status:"live", accent:"#60a5fa",
       fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
-      checks:["ACID persistence — transactional consistency garantizada","Optimistic concurrency (@Version) — sin dobles reservas","Scheduling integrity — 7 estados de cita con state machine","Audit chain — operaciones reversibles con trail preservado","Schema evolution — zero downtime migrations"],
+      checks:["ACID persistence: transactional consistency garantizada","Optimistic concurrency (@Version): sin dobles reservas","Scheduling integrity: 7 estados de cita con state machine","Audit chain: operaciones reversibles con trail preservado","Schema evolution: zero downtime migrations"],
       tech:"PostgreSQL 16 · Flyway · @Version · índices compuestos", relatedIds:[100] },
     { id:5, title:"Redis", subtitle:"Operational state", icon:"⚡", status:"live", accent:"#60a5fa",
       fn:"Cache de contexto conversacional y rate limiting distribuido.",
-      checks:["Conversational context — TTL 30 días (GDPR)","Ephemeral operational state por sesión","Rate limiting distribuido — 5 creates/h por número","Stale context detection — approach E flag","Distributed coordination entre n8n y Backend"],
+      checks:["Conversational context: TTL 30 días (GDPR)","Ephemeral operational state por sesión","Rate limiting distribuido: 5 creates/h por número","Stale context detection: approach E flag","Distributed coordination entre n8n y Backend"],
       tech:"Redis 7 · TTL policies · approach E · distributed locks", relatedIds:[2,100] },
     { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
       fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
@@ -845,7 +844,7 @@ body::after {
       tech:"n8n outbound · Evolution API", relatedIds:[100,1] },
     { id:11, title:"Notificaciones", subtitle:"6 tipos outbound", icon:"📨", status:"live", accent:"#10b981",
       fn:"Sistema de notificaciones automáticas por WhatsApp tras cada evento del agente.",
-      checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId — sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
+      checks:["6 tipos: aprobación, rechazo, cancelación aprobada, cancelación rechazada, reprogramación, confirmación","Deduplicación por correlationId: sin mensajes duplicados","BotOutboundNotificationService con 6 métodos dedicados"],
       tech:"WhatsApp Business API · n8n outbound · correlationId", relatedIds:[100,1,102] },
     { id:12, title:"Multi-tenancy", subtitle:"Tenant isolation", icon:"🏢", status:"live", accent:"#60a5fa",
       fn:"Arquitectura multi-tenant real. Cada negocio es un tenant completamente aislado. Ningún dato cruza entre negocios.",
@@ -853,11 +852,11 @@ body::after {
       tech:"Spring Security · @PreAuthorize · JWT claims · tenant isolation", relatedIds:[100,7,101] },
     { id:13, title:"Observabilidad", subtitle:"Sentry + Prometheus", icon:"🔍", status:"live", accent:"#f59e0b",
       fn:"Sistema de monitorización de producción. Fallos detectados automáticamente antes de que el owner lo reporte.",
-      checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard — fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
+      checks:["Sentry error tracking con filtros HTTP <500","ObservabilityHelper.reportBackgroundFailure en 11 ficheros (INV #40)","Prometheus gauges: app.appointments.total + by_status (6 valores)","JVM TZ guard: fail-fast si JVM ≠ Europe/Madrid (INV #47)"],
       tech:"Sentry · Prometheus · Micrometer · Spring Actuator", relatedIds:[100,102] },
     { id:15, title:"Gobernanza", subtitle:"Observable · Reversible · Auditable", icon:"⚖️", status:"live", accent:"#f59e0b",
       fn:"Cada acción del agente es observable, reversible, auditable y gobernada por políticas. El sistema nunca es una caja negra.",
-      checks:["Observable: 11 BotEventType frozen — cada evento trazado","Reversible: Reactivar cita con Option β — audit trail preservado","Auditable: narrativas ES pre-rendered por BotNarrativeRenderer","Policy-governed: 55 invariantes de dominio petrificados en AGENTS.md","Explainable: cada decisión del agente tiene justificación técnica"],
+      checks:["Observable: 11 BotEventType frozen: cada evento trazado","Reversible: Reactivar cita con Option β: audit trail preservado","Auditable: narrativas ES pre-rendered por BotNarrativeRenderer","Policy-governed: 55 invariantes de dominio petrificados en AGENTS.md","Explainable: cada decisión del agente tiene justificación técnica"],
       tech:"BotAuditService · BotEventResolver · INV #1-#56 · Option β", relatedIds:[100,14,102] }
   ];
 
@@ -868,8 +867,8 @@ body::after {
       accent:"#10b981", borderColor:"rgba(16,185,129,0.3)",
       relatedIds:[4,5,7,13,12],
       tabs:[
-        { name:"Arquitectura", checks:["Fuente de verdad — bot es solo capa conversacional","State machine: 7 estados de cita con transiciones válidas","businessId siempre del JWT, nunca del body (INV #1)","Tenant isolation: cada query filtra por businessId","@Version optimistic locking — sin dobles reservas"], tech:"Java 21 · Spring Boot 4.0.3 · Hibernate 7" },
-        { name:"Calidad", checks:["524 tests — 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados y petrificados","68 migraciones Flyway V1→V68 — zero downtime","Testcontainers PostgreSQL para integration tests","SonarQube análisis local en cada PR"], tech:"JUnit 5 · Mockito · Testcontainers · Flyway" },
+        { name:"Arquitectura", checks:["Fuente de verdad: bot es solo capa conversacional","State machine: 7 estados de cita con transiciones válidas","businessId siempre del JWT, nunca del body (INV #1)","Tenant isolation: cada query filtra por businessId","@Version optimistic locking: sin dobles reservas"], tech:"Java 21 · Spring Boot 4.0.3 · Hibernate 7" },
+        { name:"Calidad", checks:["524 tests: 0 failures (98 bot + 426 rest)","55 invariantes de dominio documentados y petrificados","68 migraciones Flyway V1→V68: zero downtime","Testcontainers PostgreSQL para integration tests","SonarQube análisis local en cada PR"], tech:"JUnit 5 · Mockito · Testcontainers · Flyway" },
         { name:"Seguridad", checks:["5 capas: RateLimitingFilter → ApiKey → HMAC → JWT → @PreAuthorize","HMAC-SHA256 en todos los webhooks de n8n","Rate limiting: 5 creates/h + 20/día por número de teléfono","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido","4 vectores de ataque auditados y bloqueados"], tech:"Spring Security · HMAC-SHA256 · JWT · @PreAuthorize" }
       ]
     },
@@ -878,7 +877,7 @@ body::after {
       accent:"#60a5fa", borderColor:"rgba(96,165,250,0.3)",
       relatedIds:[100,7,12],
       tabs:[
-        { name:"Panel Bot", checks:["Bot overview: estado operacional y actividad reciente","Bot activity: feed de eventos con paginación offset","Bot audit: trazabilidad completa de cada cita del bot","Botón Reactivar con audit trail Option β preservado","Polling 60s — refetchIntervalInBackground: false"], tech:"React Query v5 · useQueries · useMutation" },
+        { name:"Panel Bot", checks:["Bot overview: estado operacional y actividad reciente","Bot activity: feed de eventos con paginación offset","Bot audit: trazabilidad completa de cada cita del bot","Botón Reactivar con audit trail Option β preservado","Polling 60s: refetchIntervalInBackground: false"], tech:"React Query v5 · useQueries · useMutation" },
         { name:"Gestión", checks:["Calendario semanal/diario con chips de citas","Gestión de clientes con historial completo","Empleados con horarios individuales y servicios asignados","Revenue snapshot con métricas en tiempo real","AppointmentDetailSheet con todas las acciones por rol"], tech:"React 19 · Next.js 16 · shadcn/ui · Recharts" },
         { name:"Stack", checks:["Next.js 16 App Router con TypeScript estricto","Tailwind v4 CSS-first (sin tailwind.config.ts)","React Query v5 para server state + cache","Axios interceptors para JWT refresh automático","shadcn/ui como base de componentes"], tech:"Next.js 16 · TypeScript · Tailwind v4 · shadcn/ui" }
       ]
@@ -900,7 +899,7 @@ body::after {
       desc:"El agente propone la cita y el owner la aprueba o rechaza desde el panel. Control total sobre cada reserva. Timeout configurable.",
       checks:["Timeout configurable 1-24h (por defecto 2h)","BOT_PROPOSED → OWNER_APPROVED/REJECTED","Si no hay respuesta: cita liberada automáticamente","PendingApprovalTimeoutJob cada 5 minutos"],
       tech:"APPROVAL_REQUIRED · BotEventType · Spring @Scheduled",
-      ops:["Conservador — nunca confirma sin aprobación explícita","Timeout configurable — sin bloqueos eternos (1-24h)","Reversible — Reactivar disponible si es error","Todas las decisiones persistidas en Audit trail"],
+      ops:["Conservador: nunca confirma sin aprobación explícita","Timeout configurable: sin bloqueos eternos (1-24h)","Reversible: Reactivar disponible si es error","Todas las decisiones persistidas en Audit trail"],
       risk:{title:"LOW AUTONOMY RISK",sub:"Human approval required before every confirmation."},
       flowSubtitle:"runtime pipeline · human-gated · audit-backed",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"RESOLUTION"},{before:2,label:"POLICY"},{before:4,label:"ORCHESTRATION"},{before:5,label:"EXECUTION"},{before:7,label:"HUMAN REVIEW"}],
@@ -912,15 +911,15 @@ body::after {
         {s:"completed",t:"Approval gate: REQUIRED",l:"2ms",d:"RECEPCIONISTA mode active"},
         {s:"completed",t:"Appointment created → PENDING",l:"22ms",d:"appointmentId persisted"},
         {s:"completed",t:"Timeout armed",l:"3ms",d:"approval window: 2h"},
-        {s:"active",t:"Human approval pending",l:"—",d:"owner decision window active"}
+        {s:"active",t:"Human approval pending",l:"-",d:"owner decision window active"}
       ]
     },
     {
       id:"autonomo", name:"Modo Autónomo", badge:"PRÓXIMO", badgeColor:"#F59E0B",
       desc:"El agente confirma citas directamente sin intervención del owner. Algoritmo de auto-asignación por menor carga del día.",
-      checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout — confirmación en segundos"],
+      checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout: confirmación en segundos"],
       tech:"AUTO_CONFIRM · auto-assign algorithm · BOT_AUTO_CONFIRMED",
-      ops:["Assignment engine evalúa carga real del empleado","Conflict detection antes de cualquier confirmación","Reversible — Reactivar disponible post-confirmación","Audit chain persistido en cada auto-confirmación"],
+      ops:["Assignment engine evalúa carga real del empleado","Conflict detection antes de cualquier confirmación","Reversible: Reactivar disponible post-confirmación","Audit chain persistido en cada auto-confirmación"],
       risk:{title:"HIGH AUTOMATION",sub:"Direct confirmation enabled. Conflict-safe by design."},
       flowSubtitle:"runtime pipeline · fully automated · conflict-safe",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"RESOLUTION"},{before:2,label:"POLICY"},{before:4,label:"ORCHESTRATION"},{before:5,label:"EXECUTION"}],
@@ -937,20 +936,20 @@ body::after {
     },
     {
       id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#9ca3af",
-      desc:"No disponible aún — previsto, disponible bajo petición. El owner revisaría cada conversación antes de que el agente responda; aprobación mensaje a mensaje.",
+      desc:"No disponible aún. Previsto, disponible bajo petición. El owner revisaría cada conversación antes de que el agente responda; aprobación mensaje a mensaje.",
       checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
       tech:"TRIAGE · WebSocket · BotRequest entity",
-      ops:["Cero respuestas automáticas sin revisión explícita","Cola con expiración configurable por el owner","Cada mensaje queda en el audit trail permanente","Máximo control — el owner aprueba cada interacción"],
+      ops:["Cero respuestas automáticas sin revisión explícita","Cola con expiración configurable por el owner","Cada mensaje queda en el audit trail permanente","Máximo control: el owner aprueba cada interacción"],
       risk:{title:"MAXIMUM CONTROL",sub:"Every message reviewed before the agent responds."},
       flowSubtitle:"runtime pipeline · human-reviewed · zero autonomy",
       flowPhases:[{before:0,label:"INGEST"},{before:1,label:"ORCHESTRATION"},{before:2,label:"HUMAN REVIEW"},{before:4,label:"EXECUTION"}],
       flow:[
-        {s:"pending",t:"Request received",l:"—",d:"inbound messaging gateway"},
-        {s:"pending",t:"Review queue enqueued",l:"—",d:"BotRequest (entidad no implementada)"},
-        {s:"pending",t:"Owner reviewing",l:"—",d:"message in queue..."},
-        {s:"pending",t:"Awaiting approval",l:"—",d:"window active..."},
-        {s:"pending",t:"Response dispatched",l:"—",d:"pending resolution"},
-        {s:"pending",t:"Resolution committed",l:"—",d:"audit trail finalized · conversation closed"}
+        {s:"pending",t:"Request received",l:"-",d:"inbound messaging gateway"},
+        {s:"pending",t:"Review queue enqueued",l:"-",d:"BotRequest (entidad no implementada)"},
+        {s:"pending",t:"Owner reviewing",l:"-",d:"message in queue..."},
+        {s:"pending",t:"Awaiting approval",l:"-",d:"window active..."},
+        {s:"pending",t:"Response dispatched",l:"-",d:"pending resolution"},
+        {s:"pending",t:"Resolution committed",l:"-",d:"audit trail finalized · conversation closed"}
       ]
     }
   ];
@@ -1564,11 +1563,11 @@ body::after {
     html += '<div class="de-pills"><span class="de-pill">Determinista</span><span class="de-pill">Auditable</span><span class="de-pill">Policy-Governed</span></div>';
     html += '</div>';
 
-    /* Sección 1 — Autoridad en Runtime */
+    /* Sección 1 - Autoridad en Runtime */
     html += '<div class="de-section"><div class="de-section-title">Autoridad en Runtime</div><div class="de-grid">';
     var auth = [
       {i:'🛡️',t:'Gate enforcement',d:'Ninguna acción operacional se ejecuta sin evaluación determinista previa.'},
-      {i:'🔒',t:'El LLM no tiene autoridad',d:'El modelo de lenguaje propone — el engine decide. Nunca al revés.'},
+      {i:'🔒',t:'El LLM no tiene autoridad',d:'El modelo de lenguaje propone: el engine decide. Nunca al revés.'},
       {i:'📋',t:'Validación de políticas',d:'Políticas de asignación, gates de aprobación y evaluación de riesgo se ejecutan antes de cada mutación.'},
       {i:'🔄',t:'Seguridad de rollback',d:'Cada decisión confirmada es reversible con preservación completa del audit trail.'},
       {i:'👤',t:'Semántica de ownership',d:'businessId del JWT se aplica en cada frontera de decisión. Cero filtración cross-tenant.'},
@@ -1579,7 +1578,7 @@ body::after {
     });
     html += '</div></div>';
 
-    /* Sección 2 — Pipeline de Decisión */
+    /* Sección 2 - Pipeline de Decisión */
     html += '<div class="de-section"><div class="de-section-title">Pipeline de Decisión</div><div class="de-pipeline">';
     var pipe = [
       {c:'Intent',l:'determinista'},
@@ -1596,20 +1595,20 @@ body::after {
     });
     html += '</div></div>';
 
-    /* Sección 3 — Gobernanza Aplicada */
+    /* Sección 3 - Gobernanza Aplicada */
     html += '<div class="de-section"><div class="de-section-title">Gobernanza Aplicada</div>';
     var invs = [
       {id:'INV #57',t:'No se ejecuta ninguna asignación autónoma sin evaluación de políticas. El engine debe evaluar el modo operacional y los requisitos de aprobación antes de cualquier mutación de reserva.'},
       {id:'INV #58',t:'Cada decisión operacional debe producir una traza auditable de BotEvent. Las decisiones sin registros de auditoría violan los contratos de gobernanza.'},
       {id:'INV #59',t:'La clasificación de intent debe preceder a cualquier mutación de reserva. El engine nunca actúa sobre peticiones no clasificadas o ambiguas.'},
-      {id:'INV #60',t:'La evaluación del gate de aprobación es obligatoria — el modo determina la aplicación. RECEPCIONISTA requiere aprobación explícita del owner; AUTÓNOMO aplica auto-confirmación conflict-safe.'}
+      {id:'INV #60',t:'La evaluación del gate de aprobación es obligatoria: el modo determina la aplicación. RECEPCIONISTA requiere aprobación explícita del owner; AUTÓNOMO aplica auto-confirmación conflict-safe.'}
     ];
     invs.forEach(function(inv) {
       html += '<div class="de-inv"><div class="de-inv-id">' + inv.id + '</div><div class="de-inv-text">' + inv.t + '</div></div>';
     });
     html += '</div>';
 
-    /* Sección 4 — Dependencias de Runtime Conectadas */
+    /* Sección 4 - Dependencias de Runtime Conectadas */
     html += '<div class="de-section"><div class="de-section-title">Dependencias de Runtime Conectadas</div>';
     var rels = [
       {i:'⚙️',n:'Backend API',r:'Recibe payloads de decisiones validadas. Persiste el estado canónico de reservas y aplica fronteras transaccionales.'},
@@ -1623,7 +1622,7 @@ body::after {
     });
     html += '</div>';
 
-    /* Sección 5 — Garantías Operacionales */
+    /* Sección 5 - Garantías Operacionales */
     html += '<div class="de-section"><div class="de-section-title">Garantías Operacionales</div><div class="de-tiles">';
     var guar = [
       {i:'🎯',t:'Ejecución determinista'},{i:'📋',t:'Auditabilidad completa'},{i:'🏢',t:'Aislamiento multi-tenant'},
@@ -1635,7 +1634,7 @@ body::after {
     });
     html += '</div></div>';
 
-    /* Sección 6 — Principios Arquitectónicos */
+    /* Sección 6 - Principios Arquitectónicos */
     html += '<div class="de-section"><div class="de-section-title">Principios Arquitectónicos</div><div class="de-principles">';
     var princ = [
       'La IA no es autoridad','El backend sigue siendo source of truth','Gobernanza sobre autonomía',
@@ -1796,12 +1795,12 @@ body::after {
     { id:10, icon:'🔔', title:'Recordatorios', color:'#10b981' }
   ];
 
-  /* Runtime inspector data — runtime-oriented, NOT orbital narrative */
+  /* Runtime inspector data - runtime-oriented, NOT orbital narrative */
   var inspectorData = {
     1:   { step:'STEP 01 · INGRESS', role:'Receives inbound WhatsApp messages and routes them to the orchestration layer via webhook.', inputs:['WhatsApp Business API webhook','HMAC-SHA256 validated payload'], outputs:['Authenticated message event to n8n'], upstream:'Client (WhatsApp)', downstream:'n8n Runtime', chars:['~50ms avg latency','HMAC signature enforced','rate limited: 5 creates/h'], impact:'Inbound message flow halts. No new conversations can be initiated.' },
     2:   { step:'STEP 02 · ORCHESTRATION', role:'Interprets intent, manages conversation context, and dispatches tool calls to the agent runtime.', inputs:['Validated webhook event','Redis conversation context'], outputs:['Tool call payload to Agente','Context state updates'], upstream:'WhatsApp', downstream:'Agente Runtime', chars:['~200ms orchestration cycle','4 tool functions available','stale context detection (approach E)'], impact:'Conversations stall. Messages received but not processed.' },
     102: { step:'STEP 03 · COGNITION', role:'Evaluates assignment policy, resolves availability, and commits booking decisions to the backend.', inputs:['Orchestrated tool call','Availability graph','Assignment policy config'], outputs:['Decision payload to Backend API','Audit event emission'], upstream:'n8n Runtime', downstream:'Backend API', chars:['deterministic policy evaluation','3 operational modes','explainable decision trail'], impact:'Booking decisions cannot be made. Pipeline blocked at cognition layer.' },
-    14:  { step:'ADJACENT · POLICY ENGINE', role:'Evaluates operational policies before each action. Conceptual governance layer — not in the direct runtime path.', inputs:['Policy configuration','Mode selection (recepcionista/autónomo/supervisado)'], outputs:['Policy evaluation result','Risk assessment score'], upstream:'Configuration', downstream:'Agente Runtime (advisory)', chars:['deterministic evaluation','LOW / MEDIUM / HIGH risk scoring','approval gate logic'], impact:'Policy evaluation unavailable. Agent falls back to default conservative mode.' },
+    14:  { step:'ADJACENT · POLICY ENGINE', role:'Evaluates operational policies before each action. Conceptual governance layer: not in the direct runtime path.', inputs:['Policy configuration','Mode selection (recepcionista/autónomo/supervisado)'], outputs:['Policy evaluation result','Risk assessment score'], upstream:'Configuration', downstream:'Agente Runtime (advisory)', chars:['deterministic evaluation','LOW / MEDIUM / HIGH risk scoring','approval gate logic'], impact:'Policy evaluation unavailable. Agent falls back to default conservative mode.' },
     100: { step:'STEP 04 · VALIDATION', role:'Validates assignment constraints and persists canonical booking state. Single source of truth.', inputs:['Assignment payload','Webhook events','Panel mutations'], outputs:['PostgreSQL writes','Redis state sync','Outbound notification events'], upstream:'Agente Runtime', downstream:'PostgreSQL · Redis', chars:['~30ms avg latency','transactional boundary enforced','optimistic concurrency (@Version)'], impact:'Bookings cannot be persisted. Runtime remains degraded.' },
     101: { step:'MANAGEMENT SURFACE', role:'Owner-facing panel for approvals, calendar management, and operational oversight.', inputs:['Backend API responses','WebSocket events (future)'], outputs:['Panel mutations to Backend API','Approval/rejection decisions'], upstream:'Backend API', downstream:'Backend API', chars:['polling 60s interval','role-based access (OWNER/EMPLOYEE)','React Query server state'], impact:'Owner loses visibility. Approvals must happen via alternative channels.' },
     4:   { step:'STEP 05 · PERSISTENCE', role:'ACID-compliant storage for all canonical booking state, audit trails, and tenant data.', inputs:['Validated writes from Backend API','Flyway migrations'], outputs:['Persisted booking state','Audit chain records','Query responses'], upstream:'Backend API', downstream:'Terminal (read path)', chars:['~5ms write latency','optimistic locking (@Version)','68 Flyway migrations (V1→V68)'], impact:'Complete data loss risk. All booking state unavailable.' },
