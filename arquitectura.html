@@ -370,6 +370,7 @@ body::after {
 }
 .agent-tab:hover { color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.06); }
 .agent-tab.is-active { color: #fff; }
+.agent-tab.tab--soon { opacity: 0.55; cursor: default; pointer-events: none; }
 .agent-content { display: flex; gap: 16px; }
 .agent-left { flex: 1; min-width: 0; }
 .agent-right { flex: 1; min-width: 160px; border-left: 1px solid rgba(255,255,255,0.05); padding-left: 20px; padding-top: 0; }
@@ -751,7 +752,7 @@ body::after {
       <div class="am-accent-bar" id="amAccentBar" style="background:#8b5cf6"></div>
       <div>
         <div class="am-title">Agente Vookedme</div>
-        <div class="am-subtitle">3 modos de operaci&oacute;n: el negocio elige cu&aacute;nto controla</div>
+        <div class="am-subtitle">Modos de operaci&oacute;n: el negocio elige cu&aacute;nto controla</div>
       </div>
     </div>
     <hr class="am-separator">
@@ -915,7 +916,7 @@ body::after {
       ]
     },
     {
-      id:"autonomo", name:"Modo Autónomo", badge:"PRÓXIMO", badgeColor:"#F59E0B",
+      id:"autonomo", name:"Modo Autónomo", badge:"LIVE", badgeColor:"#10b981",
       desc:"El agente confirma citas directamente sin intervención del owner. Algoritmo de auto-asignación por menor carga del día.",
       checks:["Confirmación inmediata sin aprobación","Auto-asignación: empleado con menor carga","BOT_AUTO_CONFIRMED en el mismo flujo","Sin timeout: confirmación en segundos"],
       tech:"AUTO_CONFIRM · auto-assign algorithm · BOT_AUTO_CONFIRMED",
@@ -935,22 +936,15 @@ body::after {
       ]
     },
     {
-      id:"supervisado", name:"Modo Supervisado", badge:"ROADMAP", badgeColor:"#9ca3af",
-      desc:"No disponible aún. Previsto, disponible bajo petición. El owner revisaría cada conversación antes de que el agente responda; aprobación mensaje a mensaje.",
-      checks:["Cada mensaje pasa por cola de revisión","Owner aprueba o modifica cada respuesta","BotRequest entity + WebSocket required","Cola con expiración configurable"],
-      tech:"TRIAGE · WebSocket · BotRequest entity",
-      ops:["Cero respuestas automáticas sin revisión explícita","Cola con expiración configurable por el owner","Cada mensaje queda en el audit trail permanente","Máximo control: el owner aprueba cada interacción"],
-      risk:{title:"MAXIMUM CONTROL",sub:"Every message reviewed before the agent responds."},
-      flowSubtitle:"runtime pipeline · human-reviewed · zero autonomy",
-      flowPhases:[{before:0,label:"INGEST"},{before:1,label:"ORCHESTRATION"},{before:2,label:"HUMAN REVIEW"},{before:4,label:"EXECUTION"}],
-      flow:[
-        {s:"pending",t:"Request received",l:"-",d:"inbound messaging gateway"},
-        {s:"pending",t:"Review queue enqueued",l:"-",d:"BotRequest (entidad no implementada)"},
-        {s:"pending",t:"Owner reviewing",l:"-",d:"message in queue..."},
-        {s:"pending",t:"Awaiting approval",l:"-",d:"window active..."},
-        {s:"pending",t:"Response dispatched",l:"-",d:"pending resolution"},
-        {s:"pending",t:"Resolution committed",l:"-",d:"audit trail finalized · conversation closed"}
-      ]
+      id:"supervisado", name:"Modo Supervisado", badge:"PRÓXIMAMENTE", badgeColor:"#9ca3af",
+      desc:"No disponible aún. Disponible próximamente bajo petición.",
+      checks:[],
+      tech:"Próximamente · Bajo petición",
+      ops:[],
+      risk:{title:"PRÓXIMAMENTE",sub:"Disponible bajo petición."},
+      flowSubtitle:"",
+      flowPhases:[],
+      flow:[]
     }
   ];
 
@@ -1411,14 +1405,18 @@ body::after {
   function buildAgentTabs() {
     var html = '';
     agentModes.forEach(function(mode, i) {
-      var activeClass = i === activeAgentTab ? ' is-active' : '';
+      var isSoon = mode.id === 'supervisado';
+      var activeClass = i === activeAgentTab && !isSoon ? ' is-active' : '';
+      var soonClass = isSoon ? ' tab--soon' : '';
       var ta = getTabAccent(mode);
-      var style = i === activeAgentTab
+      var style = i === activeAgentTab && !isSoon
         ? 'background:' + ta.bg + ';color:' + ta.text + ';border-color:' + ta.border
         : '';
       var label = mode.name.replace('Modo ', '');
-      var badgeHtml = i === activeAgentTab ? ' <span style="font-size:9px;opacity:0.7;margin-left:4px">' + mode.badge + '</span>' : '';
-      html += '<div class="agent-tab' + activeClass + '" data-tab="' + i + '" style="' + style + '">' + label + badgeHtml + '</div>';
+      var badgeHtml = isSoon
+        ? ' <span style="font-size:9px;opacity:0.7;margin-left:4px">Próximamente</span>'
+        : (i === activeAgentTab ? ' <span style="font-size:9px;opacity:0.7;margin-left:4px">' + mode.badge + '</span>' : '');
+      html += '<div class="agent-tab' + activeClass + soonClass + '" data-tab="' + i + '" style="' + style + '">' + label + badgeHtml + '</div>';
     });
     agentTabsEl.innerHTML = html;
 
@@ -1799,8 +1797,8 @@ body::after {
   var inspectorData = {
     1:   { step:'STEP 01 · INGRESS', role:'Receives inbound WhatsApp messages and routes them to the orchestration layer via webhook.', inputs:['WhatsApp Business API webhook','HMAC-SHA256 validated payload'], outputs:['Authenticated message event to n8n'], upstream:'Client (WhatsApp)', downstream:'n8n Runtime', chars:['~50ms avg latency','HMAC signature enforced','rate limited: 5 creates/h'], impact:'Inbound message flow halts. No new conversations can be initiated.' },
     2:   { step:'STEP 02 · ORCHESTRATION', role:'Interprets intent, manages conversation context, and dispatches tool calls to the agent runtime.', inputs:['Validated webhook event','Redis conversation context'], outputs:['Tool call payload to Agente','Context state updates'], upstream:'WhatsApp', downstream:'Agente Runtime', chars:['~200ms orchestration cycle','4 tool functions available','stale context detection (approach E)'], impact:'Conversations stall. Messages received but not processed.' },
-    102: { step:'STEP 03 · COGNITION', role:'Evaluates assignment policy, resolves availability, and commits booking decisions to the backend.', inputs:['Orchestrated tool call','Availability graph','Assignment policy config'], outputs:['Decision payload to Backend API','Audit event emission'], upstream:'n8n Runtime', downstream:'Backend API', chars:['deterministic policy evaluation','3 operational modes','explainable decision trail'], impact:'Booking decisions cannot be made. Pipeline blocked at cognition layer.' },
-    14:  { step:'ADJACENT · POLICY ENGINE', role:'Evaluates operational policies before each action. Conceptual governance layer: not in the direct runtime path.', inputs:['Policy configuration','Mode selection (recepcionista/autónomo/supervisado)'], outputs:['Policy evaluation result','Risk assessment score'], upstream:'Configuration', downstream:'Agente Runtime (advisory)', chars:['deterministic evaluation','LOW / MEDIUM / HIGH risk scoring','approval gate logic'], impact:'Policy evaluation unavailable. Agent falls back to default conservative mode.' },
+    102: { step:'STEP 03 · COGNITION', role:'Evaluates assignment policy, resolves availability, and commits booking decisions to the backend.', inputs:['Orchestrated tool call','Availability graph','Assignment policy config'], outputs:['Decision payload to Backend API','Audit event emission'], upstream:'n8n Runtime', downstream:'Backend API', chars:['deterministic policy evaluation','2 operational modes (+ 1 próximamente)','explainable decision trail'], impact:'Booking decisions cannot be made. Pipeline blocked at cognition layer.' },
+    14:  { step:'ADJACENT · POLICY ENGINE', role:'Evaluates operational policies before each action. Conceptual governance layer: not in the direct runtime path.', inputs:['Policy configuration','Mode selection (recepcionista/autónomo)'], outputs:['Policy evaluation result','Risk assessment score'], upstream:'Configuration', downstream:'Agente Runtime (advisory)', chars:['deterministic evaluation','LOW / MEDIUM / HIGH risk scoring','approval gate logic'], impact:'Policy evaluation unavailable. Agent falls back to default conservative mode.' },
     100: { step:'STEP 04 · VALIDATION', role:'Validates assignment constraints and persists canonical booking state. Single source of truth.', inputs:['Assignment payload','Webhook events','Panel mutations'], outputs:['PostgreSQL writes','Redis state sync','Outbound notification events'], upstream:'Agente Runtime', downstream:'PostgreSQL · Redis', chars:['~30ms avg latency','transactional boundary enforced','optimistic concurrency (@Version)'], impact:'Bookings cannot be persisted. Runtime remains degraded.' },
     101: { step:'MANAGEMENT SURFACE', role:'Owner-facing panel for approvals, calendar management, and operational oversight.', inputs:['Backend API responses','WebSocket events (future)'], outputs:['Panel mutations to Backend API','Approval/rejection decisions'], upstream:'Backend API', downstream:'Backend API', chars:['polling 60s interval','role-based access (OWNER/EMPLOYEE)','React Query server state'], impact:'Owner loses visibility. Approvals must happen via alternative channels.' },
     4:   { step:'STEP 05 · PERSISTENCE', role:'ACID-compliant storage for all canonical booking state, audit trails, and tenant data.', inputs:['Validated writes from Backend API','Flyway migrations'], outputs:['Persisted booking state','Audit chain records','Query responses'], upstream:'Backend API', downstream:'Terminal (read path)', chars:['~5ms write latency','optimistic locking (@Version)','68 Flyway migrations (V1→V68)'], impact:'Complete data loss risk. All booking state unavailable.' },
