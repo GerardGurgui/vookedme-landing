@@ -227,7 +227,7 @@ body::after {
     </ul>
 
     <h2>4. Asistente de Inteligencia Artificial, Transparencia y Minimizaci&oacute;n</h2>
-    <p>Vookedme integra un asistente conversacional automatizado para atender las reservas. En cumplimiento del Reglamento de IA de la Uni&oacute;n Europea, <strong>el sistema se identifica de forma transparente como asistente virtual</strong> ante el usuario en su primer mensaje. Para interpretar tu solicitud, el texto de la conversaci&oacute;n (y, en su caso, la transcripci&oacute;n de las notas de voz) se procesa mediante <strong>modelos de lenguaje de proveedores externos</strong> (ver &sect;5). Aplicamos <strong>minimizaci&oacute;n de datos</strong>: enviamos a estos modelos &uacute;nicamente la informaci&oacute;n necesaria para entender y atender tu petici&oacute;n; dichos proveedores <strong>no utilizan tus datos para entrenar sus modelos</strong> (conforme a sus acuerdos de tratamiento) y aplicamos la m&iacute;nima retenci&oacute;n disponible. <em>Te recomendamos no incluir datos sensibles innecesarios en tus mensajes (ver T&eacute;rminos &sect;3).</em></p>
+    <p>Vookedme integra un asistente conversacional automatizado para atender las reservas. En cumplimiento del Reglamento de IA de la Uni&oacute;n Europea, <strong>el sistema se identifica de forma transparente como asistente virtual</strong> ante el usuario en su primer mensaje. Para interpretar tu solicitud, el texto de la conversaci&oacute;n (y, en su caso, la transcripci&oacute;n de las notas de voz) se procesa mediante <strong>modelos de lenguaje de proveedores externos</strong> (ver &sect;5). Aplicamos <strong>minimizaci&oacute;n de datos</strong>: enviamos a estos modelos &uacute;nicamente la informaci&oacute;n necesaria para entender y atender tu petici&oacute;n; dichos proveedores <strong>no utilizan tus datos para entrenar sus modelos</strong> (conforme a sus acuerdos de tratamiento). <em>Te recomendamos no incluir datos sensibles innecesarios en tus mensajes (ver T&eacute;rminos &sect;3).</em></p>
 
     <h2>5. Subencargados y Transferencias Internacionales</h2>
     <p>Para prestar el servicio utilizamos los siguientes proveedores, con acuerdo de tratamiento de datos (DPA) y, cuando procesan fuera del Espacio Econ&oacute;mico Europeo, <strong>Cl&aacute;usulas Contractuales Tipo (SCCs)</strong> de la Comisi&oacute;n Europea:</p>
@@ -279,8 +279,9 @@ body::after {
     <ul>
       <li><strong>Registros de consentimiento:</strong> 5 a&ntilde;os tras la baja del negocio (Art. 1964 del C&oacute;digo Civil).</li>
       <li><strong>Historial de citas y reservas:</strong> 5 a&ntilde;os tras su finalizaci&oacute;n.</li>
-      <li><strong>Usuarios dados de baja:</strong> baja l&oacute;gica inmediata (soft-delete) y anonimizaci&oacute;n a los 5 a&ntilde;os.</li>
+      <li><strong>Usuarios dados de baja:</strong> baja l&oacute;gica inmediata (soft-delete); la anonimizaci&oacute;n de los datos identificativos a los 5 a&ntilde;os se ejecuta mediante <strong>protocolo administrativo manual</strong> (procedimiento interno, no automatizado en fase beta).</li>
       <li><strong>Contexto de conversaci&oacute;n de WhatsApp:</strong> 7 d&iacute;as (caducidad t&eacute;cnica autom&aacute;tica del sistema de mensajer&iacute;a).</li>
+      <li><strong>Notas de voz (audio):</strong> la transcripci&oacute;n a texto (Whisper) es <strong>ef&iacute;mera</strong> &mdash;solo para interpretar tu solicitud&mdash; y <strong>el audio no se almacena</strong>; &uacute;nicamente se conserva la transcripci&oacute;n de texto, sujeta a los plazos de conversaci&oacute;n anteriores.</li>
       <li><strong>Logs t&eacute;cnicos y de webhooks:</strong> 30-90 d&iacute;as.</li>
       <li><strong>Copias de seguridad:</strong> 30 d&iacute;as rotativos.</li>
     </ul>
@@ -294,7 +295,7 @@ body::after {
     <h2>9. Menores de Edad</h2>
     <p>El uso de la plataforma web est&aacute; restringido a mayores de edad. El asistente automatizado de reservas no est&aacute; dirigido a menores de 14 a&ntilde;os.</p>
 
-    <p style="font-size:12px;opacity:0.4;margin-top:48px;border-top:1px solid var(--border);padding-top:24px;">&Uacute;ltima actualizaci&oacute;n: junio 2026 | Versi&oacute;n: 1.0 (beta)</p>
+    <p style="font-size:12px;opacity:0.4;margin-top:48px;border-top:1px solid var(--border);padding-top:24px;">&Uacute;ltima actualizaci&oacute;n: junio 2026 | Versi&oacute;n: 1.1 (beta)</p>
   </div>
 </main>
 
