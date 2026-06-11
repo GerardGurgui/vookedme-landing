@@ -158,23 +158,26 @@ body::after {
 
 /* ===== SECONDARY CTA ===== */
 .section-cta {
-  text-align: center; padding: 28px 24px;
+  text-align: center; padding: 44px 32px;
   border-top: 1px solid rgba(255,255,255,0.05);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .section-cta__hint {
-  font-size: 15px; color: #9ca3af; margin-bottom: 6px;
+  font-size: 16px; color: #b0b8c4; margin-bottom: 14px;
 }
 .section-cta__link {
-  font-size: 17px; font-weight: 700; color: #10b981;
+  font-size: 18px; font-weight: 700; color: #10b981;
   text-decoration: none; transition: color 0.2s;
 }
 .section-cta__link::before {
-  content: ''; display: inline-block; width: 8px; height: 8px;
+  content: ''; display: inline-block; width: 10px; height: 10px;
   background: #10b981; border-radius: 50%; margin-right: 8px;
   vertical-align: middle;
 }
 .section-cta__link:hover { color: #34d399; }
+.section-cta__sub {
+  font-size: 13px; color: #9ca3af; margin-top: 8px; letter-spacing: 0.02em;
+}
 
 /* ===== HERO V-FLOW ===== */
 .hero-vflow {
@@ -380,16 +383,16 @@ body::after {
 }
 .hv-step {
   width: 8px; height: 8px; border-radius: 999px;
-  background: var(--fg-faint);
+  background: #4b5563;
   transition: width .4s cubic-bezier(.16,1,.3,1), background .4s ease;
 }
-.hv-step.is-active { width: 28px; background: var(--green); }
+.hv-step.is-active { width: 32px; background: var(--green); }
 .hv-step.is-active.--lila { background: var(--lila); }
 
 /* ============ tagline ============ */
 .hv-tagline {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-  color: var(--fg-faint); margin-top: 4px; text-align: center;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 2.5px;
+  color: #d1d5db; margin-top: 4px; text-align: center;
   position: relative; z-index: 2;
 }
 
@@ -413,11 +416,15 @@ body::after {
 }
 .modes__head { text-align: center; margin-bottom: 64px; }
 .modes__eyebrow {
-  display: inline-block;
-  font-size: 11px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600;
   letter-spacing: 2px; text-transform: uppercase;
-  color: #9ca3af;
+  color: #b0b8c4;
   margin-bottom: 16px;
+}
+.modes__eyebrow::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: #10b981; flex-shrink: 0;
 }
 .modes__title {
   font-size: clamp(1.8rem, 3.4vw, 2.6rem);
@@ -428,7 +435,7 @@ body::after {
 }
 .modes__title .ac-l { color: var(--lila); }
 .modes__sub {
-  color: var(--fg-soft); font-size: 16px; line-height: 1.6;
+  color: #a1a1aa; font-size: 15px; line-height: 1.6;
   max-width: 580px; margin: 0 auto;
 }
 
@@ -931,9 +938,9 @@ body::after {
   text-align: center;
 }
 .waitlist-box {
-  max-width: 480px; margin: 0 auto;
+  max-width: 500px; margin: 0 auto;
   background: var(--surface); border: 1px solid var(--border-hi);
-  border-radius: 20px; padding: 3rem 2.5rem;
+  border-radius: 20px; padding: 3.5rem 3rem;
   position: relative; overflow: hidden;
 }
 .waitlist-box::before {
@@ -943,14 +950,14 @@ body::after {
   pointer-events: none;
 }
 .waitlist-box h2 {
-  font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem;
+  font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;
   position: relative;
 }
 .waitlist-box .sub {
-  font-size: 0.95rem; color: var(--text-soft); margin-bottom: 2rem;
+  font-size: 17px; color: var(--text-soft); margin-bottom: 2rem;
   position: relative;
 }
-.waitlist-box .sub strong { color: var(--accent); font-weight: 600; }
+.waitlist-box .sub strong { color: var(--accent); font-weight: 700; }
 .wl-form { position: relative; }
 .wl-form input[type="email"] {
   width: 100%; padding: 14px 18px; background: var(--bg);
@@ -965,14 +972,14 @@ body::after {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 .wl-form button {
-  width: 100%; padding: 14px; background: var(--accent); color: #000;
-  border: none; border-radius: 10px; font-size: 1rem; font-weight: 700;
+  width: 100%; padding: 18px 14px; background: var(--accent); color: #000;
+  border: none; border-radius: 10px; font-size: 17px; font-weight: 700;
   font-family: var(--font); cursor: pointer; transition: all 0.2s;
 }
 .wl-form button:hover { background: var(--accent-hover); }
 .wl-form button:active { transform: scale(0.98); }
 .wl-note {
-  font-size: 0.72rem; color: var(--text-muted); margin-top: 14px;
+  font-size: 13px; color: #6b7280; margin-top: 14px;
   position: relative;
 }
 
@@ -1460,7 +1467,7 @@ body::after {
     <p class="modes__sub">
       La mayor&iacute;a elige Recepcionista, el equilibrio perfecto entre control y rapidez. Cambia cuando quieras. El Modo Supervisado estar&aacute; disponible pr&oacute;ximamente.
     </p>
-    <p class="modes__sub" style="font-size:13px;color:rgba(255,255,255,.42);margin-top:6px">Algunas funcionalidades avanzadas se habilitan progresivamente seg&uacute;n las necesidades de cada negocio.</p>
+    <p class="modes__sub" style="margin-top:6px">Algunas funcionalidades avanzadas se habilitan progresivamente seg&uacute;n las necesidades de cada negocio.</p>
   </header>
 
   <div class="modes__grid">
@@ -1630,6 +1637,7 @@ body::after {
 <div class="section-cta">
   <p class="section-cta__hint">&iquest;Listo para probarlo?</p>
   <a href="#waitlist" class="section-cta__link">&Uacute;nete a la lista de espera &rarr;</a>
+  <p class="section-cta__sub">Acceso anticipado &middot; Sin compromiso</p>
 </div>
 
 <!-- ===== FEATURES GRID ===== -->
@@ -1721,6 +1729,7 @@ body::after {
 <div class="section-cta">
   <p class="section-cta__hint">&iquest;Tu negocio trabaja con citas?</p>
   <a href="#waitlist" class="section-cta__link">Solicita acceso anticipado &rarr;</a>
+  <p class="section-cta__sub">Acceso anticipado &middot; Sin compromiso</p>
 </div>
 
 <!-- Sector modal -->
@@ -1793,8 +1802,8 @@ body::after {
 <!-- ===== WAITLIST FORM ===== -->
 <section class="section waitlist-section" id="waitlist">
   <div class="waitlist-box">
-    <h2>Unete a los primeros 100 negocios</h2>
-    <p class="sub">Consigue <strong>3 meses gratis</strong> cuando lancemos</p>
+    <h2>&Uacute;nete a los primeros 100 negocios</h2>
+    <p class="sub">Consigue <strong>2 meses gratis</strong> al ser de los primeros.</p>
     <form class="wl-form" id="waitlistForm">
       <input type="email" name="email" placeholder="tu@negocio.com" required autocomplete="email">
       <button type="submit">Quiero acceso anticipado</button>
