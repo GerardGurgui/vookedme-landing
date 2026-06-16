@@ -831,7 +831,7 @@ body::after {
       tech:"Evolution API · WhatsApp Business API", relatedIds:[2,11,10] },
     { id:2, title:"n8n", subtitle:"Orchestration", icon:"🔄", status:"live", accent:"#10b981",
       fn:"Orquestador de la conversación. Interpreta mensajes, llama al LLM y ejecuta las 4 herramientas del agente.",
-      checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Stale context detection con flag Redis approach E"],
+      checks:["Workflow FIXED-v15 activo en producción","4 herramientas: verificar_disponibilidad, crear_cita, consultar_mis_citas, cancelar_cita","Re-anclaje automático a estado real en cada turno"],
       tech:"n8n self-hosted · gpt-4o-mini · Redis context buffer", relatedIds:[102,100,5] },
     { id:4, title:"PostgreSQL", subtitle:"ACID · Transactional integrity", icon:"🗄️", status:"live", accent:"#60a5fa",
       fn:"Base de datos principal. Diseñada para consistencia y auditoría completa de cada operación.",
@@ -839,8 +839,8 @@ body::after {
       tech:"PostgreSQL 16 · Flyway · @Version · índices compuestos", relatedIds:[100] },
     { id:5, title:"Redis", subtitle:"Operational state", icon:"⚡", status:"live", accent:"#60a5fa",
       fn:"Cache de contexto conversacional y rate limiting distribuido.",
-      checks:["Conversational context: TTL 30 días (GDPR)","Ephemeral operational state por sesión","Rate limiting distribuido: 5 creates/h por número","Stale context detection: approach E flag","Distributed coordination entre n8n y Backend"],
-      tech:"Redis 7 · TTL policies · approach E · distributed locks", relatedIds:[2,100] },
+      checks:["Conversational context: TTL 30 días (GDPR)","Ephemeral operational state por sesión","Rate limiting distribuido: 5 creates/h por número","Memoria conversacional temporal, no autoritativa","Distributed coordination entre n8n y Backend"],
+      tech:"Redis 7 · TTL policies · distributed locks", relatedIds:[2,100] },
     { id:7, title:"Seguridad", subtitle:"JWT + HMAC", icon:"🔒", status:"live", accent:"#f59e0b",
       fn:"5 capas en secuencia que interceptan cada request antes de llegar a los servicios.",
       checks:["RateLimitingFilter → WebhookApiKeyFilter → HMAC-SHA256","JwtAuthenticationFilter → @PreAuthorize por rol","Tenant isolation: businessId del JWT en cada query","Roles: ADMIN cross-tenant, OWNER por negocio, EMPLOYEE restringido"],
@@ -1575,7 +1575,8 @@ body::after {
       {i:'📋',t:'Validación de políticas',d:'Políticas de asignación, gates de aprobación y evaluación de riesgo se ejecutan antes de cada mutación.'},
       {i:'🔄',t:'Seguridad de rollback',d:'Cada decisión confirmada es reversible con preservación completa del audit trail.'},
       {i:'👤',t:'Semántica de ownership',d:'businessId del JWT se aplica en cada frontera de decisión. Cero filtración cross-tenant.'},
-      {i:'⚖️',t:'Garantías de asignación',d:'Algoritmo least-loaded con detección de conflictos. Sin reservas duplicadas por diseño.'}
+      {i:'⚖️',t:'Garantías de asignación',d:'Algoritmo least-loaded con detección de conflictos. Sin reservas duplicadas por diseño.'},
+      {i:'📡',t:'Estado real antes de decidir',d:'Cada turno se reancla contra el estado actual del negocio antes de que el agente genere una respuesta. La memoria conversacional nunca prevalece sobre la realidad operativa.'}
     ];
     auth.forEach(function(a) {
       html += '<div class="de-card"><div class="de-card-icon">' + a.i + '</div><div class="de-card-title">' + a.t + '</div><div class="de-card-desc">' + a.d + '</div></div>';
@@ -1585,6 +1586,7 @@ body::after {
     /* Sección 2 - Pipeline de Decisión */
     html += '<div class="de-section"><div class="de-section-title">Pipeline de Decisión</div><div class="de-pipeline">';
     var pipe = [
+      {c:'State Anchor',l:'por turno'},
       {c:'Intent',l:'determinista'},
       {c:'Policy Eval',l:'configurable'},
       {c:'Constraint Check',l:'reversible'},
@@ -1631,7 +1633,7 @@ body::after {
     var guar = [
       {i:'🎯',t:'Ejecución determinista'},{i:'📋',t:'Auditabilidad completa'},{i:'🏢',t:'Aislamiento multi-tenant'},
       {i:'⚖️',t:'Aplicación de políticas'},{i:'👤',t:'Compatible con override humano'},{i:'🔄',t:'Operaciones reversibles'},
-      {i:'💡',t:'Decisiones explicables'},{i:'🔒',t:'Asignaciones transaction-safe'}
+      {i:'💡',t:'Decisiones explicables'},{i:'🔒',t:'Asignaciones transaction-safe'},{i:'📡',t:'Estado real por turno'}
     ];
     guar.forEach(function(g) {
       html += '<div class="de-tile"><div class="de-tile-icon">' + g.i + '</div><div class="de-tile-text">' + g.t + '</div></div>';
@@ -1642,7 +1644,8 @@ body::after {
     html += '<div class="de-section"><div class="de-section-title">Principios Arquitectónicos</div><div class="de-principles">';
     var princ = [
       'La IA no es autoridad','El backend sigue siendo source of truth','Gobernanza sobre autonomía',
-      'Aprobación explícita sobre automatización oculta','Estado de runtime observable','Precedencia del override humano'
+      'Aprobación explícita sobre automatización oculta','Estado de runtime observable','Precedencia del override humano',
+      'Estado real sobre memoria conversacional'
     ];
     princ.forEach(function(p) {
       html += '<div class="de-principle"><div class="de-principle-text">' + p + '</div></div>';
@@ -1836,10 +1839,10 @@ body::after {
         desc:'El mensaje llega a Evolution API, que lo reenvía como webhook al workflow de n8n. Se extrae la instancia del tenant y el número de teléfono del cliente. Si el cliente no existe en la BD, se crea automáticamente con el número de teléfono como identificador único.',
         pills:['Evolution API','Webhook POST','n8n trigger','Tenant isolation'] },
       { num:2, numColor:'#7F77DD', title:'n8n orquesta el flujo', layer:'Orchestration · n8n Runtime',
-        desc:'n8n extrae los datos del webhook, gestiona el buffer de mensajes en Redis para agrupar mensajes rápidos del mismo usuario y pasa el contexto al Agente Runtime. El historial de conversación se mantiene en Redis con prefijo por instancia y sessionId.',
-        pills:['Redis buffer','Session context','Message grouping'] },
+        desc:'n8n extrae los datos del webhook, gestiona el buffer de mensajes en Redis para agrupar mensajes rápidos del mismo usuario, lee el estado operativo actual del backend y pasa el contexto completo al Agente Runtime. El historial de conversación se mantiene en Redis; el estado real de las citas se reconstruye desde PostgreSQL en cada turno.',
+        pills:['Redis buffer','Session context','State anchor','Message grouping'] },
       { num:3, numColor:'#7F77DD', title:'Agente procesa y decide', layer:'Orchestration · Agente Runtime + Decision Engine',
-        desc:'El LLM (gpt-4o-mini) interpreta la intención del cliente y ejecuta las herramientas disponibles: verificar disponibilidad, crear cita, consultar citas, cancelar cita. El Decision Engine aplica reglas de negocio: política del bot (Autónomo / Recepcionista), horarios, capacidad, asignación de empleado por menor carga.',
+        desc:'El LLM (gpt-4o-mini) recibe la verdad de estado actual inyectada por el orquestador y la intención del cliente. Ejecuta las herramientas disponibles: verificar disponibilidad, crear cita, consultar citas, cancelar cita. El Decision Engine aplica reglas de negocio: política del bot (Autónomo / Recepcionista), horarios, capacidad, asignación de empleado por menor carga.',
         pills:['gpt-4o-mini','4 tools','Bot mode policy','LEAST_LOADED_TODAY'] },
       { num:4, numColor:'#185FA5', title:'Backend API persiste la cita', layer:'Core System · Backend API + PostgreSQL',
         desc:'El agente llama al endpoint /webhook/appointments. El backend valida disponibilidad real, aplica el bot mode (PENDING o CONFIRMED), bloquea el slot y persiste en PostgreSQL. Si el modo es Recepcionista (APPROVAL_REQUIRED), la cita queda en estado PENDING con timeout de 2h. Si es Autónomo (AUTO_CONFIRM), queda directamente CONFIRMED.',
