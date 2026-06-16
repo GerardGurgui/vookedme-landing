@@ -548,7 +548,7 @@ body::after {
 .ef-layer-head { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .ef-layer-label {
   font-size:15px; font-weight:700; text-transform:uppercase;
-  letter-spacing:0.16em; opacity:0.85;
+  letter-spacing:0.16em; opacity:1; filter:brightness(1.5);
 }
 .ef-layer-nodes { display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; }
 .ef-node {
@@ -559,7 +559,7 @@ body::after {
 }
 .ef-node:hover { background:rgba(var(--nr),var(--ng),var(--nb),0.28); }
 .ef-node-title { font-size:17px; font-weight:600; color:#f8fafc; margin-bottom:1px; }
-.ef-node-sub { font-size:14px; color:rgba(var(--nr),var(--ng),var(--nb),0.7); letter-spacing:0.03em; font-family:'SF Mono','Fira Code',monospace; }
+.ef-node-sub { font-size:14px; color:rgba(var(--nr),var(--ng),var(--nb),1); filter:brightness(1.7) saturate(1.3); text-shadow:0 0 8px rgba(var(--nr),var(--ng),var(--nb),0.5); letter-spacing:0.03em; font-family:'SF Mono','Fira Code',monospace; }
 .ef-layer-arrow {
   display:flex; justify-content:center; padding:4px 0;
   color:rgba(255,255,255,0.2); font-size:22px; line-height:1;
