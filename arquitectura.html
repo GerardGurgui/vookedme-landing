@@ -529,7 +529,7 @@ body::after {
 /* sub-tabs inside EF */
 .ef-tabs { display:flex; gap:4px; margin-bottom:28px; background:rgba(255,255,255,0.03); border-radius:10px; padding:4px; border:1px solid var(--border); }
 .ef-tab-btn {
-  flex:1; padding:10px 16px; font-size:13px; font-weight:600; font-family:var(--font);
+  flex:1; padding:10px 16px; font-size:17px; font-weight:600; font-family:var(--font);
   text-align:center; border:none; border-radius:8px; cursor:pointer;
   background:transparent; color:var(--text-muted); transition:all 0.2s;
   letter-spacing:0.03em;
@@ -547,7 +547,7 @@ body::after {
 }
 .ef-layer-head { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .ef-layer-label {
-  font-size:11px; font-weight:700; text-transform:uppercase;
+  font-size:15px; font-weight:700; text-transform:uppercase;
   letter-spacing:0.16em; opacity:0.85;
 }
 .ef-layer-nodes { display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; }
@@ -558,16 +558,16 @@ body::after {
   transition:all 180ms ease;
 }
 .ef-node:hover { background:rgba(var(--nr),var(--ng),var(--nb),0.28); }
-.ef-node-title { font-size:13px; font-weight:600; color:#f8fafc; margin-bottom:1px; }
-.ef-node-sub { font-size:10px; color:rgba(var(--nr),var(--ng),var(--nb),0.7); letter-spacing:0.03em; font-family:'SF Mono','Fira Code',monospace; }
+.ef-node-title { font-size:17px; font-weight:600; color:#f8fafc; margin-bottom:1px; }
+.ef-node-sub { font-size:14px; color:rgba(var(--nr),var(--ng),var(--nb),0.7); letter-spacing:0.03em; font-family:'SF Mono','Fira Code',monospace; }
 .ef-layer-arrow {
   display:flex; justify-content:center; padding:4px 0;
-  color:rgba(255,255,255,0.2); font-size:18px; line-height:1;
+  color:rgba(255,255,255,0.2); font-size:22px; line-height:1;
 }
 
 /* === TAB 2: Flujo de cita completo === */
 .ef-flow-intro {
-  font-size:14px; color:var(--text-soft); line-height:1.7;
+  font-size:18px; color:var(--text-soft); line-height:1.7;
   margin-bottom:20px; max-width:700px;
 }
 .ef-step-card {
@@ -585,13 +585,13 @@ body::after {
 .ef-step-num {
   width:28px; height:28px; border-radius:50%; display:flex;
   align-items:center; justify-content:center;
-  font-size:12px; font-weight:600; color:#fff; flex-shrink:0;
+  font-size:15px; font-weight:600; color:#fff; flex-shrink:0;
 }
 .ef-step-info { flex:1; min-width:0; }
-.ef-step-title { font-size:14px; font-weight:600; color:var(--text); }
-.ef-step-layer { font-size:11px; color:var(--text-muted); font-family:'SF Mono','Fira Code',monospace; letter-spacing:0.02em; }
+.ef-step-title { font-size:18px; font-weight:600; color:var(--text); }
+.ef-step-layer { font-size:15px; color:var(--text-muted); font-family:'SF Mono','Fira Code',monospace; letter-spacing:0.02em; }
 .ef-step-arrow {
-  font-size:14px; color:var(--text-muted); transition:transform 0.2s; flex-shrink:0;
+  font-size:18px; color:var(--text-muted); transition:transform 0.2s; flex-shrink:0;
 }
 .ef-step-card.is-open .ef-step-arrow { transform:rotate(90deg); }
 .ef-step-body {
@@ -599,10 +599,10 @@ body::after {
   border-top:1px solid var(--border);
 }
 .ef-step-card.is-open .ef-step-body { display:block; }
-.ef-step-desc { font-size:13px; color:var(--text-soft); line-height:1.7; margin-bottom:12px; }
+.ef-step-desc { font-size:17px; color:var(--text-soft); line-height:1.7; margin-bottom:12px; }
 .ef-step-pills { display:flex; flex-wrap:wrap; gap:6px; }
 .ef-step-pill {
-  font-size:11px; padding:3px 8px; border-radius:999px;
+  font-size:15px; padding:4px 10px; border-radius:999px;
   border:1px solid var(--border); color:var(--text-muted);
   background:rgba(255,255,255,0.02); white-space:nowrap;
 }
@@ -620,7 +620,7 @@ body::after {
   .ef-layer-nodes { flex-direction:column; gap:6px; }
   .ef-node { min-width:auto; width:100%; }
   .ef-step-pills { gap:4px; }
-  .ef-step-pill { font-size:10px; }
+  .ef-step-pill { font-size:13px; }
 }
 </style>
 </head>
