@@ -607,6 +607,18 @@ body::after {
   background:rgba(255,255,255,0.02); white-space:nowrap;
 }
 
+/* === TAB 3: Reality Engine pipeline === */
+.re-connector { display:flex; justify-content:center; padding:3px 0; }
+.re-connector-line { width:2px; height:18px; background:linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.03)); }
+.re-loop-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:16px; padding:10px 20px; border-radius:999px;
+  background:rgba(29,158,117,0.08); border:1px dashed rgba(29,158,117,0.3);
+  color:rgba(29,158,117,0.85); font-size:14px; font-weight:500;
+  letter-spacing:0.02em; filter:brightness(1.4);
+}
+.re-loop-badge .re-loop-icon { font-size:16px; }
+
 /* responsive */
 @media (max-width:768px) {
   .ef-view { padding:0 16px 32px; }
@@ -1767,6 +1779,7 @@ body::after {
     html += '<div class="ef-tabs">';
     html += '<button class="ef-tab-btn is-active" data-eftab="layers">Execution Flow</button>';
     html += '<button class="ef-tab-btn" data-eftab="journey">Flujo de cita completo</button>';
+    html += '<button class="ef-tab-btn" data-eftab="reality">Reality Engine</button>';
     html += '</div>';
 
     /* TAB 1: Layered architecture */
@@ -1777,6 +1790,11 @@ body::after {
     /* TAB 2: Booking journey */
     html += '<div class="ef-tab-panel" id="efPanelJourney">';
     html += buildJourneyTab();
+    html += '</div>';
+
+    /* TAB 3: Reality Engine */
+    html += '<div class="ef-tab-panel" id="efPanelReality">';
+    html += buildRealityEngineTab();
     html += '</div>';
 
     efView.innerHTML = html;
@@ -1871,6 +1889,54 @@ body::after {
     return h;
   }
 
+  function buildRealityEngineTab() {
+    var steps = [
+      { num:1, numColor:'#1D9E75', title:'Incoming Message', layer:'Communication · message intake',
+        desc:'El mensaje del cliente llega por WhatsApp y es recibido por el sistema. Se identifica al tenant, se establece la sesión del cliente y se extrae el contenido del mensaje. Este punto marca el inicio del ciclo de verificación: cada mensaje entrante dispara una sincronización completa con la realidad del negocio.',
+        pills:['WhatsApp','Session Context','Tenant Routing'] },
+      { num:2, numColor:'#7F77DD', title:'Conversation Memory', layer:'Orchestration · conversational history retrieval',
+        desc:'El sistema recupera el historial conversacional del cliente desde Redis. Esta memoria refleja lo que se ha dicho en la conversación, pero no necesariamente lo que es verdad ahora. Cambios realizados desde el panel del owner, cancelaciones o modificaciones de horarios no están reflejados aquí.',
+        pills:['Redis','Context Window','Conversation State'] },
+      { num:3, numColor:'#E8A838', title:'Reality Check', layer:'Orchestration · live state verification',
+        desc:'Antes de que el agente responda, el orquestador consulta activamente el estado actual del negocio. Se obtienen las citas activas del cliente, la disponibilidad real y cualquier cambio que haya ocurrido fuera de la conversación. Este paso es determinista y obligatorio en el 100% de los turnos.',
+        pills:['Re-anchor Reads','Live Verification','Runtime Check'] },
+      { num:4, numColor:'#185FA5', title:'Source of Truth', layer:'Core System · authoritative backend state',
+        desc:'PostgreSQL es la fuente autoritativa de verdad. Citas, estados, horarios, empleados y configuración del negocio se obtienen directamente de la base de datos. Redis conserva contexto conversacional; la base de datos determina la realidad operativa. Esta separación es arquitectónicamente inviolable.',
+        pills:['Backend API','PostgreSQL','Verified State'] },
+      { num:5, numColor:'#D4872A', title:'Context Reconciliation', layer:'Orchestration · drift detection + conflict resolution',
+        desc:'El sistema compara la memoria conversacional con el estado real del negocio. Si el owner canceló una cita desde el panel mientras el cliente seguía hablando sobre ella, esta divergencia se detecta aquí. La realidad operativa siempre prevalece sobre la memoria histórica.',
+        pills:['State Reconciliation','Drift Detection','Consistency'] },
+      { num:6, numColor:'#2BA8CC', title:'Context Reconstruction', layer:'Orchestration · verified prompt assembly',
+        desc:'Con la información reconciliada, se reconstruye el contexto que el LLM recibirá. Este contexto incluye la información ya verificada y actualizada, no la memoria conversacional cruda. El modelo nunca recibe información desactualizada como si fuera verdad actual.',
+        pills:['Verified Context','Runtime State','Prompt Assembly'] },
+      { num:7, numColor:'#9B6DCB', title:'Response Generation', layer:'Runtime · grounded LLM output',
+        desc:'El LLM genera la respuesta basándose en estado verificado. Si necesita ejecutar acciones (crear cita, consultar disponibilidad, cancelar), lo hace mediante tools controladas que pasan por las mismas validaciones del backend. La respuesta refleja la realidad, no una memoria potencialmente desactualizada.',
+        pills:['LLM Runtime','Tool Calling','Decision Layer'] },
+      { num:8, numColor:'#1D9E75', title:'Continuous Synchronization', layer:'System · perpetual verification loop',
+        desc:'Cada nuevo mensaje del cliente reinicia el ciclo completo. No hay asunciones persistentes: si hace 30 segundos el agente dijo que había disponibilidad a las 10:00 y otro cliente acaba de reservar ese slot, el próximo turno reflejará este cambio. La verdad se reconstruye en cada interacción.',
+        pills:['Feedback Loop','Auditability','Real-Time Consistency'] }
+    ];
+
+    var h = '<p class="ef-flow-intro">El agente no opera sobre memoria conversacional únicamente. Antes de cada respuesta, sincroniza la conversación con el estado real del negocio. Haz clic en cada paso para explorar el pipeline de verificación.</p>';
+    steps.forEach(function(s, i) {
+      h += '<div class="ef-step-card" data-step="re-' + s.num + '">';
+      h += '<div class="ef-step-header">';
+      h += '<div class="ef-step-num" style="background:' + s.numColor + '">' + s.num + '</div>';
+      h += '<div class="ef-step-info"><div class="ef-step-title">' + s.title + '</div>';
+      h += '<div class="ef-step-layer">' + s.layer + '</div></div>';
+      h += '<span class="ef-step-arrow">▶</span></div>';
+      h += '<div class="ef-step-body"><div class="ef-step-desc">' + s.desc + '</div>';
+      h += '<div class="ef-step-pills">';
+      s.pills.forEach(function(p) { h += '<span class="ef-step-pill">' + p + '</span>'; });
+      h += '</div></div></div>';
+      if (i < steps.length - 1) {
+        h += '<div class="re-connector"><div class="re-connector-line"></div></div>';
+      }
+    });
+    h += '<div style="text-align:center"><div class="re-loop-badge"><span class="re-loop-icon">↻</span> Cada mensaje reinicia el ciclo de verificación</div></div>';
+    return h;
+  }
+
   function bindEfEvents() {
     /* sub-tab switching */
     efView.querySelectorAll('.ef-tab-btn').forEach(function(btn) {
@@ -1880,7 +1946,8 @@ body::after {
         efActiveTab = tab;
         efView.querySelectorAll('.ef-tab-btn').forEach(function(b) { b.classList.toggle('is-active', b.getAttribute('data-eftab') === tab); });
         efView.querySelectorAll('.ef-tab-panel').forEach(function(p) { p.classList.remove('is-active'); });
-        document.getElementById(tab === 'layers' ? 'efPanelLayers' : 'efPanelJourney').classList.add('is-active');
+        var panelMap = { layers:'efPanelLayers', journey:'efPanelJourney', reality:'efPanelReality' };
+        document.getElementById(panelMap[tab]).classList.add('is-active');
       });
     });
 
